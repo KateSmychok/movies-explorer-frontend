@@ -1,0 +1,20 @@
+//для экранов от 768px до 1280px
+@mixin atDesktop1280 {
+  @media screen and (max-width: 1279px) {
+    @content;
+  }
+}
+
+//для экранов от 450px до 767px
+@mixin atTablet {
+  @media screen and (max-width: 767px) {
+    @content;
+  }
+}
+
+//для экранов от 320px до 449px
+@mixin atMobile {
+  @media screen and (max-width: 449px) {
+    @content;
+  }
+}
