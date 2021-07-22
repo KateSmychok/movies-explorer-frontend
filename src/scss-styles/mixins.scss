@@ -1,4 +1,4 @@
-//для экранов от 768px до 1280px
+//для экранов от 768px до 1279px
 @mixin atDesktop1280 {
   @media screen and (max-width: 1279px) {
     @content;
