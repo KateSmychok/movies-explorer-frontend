@@ -10,15 +10,12 @@
   align-items: center;
 }
 
-.title {
+.mainTitle {
+  @include Inter400;
+  @include mainTitle;
   width: 60%;
   max-width: 770px;
   margin: 0 auto;
   padding-bottom: 40px;
   color: $white;
-  text-align: center;
-  @include Inter400;
-  font-size: calc(min(50px, 4vw));
-  line-height: 1.16;
-  letter-spacing: -0.04em;
 }

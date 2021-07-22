@@ -4,9 +4,9 @@ import PromoStyles from './Promo.module.scss';
 function Promo() {
   return (
     <section className={PromoStyles.banner}>
-      <p className={PromoStyles.title}>
+      <h1 className={PromoStyles.mainTitle}>
         Учебный проект студента факультета Веб-разработки
-      </p>
+      </h1>
     </section>
   )
 }

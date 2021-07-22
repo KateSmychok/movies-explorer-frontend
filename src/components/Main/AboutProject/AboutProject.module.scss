@@ -10,16 +10,12 @@
   flex-direction: column;
 }
 
-.title {
-  @include Inter400;
-  font-size: 22px;
-  line-height: 1.23;
-  margin: 0 0 23px;
+.sectionTitle {
+  @include sectionTitle;
 }
 
 .description {
   width: 100%;
-  border-top: black 1px solid;
   padding: 70px 0 110px;
   display: flex;
 }
@@ -42,8 +38,7 @@
 }
 
 .descriptionText {
-  font-size: 14px;
-  line-height: 1.43;
+  @include text;
   margin: 0;
 }
 
