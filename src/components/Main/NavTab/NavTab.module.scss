@@ -1,0 +1,30 @@
+@import '../../../scss-styles/styles';
+
+.navArea {
+  width: 100%;
+  height: 66px;
+  background: $background-grey;
+  display: flex;
+  align-items: center;
+}
+
+.navList {
+  margin: 0 auto;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+}
+
+.navItem {
+  font-size: 13px;
+  line-height: 1.23;
+  @include Inter500;
+  @include link;
+  text-decoration-line: underline;
+  padding-right: 40px;
+
+  &:last-of-type {
+    padding-right: 0;
+  }
+}
