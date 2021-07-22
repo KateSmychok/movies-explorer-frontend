@@ -1,7 +1,7 @@
 @import './scss-styles/styles';
+@import './vendor/normalize.css';
 
 .page {
-  max-width: 1920px;
   min-width: 320px;
   margin: 0 auto;
   background-color: $white;

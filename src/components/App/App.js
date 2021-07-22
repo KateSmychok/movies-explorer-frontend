@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
+import MainPage from '../Main/MainPage/MainPage';
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({});
@@ -8,11 +9,11 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Header />
         <Switch>
           <Route path='/'>
             <MainPage />
           </Route>
+          {/*
           <Route path='/movies'>
             <MoviesPage />
           </Route>
@@ -28,8 +29,8 @@ function App() {
           <Route path='/signin'>
             <Login />
           </Route>
+          */}
         </Switch>
-        <Footer/>
       </div>
     </CurrentUserContext.Provider>
   )
