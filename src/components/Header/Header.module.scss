@@ -1,0 +1,49 @@
+@import '../../scss-styles/styles';
+
+.header {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 74px;
+  padding: 0 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &Main {
+    background: $dark-grey;
+  }
+}
+
+.logoButton {
+  background: url('../../images/logo.svg') center no-repeat;
+  width: 38px;
+  height: 38px;
+  @include link;
+}
+
+.buttonsArea {
+  @include Inter500;
+  font-size: 12px;
+  line-height: 1.33;
+  display: flex;
+}
+
+.regButton {
+  background: inherit;
+  color: $white;
+  margin-right: 30px;
+  padding: 8px 0;
+  box-sizing: border-box;
+  @include button;
+}
+
+.authButton {
+  width: 76px;
+  height: 32px;
+  color: $black;
+  background: $accent-green;
+  border-radius: 3px;
+  padding: 8px 0;
+  box-sizing: border-box;
+  @include button;
+}

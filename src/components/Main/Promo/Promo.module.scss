@@ -1,17 +1,20 @@
 @import '../../../scss-styles/styles';
 
 .banner {
-  background: $dark-grey url('../../../images/main-banner.svg') no-repeat top 82px right 50%;
+  background: $dark-grey url('../../../images/main-banner.svg') no-repeat top 82px left 50%;
   background-size: 25vw;
   width: 100%;
   height: 40vw;
   min-height: 524px;
+  display: flex;
+  align-items: center;
 }
 
 .title {
   width: 60%;
+  max-width: 770px;
   margin: 0 auto;
-  padding-top: 184px;
+  padding-bottom: 40px;
   color: $white;
   text-align: center;
   @include Inter400;
