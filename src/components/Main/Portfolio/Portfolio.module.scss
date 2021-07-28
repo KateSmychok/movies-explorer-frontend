@@ -1,0 +1,60 @@
+@import '../../../scss-styles/styles';
+
+.portfolio {
+  width: 100%;
+  min-height: 425px;
+  box-sizing: border-box;
+  padding: 100px 70px 125px;
+}
+
+.title {
+  @include Inter400;
+  color: $text-grey;
+  font-size: 18px;
+  line-height: 1.1;
+  padding: 0 0 30px;
+  margin: 0;
+}
+
+.linksList {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.linksItem {
+  width: 100%;
+  padding: 20px 0 19px;
+  border-bottom: 1px solid $element-grey;
+
+  &:last-of-type {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+}
+
+.ref {
+  @include link;
+  @include Inter400;
+  color: $black;
+  display: flex;
+  justify-content: space-between;
+}
+
+.project {
+  font-size: 30px;
+  line-height: 1.67;
+  letter-spacing: -0.04em;
+  margin: 0;
+}
+
+.arrow {
+  width: 30px;
+  height: 30px;
+  background: url('../../../images/arrow.svg') no-repeat center;
+  background-size: 70%;
+  padding: 10px 0;
+}
