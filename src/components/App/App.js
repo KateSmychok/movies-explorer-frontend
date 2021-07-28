@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import Header from '../Header/Header';
 import MainPage from '../Main/MainPage/MainPage';
+import Footer from '../Footer/Footer';
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({});
@@ -33,6 +34,7 @@ function App() {
           </Route>
           */}
         </Switch>
+        <Footer />
       </div>
     </CurrentUserContext.Provider>
   )

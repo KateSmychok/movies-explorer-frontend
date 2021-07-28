@@ -83,3 +83,9 @@
   font-size: 14px;
   line-height: 1.43;
 }
+
+@mixin footer-text {
+  @include Inter400;
+  font-size: 13px;
+  line-height: 1.23;
+}

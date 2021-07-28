@@ -1,0 +1,51 @@
+@import '../../scss-styles/styles';
+
+.footer {
+  width: 100%;
+  min-height: 172px;
+  padding: 79px 70px 20px;
+  box-sizing: border-box;
+  background-color: $background-light-grey;
+}
+
+.caption {
+  @include footer-text;
+  color: $text-grey;
+  text-align: center;
+  width: 100%;
+  margin: 0;
+  padding-bottom: 20px;
+  border-bottom: 1px solid $element-grey;
+}
+
+.info {
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.copyright {
+  @include footer-text;
+  margin: 0;
+}
+
+.navList {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  display: flex;
+}
+
+.navItem {
+  @include footer-text;
+  padding-right: 20px;
+
+  &:last-of-type {
+    padding-right: 0;
+  }
+}
+
+.link {
+  @include link;
+  color: $black;
+}
