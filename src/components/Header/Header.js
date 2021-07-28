@@ -8,10 +8,12 @@ function Header() {
     <Switch>
       <Route path='/'>
         <div className={cn(HeaderStyles.header, HeaderStyles.headerMain)}>
-          <Link to="/" className={HeaderStyles.logoButton}></Link>
-          <div className={HeaderStyles.buttonsArea}>
-            <Link to="/signup" className={HeaderStyles.regButton}>Регистрация</Link>
-            <Link to="/signin" className={HeaderStyles.authButton}>Войти</Link>
+          <div className={HeaderStyles.headerContent}>
+            <Link to="/" className={HeaderStyles.logoButton}></Link>
+            <div className={HeaderStyles.buttonsArea}>
+              <Link to="/signup" className={HeaderStyles.regButton}>Регистрация</Link>
+              <Link to="/signin" className={HeaderStyles.authButton}>Войти</Link>
+            </div>
           </div>
         </div>
       </Route>
