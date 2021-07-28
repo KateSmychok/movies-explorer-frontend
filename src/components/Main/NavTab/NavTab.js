@@ -3,7 +3,7 @@ import NavTabStyles from './NavTab.module.scss';
 
 function NavTab() {
   return (
-    <div className={NavTabStyles.navArea}>
+    <section className={NavTabStyles.navArea}>
       <ul className={NavTabStyles.navList}>
         <li className={NavTabStyles.navItem}>
           О проекте
@@ -15,7 +15,7 @@ function NavTab() {
           Студент
         </li>
       </ul>
-    </div>
+    </section>
   )
 }
 
