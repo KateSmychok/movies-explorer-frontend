@@ -3,10 +3,12 @@ import PromoStyles from './Promo.module.scss';
 
 function Promo() {
   return (
-    <section className={PromoStyles.banner}>
-      <h1 className={PromoStyles.mainTitle}>
-        Учебный проект студента факультета Веб-разработки
-      </h1>
+    <section className={PromoStyles.promo}>
+      <div className={PromoStyles.background}>
+        <h1 className={PromoStyles.mainTitle}>
+          Учебный проект студента факультета Веб-разработки
+        </h1>
+      </div>
     </section>
   )
 }

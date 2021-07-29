@@ -5,21 +5,16 @@
   padding: 18px 5.5vw;
   box-sizing: border-box;
   min-height: 74px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   &Main {
     background: $dark-grey;
   }
 }
 
-.headerContent {
-  max-width: 1280px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logoButton {
+.logo {
   @include link;
   background: url('../../images/logo.svg') center no-repeat;
   width: 38px;
@@ -55,18 +50,21 @@
 
 @include atDesktop1280 {
   .header {
-    padding: 18px 70px;
+    padding-right: 70px;
+    padding-left: 70px;
   }
 }
 
 @include atTablet {
   .header {
-    padding: 18px 30px;
+    padding-right: 30px;
+    padding-left: 30px;
   }
 }
 
 @include atMobile {
   .header {
-    padding: 18px 14px;
+    padding-right: 14px;
+    padding-left: 14px;
   }
 }
