@@ -3,9 +3,11 @@
 .aboutProject {
   @include Inter400;
   width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
   min-height: 608px;
   box-sizing: border-box;
-  padding: 110px 70px 141px;
+  padding: 110px 5.5vw;
   display: flex;
   flex-direction: column;
 }
@@ -57,20 +59,73 @@
 .blockFirst {
   width: 20%;
   background: $accent-green;
-  text-align: center;
-  padding: 9px 0;
-  margin: 0;
+  @include about-project-text;
 }
 
 .blockSecond {
   width: 80%;
   background: $schedule-grey;
-  text-align: center;
-  padding: 9px 0;
-  margin: 0;
+  @include about-project-text;
 }
 
 .caption {
   color: $text-grey;
   background-color: $white;
+  @include about-project-text;
+}
+
+@include atDesktop1280 {
+  .aboutProject {
+    padding: 110px 70px;
+  }
+}
+
+@include atTablet {
+  .aboutProject {
+    padding: 90px 50px;
+  }
+
+  .description {
+    padding-bottom: 93px;
+  }
+
+  .descriptionTitle {
+    padding-bottom: 22px;
+  }
+
+  .descriptionText {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+}
+
+@include atMobile {
+  .aboutProject {
+    padding: 70px 18px;
+  }
+
+  .description {
+    flex-direction: column;
+    padding-bottom: 60px;
+  }
+
+  .descriptionColumn {
+    width: 100%;
+
+    &:first-of-type {
+      padding-right: 0;
+      padding-bottom: 56px;
+    }
+  }
+
+  .descriptionTitle {
+    font-size: 18px;
+    line-height: 1.21;
+    padding-bottom: 16px;
+  }
+
+  .descriptionText {
+    font-size: 11px;
+    line-height: 1.45;
+  }
 }
