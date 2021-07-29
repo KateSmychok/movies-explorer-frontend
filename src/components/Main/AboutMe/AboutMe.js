@@ -7,6 +7,7 @@ function AboutMe() {
       <h2 className={AboutMeStyles.sectionTitle}>
         Студент
       </h2>
+      <img className={AboutMeStyles.photo} />
       <h3 className={AboutMeStyles.mainTitle}>
         Екатерина
       </h3>
@@ -29,7 +30,6 @@ function AboutMe() {
           Github
         </a>
       </div>
-      <img className={AboutMeStyles.photo} />
     </section>
   )
 }

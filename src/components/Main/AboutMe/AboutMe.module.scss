@@ -2,7 +2,9 @@
 
 .aboutMe {
   width: 100%;
-  padding: 110px 70px 0;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 110px 70px 100px;
   box-sizing: border-box;
   position: relative;
 }
@@ -27,6 +29,7 @@
 
 .text {
   @include Inter400;
+  width: 47%;
   max-width: 600px;
   font-size: 14px;
   line-height: 1.6;
@@ -42,7 +45,7 @@
   @include Inter500;
   @include link;
   font-size: 14px;
-  line-height: 1.2;
+  line-height: 1.21;
   color: $black;
   padding-right: 20px;
 
@@ -58,5 +61,69 @@
   background: $element-grey;
   position: absolute;
   right: 70px;
-  bottom: 0;
+  top: 227px;
+}
+
+@include atTablet {
+  .aboutMe {
+    padding: 90px 50px;
+  }
+
+  .mainTitle {
+    padding-bottom: 16px;
+    font-size: 40px;
+    line-height: 1;
+  }
+
+  .subtitle {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .text {
+    max-width: 364px;
+    font-size: 12px;
+    line-height: 1.5;
+    padding: 20px 0 87px;
+  }
+
+  .photo {
+    width: 255px;
+    height: 307px;
+    right: 50px;
+    top: 207px;
+  }
+}
+
+@include atMobileL {
+  .aboutMe {
+    padding: 70px 18px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mainTitle {
+    padding: 0 0 20px;
+    font-size: 30px;
+    line-height: 1.2;
+  }
+
+  .subtitle {
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  .text {
+    width: 100%;
+    font-size: 11px;
+    line-height: 1.45;
+    padding-bottom: 40px;
+  }
+
+  .photo {
+    position: static;
+    width: 292px;
+    height: 352px;
+    margin: 60px 0 40px;
+  }
 }
