@@ -9,7 +9,7 @@ function Footer() {
       </h3>
       <div className={FooterStyles.info}>
         <p className={FooterStyles.copyright}>
-          &#169; 2021. Kate Smychok
+          &#169; 2021 Kate Smychok
         </p>
         <nav>
           <ul className={FooterStyles.navList}>
@@ -25,6 +25,9 @@ function Footer() {
           </ul>
         </nav>
       </div>
+      <p className={FooterStyles.copyrightMobile}>
+        &#169; 2021 Kate Smychok
+      </p>
     </section>
   )
 }
