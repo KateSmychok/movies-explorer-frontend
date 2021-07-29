@@ -1,11 +1,17 @@
 @import '../../../scss-styles/styles';
 
 .techs {
-  background: $background-grey;
   width: 100%;
+  background: $background-grey;
   min-height: 625px;
   box-sizing: border-box;
   padding: 100px 70px;
+}
+
+.techsContent {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1140px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -52,4 +58,52 @@
   letter-spacing: -0.04em;
   padding: 21px 0;
   box-sizing: border-box;
+}
+
+@include atTablet {
+  .techs {
+    padding: 90px 50px;
+  }
+
+  .mainTitle {
+    padding: 80px 0 22px;
+  }
+
+  .text {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .techsList {
+    padding-top: 83px;
+  }
+
+  .techsItem {
+    width: 84px;
+    height: 57px;
+    font-size: 12px;
+    line-height: 1.21;
+  }
+}
+
+@include atMobile {
+  .techs {
+    padding: 70px 18px;
+    background: $white;
+  }
+
+  .mainTitle {
+    padding: 60px 0 24px;
+    font-size: 30px;
+    line-height: 1.2;
+  }
+
+  .text {
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  .techsList {
+    padding-top: 50px;
+  }
 }
