@@ -1,11 +1,11 @@
 import React from 'react';
-import PromoStyles from './Promo.module.scss';
+import styles from './Promo.module.scss';
 
 function Promo() {
   return (
-    <section className={PromoStyles.promo}>
-      <div className={PromoStyles.background}>
-        <h1 className={PromoStyles.mainTitle}>
+    <section className={styles.promo}>
+      <div className={styles.background}>
+        <h1 className={styles.mainTitle}>
           Учебный проект студента факультета Веб-разработки
         </h1>
       </div>

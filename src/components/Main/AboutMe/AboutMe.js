@@ -1,20 +1,20 @@
 import React from 'react';
-import AboutMeStyles from './AboutMe.module.scss';
+import styles from './AboutMe.module.scss';
 
 function AboutMe() {
   return (
-    <section id='student' className={AboutMeStyles.aboutMe}>
-      <h2 className={AboutMeStyles.sectionTitle}>
+    <section id='student' className={styles.aboutMe}>
+      <h2 className={styles.sectionTitle}>
         Студент
       </h2>
-      <img className={AboutMeStyles.photo} />
-      <h3 className={AboutMeStyles.mainTitle}>
+      <img className={styles.photo} />
+      <h3 className={styles.mainTitle}>
         Екатерина
       </h3>
-      <h4 className={AboutMeStyles.subtitle}>
+      <h4 className={styles.subtitle}>
         Фронтенд-разработчик, 32 года
       </h4>
-      <p className={AboutMeStyles.text}>
+      <p className={styles.text}>
         Начала кодить в 2020 году, до этого был опыт работы в веб-студиях - занималась вёрсткой и контентом.
         Тогда и появился интерес к веб-разработке. Стала много читать про IT-технологии, потом пошла учиться в Яндекс.
         По образованию лингвист, переводчик. Знаю английский и немецкий языки.
@@ -22,11 +22,11 @@ function AboutMe() {
         Люблю путешествовать, ходить в походы. Замужем, есть дочь.
         Очень хочу развиваться и расти как фронтенд-разработчик.
       </p>
-      <div className={AboutMeStyles.contactsArea}>
-        <a className={AboutMeStyles.contact} href='https://t.me/even_starr'>
+      <div className={styles.contactsArea}>
+        <a className={styles.contact} href='https://t.me/even_starr'>
           Telegram
         </a>
-        <a className={AboutMeStyles.contact} href='https://github.com/KateSmychok'>
+        <a className={styles.contact} href='https://github.com/KateSmychok'>
           Github
         </a>
       </div>

@@ -1,31 +1,31 @@
 import React from 'react';
-import FooterStyles from './Footer.module.scss';
+import styles from './Footer.module.scss';
 
 function Footer() {
   return (
-    <section className={FooterStyles.footer}>
-      <h3 className={FooterStyles.caption}>
+    <section className={styles.footer}>
+      <h3 className={styles.caption}>
         Учебный проект Яндекс.Практикум х BeatFilm.
       </h3>
-      <div className={FooterStyles.info}>
-        <p className={FooterStyles.copyright}>
+      <div className={styles.info}>
+        <p className={styles.copyright}>
           &#169; 2021 Kate Smychok
         </p>
         <nav>
-          <ul className={FooterStyles.navList}>
-            <li className={FooterStyles.navItem}>
-              <a className={FooterStyles.link} href='https://praktikum.yandex.ru' target='_blank'>Яндекс.Практикум</a>
+          <ul className={styles.navList}>
+            <li className={styles.navItem}>
+              <a className={styles.link} href='https://praktikum.yandex.ru' target='_blank'>Яндекс.Практикум</a>
             </li>
-            <li className={FooterStyles.navItem}>
-              <a className={FooterStyles.link} href='https://github.com/KateSmychok' target='_blank'>Github</a>
+            <li className={styles.navItem}>
+              <a className={styles.link} href='https://github.com/KateSmychok' target='_blank'>Github</a>
             </li>
-            <li className={FooterStyles.navItem}>
-              <a className={FooterStyles.link} href='https://t.me/even_starr' target='_blank'>Telegram</a>
+            <li className={styles.navItem}>
+              <a className={styles.link} href='https://t.me/even_starr' target='_blank'>Telegram</a>
             </li>
           </ul>
         </nav>
       </div>
-      <p className={FooterStyles.copyrightMobile}>
+      <p className={styles.copyrightMobile}>
         &#169; 2021 Kate Smychok
       </p>
     </section>

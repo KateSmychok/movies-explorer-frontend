@@ -1,18 +1,18 @@
 import React from 'react';
-import NavTabStyles from './NavTab.module.scss';
+import styles from './NavTab.module.scss';
 
 function NavTab() {
   return (
-    <section className={NavTabStyles.navArea}>
-      <ul className={NavTabStyles.navList}>
-        <li className={NavTabStyles.navItem}>
-          <a className={NavTabStyles.link} href='#project'>О проекте</a>
+    <section className={styles.navArea}>
+      <ul className={styles.navList}>
+        <li className={styles.navItem}>
+          <a className={styles.link} href='#project'>О проекте</a>
         </li>
-        <li className={NavTabStyles.navItem}>
-          <a className={NavTabStyles.link} href='#techs'>Технологии</a>
+        <li className={styles.navItem}>
+          <a className={styles.link} href='#techs'>Технологии</a>
         </li>
-        <li className={NavTabStyles.navItem}>
-          <a className={NavTabStyles.link} href='#student'>Студент</a>
+        <li className={styles.navItem}>
+          <a className={styles.link} href='#student'>Студент</a>
         </li>
       </ul>
     </section>

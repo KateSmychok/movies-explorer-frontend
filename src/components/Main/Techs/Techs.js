@@ -1,39 +1,39 @@
 import React from 'react';
-import TechsStyles from './Techs.module.scss';
+import styles from './Techs.module.scss';
 
 function Techs() {
   return (
-    <section id='techs' className={TechsStyles.techs}>
-      <div className={TechsStyles.techsContent}>
-        <h2 className={TechsStyles.sectionTitle}>
+    <section id='techs' className={styles.techs}>
+      <div className={styles.techsContent}>
+        <h2 className={styles.sectionTitle}>
           Технологии
         </h2>
-        <h3 className={TechsStyles.mainTitle}>
+        <h3 className={styles.mainTitle}>
           7 технологий
         </h3>
-        <p className={TechsStyles.text}>
+        <p className={styles.text}>
           На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.
         </p>
-        <ul className={TechsStyles.techsList}>
-          <li className={TechsStyles.techsItem}>
+        <ul className={styles.techsList}>
+          <li className={styles.techsItem}>
             HTML
           </li>
-          <li className={TechsStyles.techsItem}>
+          <li className={styles.techsItem}>
             CSS
           </li>
-          <li className={TechsStyles.techsItem}>
+          <li className={styles.techsItem}>
             JS
           </li>
-          <li className={TechsStyles.techsItem}>
+          <li className={styles.techsItem}>
             React
           </li>
-          <li className={TechsStyles.techsItem}>
+          <li className={styles.techsItem}>
             Git
           </li>
-          <li className={TechsStyles.techsItem}>
+          <li className={styles.techsItem}>
             Express.js
           </li>
-          <li className={TechsStyles.techsItem}>
+          <li className={styles.techsItem}>
             MongoDB
           </li>
         </ul>
