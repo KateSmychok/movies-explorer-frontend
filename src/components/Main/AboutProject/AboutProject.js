@@ -4,7 +4,7 @@ import AboutProjectStyles from './AboutProject.module.scss';
 
 function AboutProject() {
   return (
-    <section className={AboutProjectStyles.aboutProject}>
+    <section id='project' className={AboutProjectStyles.aboutProject}>
       <h2 className={AboutProjectStyles.sectionTitle}>
         О проекте
       </h2>

@@ -3,7 +3,7 @@ import TechsStyles from './Techs.module.scss';
 
 function Techs() {
   return (
-    <section className={TechsStyles.techs}>
+    <section id='techs' className={TechsStyles.techs}>
       <div className={TechsStyles.techsContent}>
         <h2 className={TechsStyles.sectionTitle}>
           Технологии

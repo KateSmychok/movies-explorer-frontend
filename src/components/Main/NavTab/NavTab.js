@@ -6,13 +6,13 @@ function NavTab() {
     <section className={NavTabStyles.navArea}>
       <ul className={NavTabStyles.navList}>
         <li className={NavTabStyles.navItem}>
-          О проекте
+          <a className={NavTabStyles.link} href='#project'>О проекте</a>
         </li>
         <li className={NavTabStyles.navItem}>
-          Технологии
+          <a className={NavTabStyles.link} href='#techs'>Технологии</a>
         </li>
         <li className={NavTabStyles.navItem}>
-          Студент
+          <a className={NavTabStyles.link} href='#student'>Студент</a>
         </li>
       </ul>
     </section>

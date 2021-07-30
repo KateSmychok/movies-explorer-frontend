@@ -17,11 +17,6 @@
 }
 
 .navItem {
-  font-size: 13px;
-  line-height: 1.23;
-  @include Inter500;
-  @include link;
-  text-decoration-line: underline;
   padding-right: 40px;
 
   &:last-of-type {
@@ -29,10 +24,22 @@
   }
 }
 
+.link {
+  @include Inter500;
+  @include link;
+  color: $black;
+  font-size: 13px;
+  line-height: 1.23;
+  text-decoration-line: underline;
+}
+
 @include atMobile {
   .navItem {
+    padding-right: 24px;
+  }
+
+  .link {
     font-size: 11px;
     line-height: 1.45;
-    padding-right: 24px;
   }
 }

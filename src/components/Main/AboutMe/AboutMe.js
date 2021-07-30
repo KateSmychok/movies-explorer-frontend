@@ -3,7 +3,7 @@ import AboutMeStyles from './AboutMe.module.scss';
 
 function AboutMe() {
   return (
-    <section className={AboutMeStyles.aboutMe}>
+    <section id='student' className={AboutMeStyles.aboutMe}>
       <h2 className={AboutMeStyles.sectionTitle}>
         Студент
       </h2>
