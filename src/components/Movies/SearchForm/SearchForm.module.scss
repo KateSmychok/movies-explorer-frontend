@@ -5,7 +5,7 @@
   max-width: 1280px;
   margin: 0 auto;
   min-height: 222px;
-  padding: 70px 5.5vw 80px;
+  padding: 70px 70px 0;
   box-sizing: border-box;
   display: flex;
 }
@@ -13,6 +13,8 @@
 .wholeForm {
   width: 100%;
   margin: 0 auto;
+  padding-bottom: 80px;
+  border-bottom: 1px solid $element-grey;
   max-width: 1140px;
   height: 72px;
   display: flex;
@@ -88,4 +90,3 @@
   text-align: right;
   margin: 0;
 }
-

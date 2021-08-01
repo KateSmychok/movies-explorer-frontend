@@ -3,6 +3,9 @@
 .card {
   width: 360px;
   height: 319px;
+  background: #FDFDFD;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -11,6 +14,7 @@
 .info {
   width: 100%;
   padding: 18px;
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -28,6 +32,7 @@
   @include Inter400;
   font-size: 13px;
   line-height: 1.38;
+  color: $text-grey;
   margin: 0;
   padding: 0;
 }
@@ -35,23 +40,34 @@
 .image {
   width: 100%;
   height: 200px;
+  object-fit: cover;
 }
 
-.likeButtonArea {
+.saveButtonArea {
   width: 100%;
   height: 65px;
   padding: 18px 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
 }
 
-.button {
+.baseButton {
+  @include button;
+  @include Inter400;
   width: 100px;
   height: 29px;
+  padding: 0;
+  font-size: 12px;
+  line-height: 0.92;
+  text-align: center;
+  border-radius: 30px;
 }
 
-.saveButton {
-  background: $search-grey url('../../../images/icon-save-movie.svg') no-repeat center;
+.isNotSaved {
+  background: $search-grey;
 }
 
-.deleteFromSavedButton {
+.isSaved {
   background: $accent-pink url('../../../images/icon-delete-movie.svg') no-repeat center;
 }
