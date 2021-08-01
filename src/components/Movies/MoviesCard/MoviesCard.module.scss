@@ -1,0 +1,57 @@
+@import '../../../scss-styles/styles';
+
+.card {
+  width: 360px;
+  height: 319px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.info {
+  width: 100%;
+  padding: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  @include Inter500;
+  font-size: 15px;
+  line-height: 1.2;
+  margin: 0;
+  padding: 0;
+}
+
+.duration {
+  @include Inter400;
+  font-size: 13px;
+  line-height: 1.38;
+  margin: 0;
+  padding: 0;
+}
+
+.image {
+  width: 100%;
+  height: 200px;
+}
+
+.likeButtonArea {
+  width: 100%;
+  height: 65px;
+  padding: 18px 0;
+}
+
+.button {
+  width: 100px;
+  height: 29px;
+}
+
+.saveButton {
+  background: $search-grey url('../../../images/icon-save-movie.svg') no-repeat center;
+}
+
+.deleteFromSavedButton {
+  background: $accent-pink url('../../../images/icon-delete-movie.svg') no-repeat center;
+}
