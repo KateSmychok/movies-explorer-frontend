@@ -4,6 +4,7 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 import Header from '../Header/Header';
 import MainPage from '../Main/MainPage/MainPage';
 import Footer from '../Footer/Footer';
+import MoviesPage from '../Movies/MoviesPage/MoviesPage';
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({});
@@ -13,13 +14,13 @@ function App() {
       <div className="page">
         <Header />
         <Switch>
-          <Route path='/'>
+          <Route exact path='/'>
             <MainPage />
           </Route>
-          {/*
           <Route path='/movies'>
             <MoviesPage />
           </Route>
+          {/*
           <Route path='/saved-movies'>
             <SavedMoviesPage />
           </Route>

@@ -1,0 +1,91 @@
+@import '../../../scss-styles/styles';
+
+.searchSection {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  min-height: 222px;
+  padding: 70px 5.5vw 80px;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.wholeForm {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1140px;
+  height: 72px;
+  display: flex;
+}
+
+.searchForm {
+  width: 80%;
+  height: 72px;
+  background: $search-grey;
+  border-radius: 9px 0 0 9px;
+  position: relative;
+}
+
+.searchInput {
+  width: 100%;
+  box-sizing: border-box;
+  height: 72px;
+  border: none;
+  padding: 0 0 0 63px;
+  background: url('../../../images/icon-search.svg') no-repeat top 19px left 19px;
+  background-size: 34px 34px;
+}
+
+.searchButton {
+  @include button;
+  padding: 0;
+  width: 34px;
+  height: 34px;
+  background: url('../../../images/icon-start-search.svg') no-repeat;
+  background-size: 100%;
+  position: absolute;
+  top: 19px;
+  right: 30px;
+}
+
+.shortFilmsTumbler {
+  @include Inter400;
+  width: 20%;
+  height: 72px;
+  background: $search-grey;
+  border-radius: 0 9px 9px 0;
+  margin: 0;
+  padding: 27px 30px 27px 0;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+.border {
+  width: 1px;
+  height: 40px;
+  background: $element-grey;
+}
+
+.tumblerOn {
+  @include button;
+  width: 36px;
+  height: 20px;
+  background: url('../../../images/tumbler.svg') no-repeat top 0 left 29px;
+  box-sizing: content-box;
+  padding: 0 14px 0 29px;
+}
+
+.tumblerOff {
+  background: url('../../../images/tumbler.svg') no-repeat top 0 left 29px;
+  background-size: 36px 20px;
+  padding: 0 14px 0 29px;
+}
+
+.caption {
+  font-size: 13px;
+  line-height: 1.38;
+  text-align: right;
+  margin: 0;
+}
+
