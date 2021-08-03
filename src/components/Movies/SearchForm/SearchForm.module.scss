@@ -69,19 +69,20 @@
   background: $element-grey;
 }
 
-.tumblerOn {
+.baseTumbler {
   @include button;
   width: 36px;
   height: 20px;
-  background: url('../../../images/tumbler.svg') no-repeat top 0 left 29px;
   box-sizing: content-box;
   padding: 0 14px 0 29px;
 }
 
+.tumblerOn {
+  background: url('../../../images/tumbler-on.svg') no-repeat top 0 left 29px;
+}
+
 .tumblerOff {
-  background: url('../../../images/tumbler.svg') no-repeat top 0 left 29px;
-  background-size: 36px 20px;
-  padding: 0 14px 0 29px;
+  background: url('../../../images/tumbler-off.svg') no-repeat top 0 left 29px;
 }
 
 .caption {
