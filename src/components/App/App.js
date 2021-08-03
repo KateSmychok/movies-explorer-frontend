@@ -5,6 +5,7 @@ import Header from '../Header/Header';
 import MainPage from '../Main/MainPage/MainPage';
 import Footer from '../Footer/Footer';
 import MoviesPage from '../Movies/MoviesPage/MoviesPage';
+import SavedMoviesPage from '../Movies/SavedMoviesPage/SavedMoviesPage';
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({});
@@ -20,10 +21,10 @@ function App() {
           <Route path='/movies'>
             <MoviesPage />
           </Route>
-          {/*
           <Route path='/saved-movies'>
             <SavedMoviesPage />
           </Route>
+          {/*
           <Route path='/profile'>
             <ProfilePage />
           </Route>

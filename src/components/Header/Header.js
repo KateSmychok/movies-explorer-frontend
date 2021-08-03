@@ -25,6 +25,16 @@ function Header() {
           <button className={styles.profileButton}>Аккаунт</button>
         </div>
       </Route>
+      <Route path='/saved-movies'>
+        <div className={cn(styles.header, styles.headerMain)}>
+          <nav className={styles.leftSide}>
+            <Link to="/" className={cn(styles.logo, styles.logoMain)}></Link>
+            <Link to="/movies" className={styles.navItem}>Фильмы</Link>
+            <Link to="/saved-movies" className={styles.navItem}>Сохранённые фильмы</Link>
+          </nav>
+          <button className={styles.profileButton}>Аккаунт</button>
+        </div>
+      </Route>
     </Switch>
   )
 }

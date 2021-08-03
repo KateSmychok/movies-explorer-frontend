@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import styles from './MoviesCard.module.scss';
 import cn from 'classnames/bind';
 
@@ -7,11 +8,14 @@ let cx = cn.bind(styles);
 function MoviesCard(props) {
   const [movieIsSaved, setMovieIsSaved] = React.useState(false);
 
-  let buttonText = movieIsSaved ? '' : 'Сохранить';
+  const location = useLocation();
+
+  let buttonText = movieIsSaved || location.pathname === '/saved-movies' ? '' : 'Сохранить';
   let buttonClassName = cx({
     baseButton: true,
     isNotSaved: !movieIsSaved,
     isSaved: movieIsSaved,
+    removeFromSaved: location.pathname === '/saved-movies',
   });
 
   const handleSaveMovieClick = () => {
