@@ -1,17 +1,24 @@
 import React from 'react';
 import styles from './MoviesCardList.module.scss';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import cardSamples from '../../../utils/constants';
+import api from '../../../utils/api';
 
 function MoviesCardList() {
-  const cards = cardSamples.map((card) => {
-    return <MoviesCard card={card} key={card._id} />
-  })
+  const [movies, setMovies] = React.useState([]);
+
+  React.useEffect(() => {
+    api.getMovies()
+      .then((data) => {
+        setMovies(data.data)
+      })
+  }, [])
 
   return (
     <section className={styles.cardListSection}>
       <ul className={styles.cardList}>
-        {cards}
+        {movies.map((card) => {
+          return <MoviesCard card={card} key={card._id} />
+        })}
       </ul>
       <div className={styles.loadMoreSection}>
         <button className={styles.loadMoreButton}>
