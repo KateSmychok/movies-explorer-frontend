@@ -6,6 +6,7 @@ import MainPage from '../Main/MainPage/MainPage';
 import Footer from '../Footer/Footer';
 import MoviesPage from '../Movies/MoviesPage/MoviesPage';
 import SavedMoviesPage from '../Movies/SavedMoviesPage/SavedMoviesPage';
+import Profile from '../Profile/Profile';
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({});
@@ -24,10 +25,10 @@ function App() {
           <Route path='/saved-movies'>
             <SavedMoviesPage />
           </Route>
-          {/*
           <Route path='/profile'>
-            <ProfilePage />
+            <Profile />
           </Route>
+          {/*
           <Route path='/signup'>
             <Register />
           </Route>
@@ -36,7 +37,17 @@ function App() {
           </Route>
           */}
         </Switch>
-        <Footer />
+        <Switch>
+          <Route exact path='/'>
+            <Footer />
+          </Route>
+          <Route path='/movies'>
+            <Footer />
+          </Route>
+          <Route path='/saved-movies'>
+            <Footer />
+          </Route>
+        </Switch>
       </div>
     </CurrentUserContext.Provider>
   )

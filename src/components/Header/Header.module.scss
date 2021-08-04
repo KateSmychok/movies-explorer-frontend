@@ -82,14 +82,27 @@
 
 .profileButton {
   @include button;
-  @include Inter500;
   width: 100px;
   height: 30px;
-  padding: 7px 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profileButtonText {
+  @include Inter500;
+  color: black;
   font-size: 14px;
   line-height: 1.14;
-  text-align: left;
-  background: url('../../images/icon-profile.svg') no-repeat right 0 top 50%;
+  margin: 0;
+}
+
+.profileButtonIcon {
+  width: 26px;
+  height: 30px;
+  border-radius: 4px;
+  background: $search-grey url('../../images/icon-profile.svg') no-repeat center;
 }
 
 @include atDesktop1280 {
