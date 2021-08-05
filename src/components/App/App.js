@@ -7,6 +7,7 @@ import Footer from '../Footer/Footer';
 import MoviesPage from '../Movies/MoviesPage/MoviesPage';
 import SavedMoviesPage from '../Movies/SavedMoviesPage/SavedMoviesPage';
 import Profile from '../Profile/Profile';
+import Register from '../Register/Register';
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({});
@@ -28,10 +29,10 @@ function App() {
           <Route path='/profile'>
             <Profile />
           </Route>
-          {/*
           <Route path='/signup'>
             <Register />
           </Route>
+          {/*
           <Route path='/signin'>
             <Login />
           </Route>

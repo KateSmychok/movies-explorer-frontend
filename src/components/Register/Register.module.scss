@@ -1,0 +1,114 @@
+@import '../../scss-styles/styles';
+
+.registerPage {
+  width: 100%;
+  margin: 0 auto;
+  padding: 70px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  width: 396px;
+  height: 38px;
+  @include link;
+  background: url('../../images/logo.svg') no-repeat top 0 left 0;
+  background-size: 38px 38px;
+}
+
+.greeting {
+  @include Inter500;
+  width: 396px;
+  font-size: 24px;
+  line-height: 1.2;
+  text-align: left;
+  margin: 0;
+  padding: 40px 0;
+}
+
+.form {
+  width: 396px;
+  height: 380px;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.placeholder {
+  color: $text-grey;
+  font-size: 10px;
+  line-height: 1.2;
+  text-align: left;
+  padding: 0;
+  margin: 0;
+}
+
+.baseInput {
+  width: 100%;
+  height: 33px;
+  border: none;
+  border-bottom: 1px solid $element-grey;
+  box-sizing: border-box;
+  @include Inter400;
+  font-size: 14px;
+  line-height: 1.21;
+  padding: 5px 0 10px;
+  outline-style: none;
+}
+
+.inputValid {
+  border-bottom: 1px solid $accent-green;
+}
+
+.inputInvalid {
+  border-bottom: 1px solid $accent-pink;
+}
+
+.inputError {
+  width: 100%;
+  height: 24px;
+  color: $accent-pink;
+  @include Inter400;
+  font-size: 10px;
+  line-height: 1.2;
+  text-align: left;
+  padding: 6px 0;
+  box-sizing: border-box;
+}
+
+.submitButton {
+  width: 100%;
+  height: 45px;
+  background: $accent-green;
+  margin-top: 134px;
+  padding: 14px 0;
+  border-radius: 3px;
+  color: white;
+  font-size: 14px;
+  line-height: 1.21;
+  text-align: center;
+  @include button;
+  @include Inter500;
+}
+
+.questionWithLink {
+  padding-top: 16px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  font-size: 14px;
+  line-height: 1.21;
+  @include Inter400;
+  display: flex;
+}
+
+.question {
+  color: $text-grey;
+  margin: 0;
+}
+
+.link {
+  @include link;
+  color: $accent-green;
+  padding-left: 6px;
+}
