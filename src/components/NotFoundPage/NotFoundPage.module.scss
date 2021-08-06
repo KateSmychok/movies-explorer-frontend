@@ -1,0 +1,40 @@
+@import '../../scss-styles/styles';
+
+.notFoundPage {
+  width: 100%;
+  height: 100vh;
+  padding: 246px 0 60px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  @include Inter400;
+  font-size: 140px;
+  line-height: 1.2;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+.subtitle {
+  @include Inter400;
+  font-size: 16px;
+  line-height: 1.18;
+  text-align: center;
+  padding: 5px 0 184px;
+  margin: 0;
+}
+
+.link {
+  @include Inter400;
+  @include link;
+  font-size: 14px;
+  line-height: 1.21;
+  color: $accent-green;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
