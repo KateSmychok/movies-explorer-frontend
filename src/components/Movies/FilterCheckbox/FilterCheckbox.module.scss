@@ -43,6 +43,7 @@
 
 .label {
   @include Inter400;
+  @include button;
   font-size: 13px;
   line-height: 1.38;
   text-align: right;
