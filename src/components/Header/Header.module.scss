@@ -105,6 +105,14 @@
   background: $search-grey url('../../images/icon-profile.svg') no-repeat center;
 }
 
+.burgerMenu {
+  @include button;
+  width: 44px;
+  height: 44px;
+  background: url('../../images/burger-menu.svg') center no-repeat;
+  display: none;
+}
+
 @include atDesktop1280 {
   .header {
     padding-right: 70px;
@@ -116,6 +124,18 @@
   .header {
     padding-right: 30px;
     padding-left: 30px;
+  }
+
+  .navItem {
+    display: none;
+  }
+
+  .profileButton {
+    display: none;
+  }
+
+  .burgerMenu {
+    display: block;
   }
 }
 
@@ -139,5 +159,10 @@
     width: 54px;
     height: 26px;
     padding: 5px 0;
+  }
+
+  .burgerMenu {
+    width: 40px;
+    height: 43px;
   }
 }
