@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Profile.module.scss';
 import cn from 'classnames';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import EditProfilePopup from '../EditProfilePopup/EditProfilePopup';
 
