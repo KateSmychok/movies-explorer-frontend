@@ -18,6 +18,7 @@
   max-width: 1140px;
   height: 72px;
   display: flex;
+  align-items: center;
 }
 
 .searchForm {
@@ -50,44 +51,17 @@
   right: 30px;
 }
 
-.shortFilmsTumbler {
-  @include Inter400;
-  width: 20%;
-  height: 72px;
-  background: $search-grey;
-  border-radius: 0 9px 9px 0;
-  margin: 0;
-  padding: 27px 30px 27px 0;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-}
-
 .border {
   width: 1px;
-  height: 40px;
-  background: $element-grey;
-}
+  height: 72px;
+  background: $search-grey;
 
-.baseTumbler {
-  @include button;
-  width: 36px;
-  height: 20px;
-  box-sizing: content-box;
-  padding: 0 14px 0 29px;
-}
-
-.tumblerOn {
-  background: url('../../../images/tumbler-on.svg') no-repeat top 0 left 29px;
-}
-
-.tumblerOff {
-  background: url('../../../images/tumbler-off.svg') no-repeat top 0 left 29px;
-}
-
-.caption {
-  font-size: 13px;
-  line-height: 1.38;
-  text-align: right;
-  margin: 0;
+  &::after {
+    content: '';
+    display: block;
+    margin: 16px 0;
+    width: 1px;
+    height: 40px;
+    background: $element-grey;
+  }
 }

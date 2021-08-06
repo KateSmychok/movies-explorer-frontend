@@ -1,0 +1,51 @@
+@import '../../../scss-styles/styles';
+
+.filterCheckbox {
+  @include Inter400;
+  width: 20%;
+  height: 72px;
+  background: $search-grey;
+  border-radius: 0 9px 9px 0;
+  margin: 0;
+  padding: 27px 30px 27px 0;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.hiddenCheckbox {
+  position: absolute;
+  left: 29px;
+  width: 36px;
+  height: 20px;
+  z-index: -1;
+  opacity: 0;
+}
+
+.hiddenCheckbox + label::before {
+  @include button;
+  content: '';
+  display: block;
+  width: 36px;
+  height: 20px;
+  padding: 0 14px 0 29px;
+  background: url('../../../images/tumbler-on.svg') no-repeat top 0 left 29px;
+}
+
+.hiddenCheckbox:hover + label::before {
+  opacity: 0.7;
+}
+
+.hiddenCheckbox:not(:checked) + label::before {
+  background: url('../../../images/tumbler-off.svg') no-repeat top 0 left 29px;
+}
+
+.label {
+  @include Inter400;
+  font-size: 13px;
+  line-height: 1.38;
+  text-align: right;
+  margin: 0;
+  display: flex;
+}
