@@ -8,12 +8,14 @@ import MoviesPage from '../Movies/MoviesPage/MoviesPage';
 import SavedMoviesPage from '../Movies/SavedMoviesPage/SavedMoviesPage';
 import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
+import Login from '../Login/Login';
+import NotFoundPage from '../NotFoundPage/NotFoundPage';
 
 function App() {
-  const [currentUser, setCurrentUser] = React.useState({});
+  const [user, setUser] = React.useState({name: 'Kate', email:'kate@yandex.ru'});
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
+    <CurrentUserContext.Provider value={user}>
       <div className="page">
         <Header />
         <Switch>
@@ -32,11 +34,12 @@ function App() {
           <Route path='/signup'>
             <Register />
           </Route>
-          {/*
           <Route path='/signin'>
             <Login />
           </Route>
-          */}
+          <Route path=''>
+            <NotFoundPage />
+          </Route>
         </Switch>
         <Switch>
           <Route exact path='/'>

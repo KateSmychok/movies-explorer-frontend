@@ -19,7 +19,7 @@ function Register() {
 
   return (
     <section className={styles.registerPage}>
-      <Link to='/' className={styles.logo}></Link>
+      <Link to='/' className={styles.logo}> </Link>
       <h2 className={styles.greeting}>Добро пожаловать!</h2>
       <form className={styles.form}>
         <span className={styles.placeholder}>Имя</span>
@@ -34,7 +34,7 @@ function Register() {
           maxLength='40'
           required
           autoComplete='off'/>
-        <span className={styles.inputError} id='name-error'></span>
+        <span className={styles.inputError} id='name-error'> </span>
         <span className={styles.placeholder}>E-mail</span>
         <input
           className={styles.baseInput}
@@ -47,7 +47,7 @@ function Register() {
           maxLength='40'
           required
           autoComplete='off'/>
-        <span className={styles.inputError} id='email-error'></span>
+        <span className={styles.inputError} id='email-error'> </span>
         <span className={styles.placeholder}>Пароль</span>
         <input
           className={styles.baseInput}
@@ -60,7 +60,7 @@ function Register() {
           maxLength='15'
           required
           autoComplete='off'/>
-        <span className={styles.inputError} id='password-error'></span>
+        <span className={styles.inputError} id='password-error'> </span>
         <button type='submit' className={styles.submitButton}>Зарегистрироваться</button>
       </form>
       <div className={styles.questionWithLink}>

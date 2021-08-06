@@ -52,7 +52,7 @@
 //ссылка
 @mixin link {
   cursor: pointer;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.3s ease;
   text-decoration: none;
 
   &:hover {
@@ -63,7 +63,7 @@
 //кнопка
 @mixin button {
   cursor: pointer;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.3s ease;
   outline-style: none;
   border: none;
   text-decoration: none;
