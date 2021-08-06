@@ -1,3 +1,5 @@
+@import '../../../scss-styles/styles';
+
 @keyframes preloader-inside-white {
   0% {
     -webkit-transform: scale(0, 0);
@@ -61,7 +63,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  background: #FF6838;
+  background: $accent-pink;
   border-radius: 50px;
 }
 
@@ -83,6 +85,6 @@
 
 .preloaderRound::before {
   z-index: 10;
-  background: #FF6838;
+  background: $accent-pink;
   animation: preloader-inside-red 1s ease-in-out infinite;
 }
