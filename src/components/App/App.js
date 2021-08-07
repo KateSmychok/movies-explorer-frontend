@@ -10,14 +10,28 @@ import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
+import NavigationPopup from '../NavigationPopup/NavigationPopup';
 
 function App() {
   const [user, setUser] = React.useState({name: 'Kate', email:'kate@yandex.ru'});
+  const [isNavigationPopupOpened, setIsNavigationPopupOpened] = React.useState(false);
+
+  const handleBurgerMenuClick = () => {
+    setIsNavigationPopupOpened(true);
+  }
+
+  const handleNavigationLinkClick = () => {
+    setIsNavigationPopupOpened(false);
+  }
+
+  const handleCloseButtonClick = () => {
+    setIsNavigationPopupOpened(false);
+  }
 
   return (
     <CurrentUserContext.Provider value={user}>
       <div className="page">
-        <Header />
+        <Header onClick={handleBurgerMenuClick} />
         <Switch>
           <Route exact path='/'>
             <MainPage />
@@ -52,6 +66,11 @@ function App() {
             <Footer />
           </Route>
         </Switch>
+        <NavigationPopup
+          isNavigationPopupOpened={isNavigationPopupOpened}
+          onLinkClick={handleNavigationLinkClick}
+          onClose={handleCloseButtonClick}
+        />
       </div>
     </CurrentUserContext.Provider>
   )
