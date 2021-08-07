@@ -19,6 +19,10 @@
   }
 }
 
+.leftSide {
+  display: flex;
+}
+
 .logo {
   @include link;
   background: url('../../images/logo.svg') no-repeat;
@@ -57,25 +61,32 @@
   @include button;
 }
 
-.leftSide {
+.navList {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
   display: flex;
   justify-content: flex-start;
 }
 
 .navItem {
-  @include link;
-  @include Inter400;
-  color: $black;
-  font-size: 13px;
-  line-height: 1.38;
   padding: 10px 0;
   margin: 0;
 
   &:last-child {
     padding-left: 16px;
   }
+}
 
-  &:active {
+.link {
+  @include link;
+  @include Inter400;
+  color: $black;
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 1.38;
+
+  &:focus {
     @include Inter500;
   }
 }
