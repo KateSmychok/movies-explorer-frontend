@@ -36,7 +36,7 @@
 }
 
 .popupContent {
-  width: 520px;
+  width: calc(min(68%, 520px));
   height: 100vh;
   background-color: white;
   display: flex;
@@ -64,7 +64,7 @@
 }
 
 .navItem {
-  padding-bottom: 28px;
+  padding-bottom: 24px;
 
   &:last-of-type {
     padding-bottom: 0;
@@ -86,13 +86,13 @@
 }
 
 .profileButton {
+  @include button;
   position: fixed;
   bottom: 92px;
-  right: 210px;
-  @include button;
   width: 100px;
   height: 30px;
   padding: 0;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -124,4 +124,10 @@
   right: 22px;
   padding: 0;
   margin: 0;
+}
+
+@include atMobile {
+  .popupContent {
+    width: 100%;
+  }
 }

@@ -3,6 +3,7 @@
 .filterCheckbox {
   @include Inter400;
   width: 20%;
+  min-width: 226px;
   height: 72px;
   background: $search-grey;
   border-radius: 0 9px 9px 0;
@@ -49,4 +50,51 @@
   text-align: right;
   margin: 0;
   display: flex;
+}
+
+@include atTablet {
+  .filterCheckbox {
+    min-width: 207px;
+    padding-right: 20px;
+  }
+
+  .hiddenCheckbox {
+    left: 19px;
+  }
+
+  .hiddenCheckbox + label::before {
+    padding: 0 15px 0 19px;
+    background: url('../../../images/tumbler-on.svg') no-repeat top 0 left 19px;
+  }
+
+  .hiddenCheckbox:not(:checked) + label::before {
+    background: url('../../../images/tumbler-off.svg') no-repeat top 0 left 19px;
+  }
+}
+
+@include atMobileL {
+  .filterCheckbox {
+    min-width: 148px;
+    height: 20px;
+    background: inherit;
+    padding: 0;
+  }
+
+  .label {
+    font-size: 11px;
+    line-height: 1.64;
+  }
+
+  .hiddenCheckbox {
+    left: 0;
+  }
+
+  .hiddenCheckbox + label::before {
+    padding: 0 13px 0 0;
+    background: url('../../../images/tumbler-on.svg') no-repeat top 0 left 0;
+  }
+
+  .hiddenCheckbox:not(:checked) + label::before {
+    background: url('../../../images/tumbler-off.svg') no-repeat top 0 left 0;
+  }
 }

@@ -8,7 +8,8 @@ function SearchForm() {
     <section className={styles.searchSection}>
       <div className={styles.wholeForm}>
         <form className={styles.searchForm}>
-          <input className={styles.searchInput}/>
+          <input className={styles.searchInputDesktop}/>
+          <input className={styles.searchInputMobile} placeholder='Фильм'/>
           <button className={styles.searchButton}> </button>
         </form>
         <div className={styles.border}> </div>
