@@ -54,6 +54,12 @@
   color: $black;
 }
 
+@include atTablet {
+  .footer {
+    padding: 79px 30px 20px;
+  }
+}
+
 @include atMobileL {
   .footer {
     min-height: 270px;
