@@ -22,7 +22,7 @@ function Register() {
       <Link to='/' className={styles.logo}> </Link>
       <h2 className={styles.greeting}>Добро пожаловать!</h2>
       <form className={styles.form}>
-        <span className={styles.placeholder}>Имя</span>
+        <label className={styles.label} for='name-register'>Имя</label>
         <input
           className={styles.baseInput}
           value={name}
@@ -35,7 +35,8 @@ function Register() {
           required
           autoComplete='off'/>
         <span className={styles.inputError} id='name-error'> </span>
-        <span className={styles.placeholder}>E-mail</span>
+
+        <label className={styles.label} for='email-register'>E-mail</label>
         <input
           className={styles.baseInput}
           value={email}
@@ -48,7 +49,8 @@ function Register() {
           required
           autoComplete='off'/>
         <span className={styles.inputError} id='email-error'> </span>
-        <span className={styles.placeholder}>Пароль</span>
+
+        <label className={styles.label} for='password-register'>Пароль</label>
         <input
           className={styles.baseInput}
           value={password}
@@ -61,12 +63,15 @@ function Register() {
           required
           autoComplete='off'/>
         <span className={styles.inputError} id='password-error'> </span>
-        <button type='submit' className={styles.submitButton}>Зарегистрироваться</button>
+
+        <div className={styles.buttonWithCaption}>
+          <button type='submit' className={styles.submitButton}>Зарегистрироваться</button>
+          <div className={styles.questionWithLink}>
+            <p className={styles.question}>Уже зарегистрированы?</p>
+            <Link to="/signin" className={styles.link}>Войти</Link>
+          </div>
+        </div>
       </form>
-      <div className={styles.questionWithLink}>
-        <p className={styles.question}>Уже зарегистрированы?</p>
-        <Link to="/signin" className={styles.link}>Войти</Link>
-      </div>
     </section>
   )
 }

@@ -15,43 +15,45 @@ function Login() {
 
   return (
     <section className={styles.loginPage}>
-      <Link to='/' className={styles.logo}></Link>
+      <Link to='/' className={styles.logo}> </Link>
       <h2 className={styles.greeting}>Рады видеть!</h2>
       <form className={styles.form}>
-        <span className={styles.placeholder}>E-mail</span>
+        <label className={styles.label} for='email-login'>E-mail</label>
         <input
           className={styles.baseInput}
           value={email}
           onChange={handleEmailChange}
-          id='email-register'
+          id='email-login'
           name='email'
           type='email'
           minLength='6'
           maxLength='40'
           required
           autoComplete='off'/>
-        <span className={styles.inputError} id='email-error'></span>
+        <span className={styles.inputError} id='email-error'> </span>
 
-        <span className={styles.placeholder}>Пароль</span>
+        <label className={styles.label} for='password-login'>Пароль</label>
         <input
           className={styles.baseInput}
           value={password}
           onChange={handlePasswordChange}
-          id='password-register'
+          id='password-login'
           name='password'
           type='password'
           minLength='6'
           maxLength='15'
           required
           autoComplete='off'/>
-        <span className={styles.inputError} id='password-error'></span>
+        <span className={styles.inputError} id='password-error'> </span>
 
-        <button type='submit' className={styles.submitButton}>Войти</button>
+        <div className={styles.buttonWithCaption}>
+          <button type='submit' className={styles.submitButton}>Войти</button>
+          <div className={styles.questionWithLink}>
+            <p className={styles.question}>Ещё не зарегистрированы?</p>
+            <Link to="/signup" className={styles.link}>Регистрация</Link>
+          </div>
+        </div>
       </form>
-      <div className={styles.questionWithLink}>
-        <p className={styles.question}>Ещё не зарегистрированы?</p>
-        <Link to="/signup" className={styles.link}>Регистрация</Link>
-      </div>
     </section>
   )
 }
