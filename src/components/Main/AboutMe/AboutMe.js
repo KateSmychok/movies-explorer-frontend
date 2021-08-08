@@ -23,10 +23,10 @@ function AboutMe() {
         Очень хочу развиваться и расти как фронтенд-разработчик.
       </p>
       <div className={styles.contactsArea}>
-        <a className={styles.contact} href='https://t.me/even_starr'>
+        <a className={styles.contact} href='https://t.me/even_starr' target='_blank'>
           Telegram
         </a>
-        <a className={styles.contact} href='https://github.com/KateSmychok'>
+        <a className={styles.contact} href='https://github.com/KateSmychok' target='_blank'>
           Github
         </a>
       </div>
