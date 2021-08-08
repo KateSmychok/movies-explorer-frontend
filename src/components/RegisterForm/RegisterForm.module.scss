@@ -1,0 +1,137 @@
+@import '../../scss-styles/styles';
+
+.form {
+  width: 396px;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.label {
+  @include Inter400;
+  color: $text-grey;
+  font-size: 10px;
+  line-height: 1.2;
+  text-align: left;
+  padding: 0;
+  margin: 0;
+}
+
+.baseInput {
+  width: 100%;
+  height: 33px;
+  border: none;
+  border-bottom: 1px solid $element-grey;
+  box-sizing: border-box;
+  @include Inter400;
+  font-size: 14px;
+  line-height: 1.21;
+  padding: 5px 0 10px;
+  outline-style: none;
+
+  &:focus {
+    border-bottom: 1px solid $black;
+  }
+}
+
+.inputValid {
+  border-bottom: 1px solid $accent-green;
+
+  &:focus {
+    border-bottom: 1px solid $accent-green;
+  }
+}
+
+.inputInvalid {
+  border-bottom: 1px solid $accent-pink;
+  color: $accent-pink;
+
+  &:focus {
+    border-bottom: 1px solid $accent-pink;
+  }
+}
+
+.inputError {
+  width: 100%;
+  height: 24px;
+  color: $accent-pink;
+  @include Inter400;
+  font-size: 10px;
+  line-height: 1.2;
+  text-align: left;
+  padding: 6px 0;
+  box-sizing: border-box;
+}
+
+.buttonWithCaption {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 134px;
+}
+
+.submitButton {
+  width: 100%;
+  height: 45px;
+  background: $accent-green;
+  padding: 14px 0;
+  border-radius: 3px;
+  color: white;
+  font-size: 14px;
+  line-height: 1.21;
+  text-align: center;
+  @include button;
+  @include Inter500;
+}
+
+.questionWithLink {
+  padding-top: 16px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  font-size: 14px;
+  line-height: 1.21;
+  @include Inter400;
+  display: flex;
+  justify-content: center;
+}
+
+.question {
+  color: $text-grey;
+  margin: 0;
+}
+
+.link {
+  @include link;
+  color: $accent-green;
+  padding-left: 6px;
+}
+
+@include atMobileM {
+  .form {
+    width: 260px;
+  }
+
+  .buttonWithCaption {
+    width: 260px;
+    margin: 0 auto;
+    position: fixed;
+    bottom: 30px;
+  }
+
+  .submitButton {
+    padding: 15px 0;
+    font-size: 12px;
+    line-height: 1.25;
+  }
+
+  .questionWithLink {
+    padding-top: 14px;
+    font-size: 12px;
+    line-height: 1.25;
+  }
+
+  .link {
+    padding-left: 7px;
+  }
+}
