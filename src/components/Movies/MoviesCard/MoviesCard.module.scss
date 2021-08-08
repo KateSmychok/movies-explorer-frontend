@@ -75,3 +75,44 @@
 .removeFromSaved {
   background: $search-grey url('../../../images/icon-delete-movie.svg') no-repeat center;
 }
+
+@include atTablet {
+  .card {
+    width: 342px;
+    height: 309px;
+  }
+
+  .image {
+    height: 190px;
+  }
+}
+
+@include atMobileL {
+  .card {
+    width: 300px;
+    height: 271px;
+  }
+
+  .info {
+    padding: 14px;
+  }
+
+  .title {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .duration {
+    font-size: 10px;
+    line-height: 1.8;
+  }
+
+  .image {
+    height: 168px;
+  }
+
+  .saveButtonArea {
+    height: 57px;
+    padding: 14px 0;
+  }
+}
