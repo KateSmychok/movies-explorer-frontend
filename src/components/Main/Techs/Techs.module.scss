@@ -76,6 +76,7 @@
 
   .techsList {
     padding-top: 83px;
+    grid-template-columns: repeat(auto-fit, 84px);
   }
 
   .techsItem {
@@ -88,7 +89,7 @@
 
 @include atMobile {
   .techs {
-    padding: 70px 18px;
+    padding: 70px 14px;
     background: $white;
   }
 
@@ -105,5 +106,6 @@
 
   .techsList {
     padding-top: 50px;
+    grid-template-columns: repeat(2, 84px);
   }
 }
