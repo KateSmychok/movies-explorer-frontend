@@ -1,12 +1,12 @@
 import React from 'react';
-import styles from './NavigationPopup.module.scss';
 import { Link } from 'react-router-dom';
 import cn from 'classnames/bind';
+import styles from './NavigationPopup.module.scss';
 
-let cx = cn.bind(styles);
+const cx = cn.bind(styles);
 
 function NavigationPopup(props) {
-  let popupClassName = cx({
+  const popupClassName = cx({
     popup: true,
     popupOpened: props.isNavigationPopupOpened,
   });
@@ -52,7 +52,7 @@ function NavigationPopup(props) {
         <button type='button' className={styles.closeButton} onClick={props.onClose}> </button>
       </div>
     </div>
-  )
+  );
 }
 
 export default NavigationPopup;

@@ -16,7 +16,7 @@ function NavTab() {
         </li>
       </ul>
     </section>
-  )
+  );
 }
 
 export default NavTab;

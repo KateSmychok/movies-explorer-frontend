@@ -3,7 +3,6 @@ import styles from './SearchForm.module.scss';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 function SearchForm() {
-
   return (
     <section className={styles.searchSection}>
       <div className={styles.wholeForm}>
@@ -16,7 +15,7 @@ function SearchForm() {
         <FilterCheckbox />
       </div>
     </section>
-  )
+  );
 }
 
 export default SearchForm;

@@ -1,17 +1,17 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import styles from './MoviesCard.module.scss';
 import cn from 'classnames/bind';
+import styles from './MoviesCard.module.scss';
 
-let cx = cn.bind(styles);
+const cx = cn.bind(styles);
 
 function MoviesCard(props) {
   const [movieIsSaved, setMovieIsSaved] = React.useState(false);
 
   const location = useLocation();
 
-  let buttonText = movieIsSaved || location.pathname === '/saved-movies' ? '' : 'Сохранить';
-  let buttonClassName = cx({
+  const buttonText = movieIsSaved || location.pathname === '/saved-movies' ? '' : 'Сохранить';
+  const buttonClassName = cx({
     baseButton: true,
     isNotSaved: !movieIsSaved,
     isSaved: movieIsSaved,
@@ -20,7 +20,7 @@ function MoviesCard(props) {
 
   const handleSaveMovieClick = () => {
     setMovieIsSaved(!movieIsSaved);
-  }
+  };
 
   return (
     <article className={styles.card}>
@@ -41,7 +41,7 @@ function MoviesCard(props) {
         </button>
       </div>
     </article>
-  )
+  );
 }
 
 export default MoviesCard;

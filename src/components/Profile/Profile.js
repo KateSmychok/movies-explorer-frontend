@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './Profile.module.scss';
 import cn from 'classnames';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import styles from './Profile.module.scss';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import EditProfilePopup from '../EditProfilePopup/EditProfilePopup';
 
@@ -11,11 +11,11 @@ function Profile() {
 
   const handleEditButtonClick = () => {
     setIsPopupOpened(true);
-  }
+  };
 
   const handleCloseButtonClick = () => {
     setIsPopupOpened(false);
-  }
+  };
 
   return (
     <>
@@ -38,7 +38,7 @@ function Profile() {
       </section>
       <EditProfilePopup isPopupOpened={isPopupOpened} onClose={handleCloseButtonClick} />
     </>
-  )
+  );
 }
 
 export default Profile;

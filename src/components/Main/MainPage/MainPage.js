@@ -16,7 +16,7 @@ function MainPage() {
       <AboutMe />
       <Portfolio />
     </>
-  )
+  );
 }
 
 export default MainPage;

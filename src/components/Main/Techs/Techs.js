@@ -39,7 +39,7 @@ function Techs() {
         </ul>
       </div>
     </section>
-  )
+  );
 }
 
 export default Techs;

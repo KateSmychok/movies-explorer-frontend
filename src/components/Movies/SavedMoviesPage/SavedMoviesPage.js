@@ -8,7 +8,7 @@ function SavedMoviesPage() {
       <SearchForm />
       <SavedMoviesCardList />
     </>
-  )
+  );
 }
 
 export default SavedMoviesPage;

@@ -10,7 +10,7 @@ function Promo() {
         </h1>
       </div>
     </section>
-  )
+  );
 }
 
 export default Promo;

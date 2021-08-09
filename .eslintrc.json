@@ -18,6 +18,9 @@
     "airbnb-base"
   ],
   "rules": {
-
+    "no-underscore-dangle": ["off", {"allow": ["_id"]}],
+    "no-unused-vars": "off",
+    "no-undef": "off",
+    "no-console": "off"
   }
 }

@@ -14,7 +14,7 @@ function FilterCheckbox() {
       </input>
       <label for='shortFilms' className={styles.label}>Короткометражки</label>
     </form>
-  )
+  );
 }
 
 export default FilterCheckbox;

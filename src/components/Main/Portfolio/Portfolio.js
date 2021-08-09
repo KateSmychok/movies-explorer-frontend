@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './Portfolio.module.scss';
 
-
 function Portfolio() {
   return (
     <section className={styles.portfolio}>
@@ -29,7 +28,7 @@ function Portfolio() {
         </li>
       </ul>
     </section>
-  )
+  );
 }
 
 export default Portfolio;

@@ -29,7 +29,7 @@ function Footer() {
         &#169; 2021 Kate Smychok
       </p>
     </section>
-  )
+  );
 }
 
 export default Footer;

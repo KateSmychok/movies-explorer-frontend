@@ -13,20 +13,20 @@ import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import NavigationPopup from '../NavigationPopup/NavigationPopup';
 
 function App() {
-  const [user, setUser] = React.useState({name: 'Kate', email:'kate@yandex.ru'});
+  const [user, setUser] = React.useState({ name: 'Kate', email: 'kate@yandex.ru' });
   const [isNavigationPopupOpened, setIsNavigationPopupOpened] = React.useState(false);
 
   const handleBurgerMenuClick = () => {
     setIsNavigationPopupOpened(true);
-  }
+  };
 
   const handleNavigationLinkClick = () => {
     setIsNavigationPopupOpened(false);
-  }
+  };
 
   const handleCloseButtonClick = () => {
     setIsNavigationPopupOpened(false);
-  }
+  };
 
   return (
     <CurrentUserContext.Provider value={user}>
@@ -73,7 +73,7 @@ function App() {
         />
       </div>
     </CurrentUserContext.Provider>
-  )
+  );
 }
 
 export default App;

@@ -94,7 +94,7 @@ function Header(props) {
         </div>
       </Route>
     </Switch>
-  )
+  );
 }
 
 export default Header;

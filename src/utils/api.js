@@ -15,20 +15,16 @@ function checkResponse(res) {
 }
 
 function getMovies() {
-  return instance.get("/movies", headers)
-    .then((res) =>
-      checkResponse(res)
-    );
+  return instance.get('/movies', headers)
+    .then((res) => checkResponse(res));
 }
 
 function getSavedMovies() {
-  return instance.get("/saved-movies", headers)
-    .then((res) =>
-      checkResponse(res)
-    );
+  return instance.get('/saved-movies', headers)
+    .then((res) => checkResponse(res));
 }
 
 export default {
   getMovies,
-  getSavedMovies
-}
+  getSavedMovies,
+};

@@ -1,9 +1,9 @@
 import React from 'react';
+import cn from 'classnames/bind';
 import styles from './EditProfilePopup.module.scss';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
-import cn from 'classnames/bind';
 
-let cx = cn.bind(styles);
+const cx = cn.bind(styles);
 
 function EditProfilePopup(props) {
   const [name, setName] = React.useState('');
@@ -23,7 +23,7 @@ function EditProfilePopup(props) {
     setEmail(e.target.value);
   }
 
-  let popupClassName = cx({
+  const popupClassName = cx({
     popup: true,
     popupOpened: props.isPopupOpened,
   });
