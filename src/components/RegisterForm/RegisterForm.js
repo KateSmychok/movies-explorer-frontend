@@ -1,12 +1,11 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import styles from './RegisterForm.module.scss';
-import { Link } from 'react-router-dom';
 import cn from 'classnames/bind';
+import styles from './RegisterForm.module.scss';
 
-let cx = cn.bind(styles);
+const cx = cn.bind(styles);
 
 const RegisterSchema = Yup.object().shape({
   name: Yup.string()
@@ -43,9 +42,12 @@ function RegisterForm() {
         history.push('/signin');
       }}
     >
-      {({ errors,
-          touched,
-        }) => (
+      {({
+        errors,
+        touched,
+        dirty,
+        isValid,
+      }) => (
         <Form className={styles.form}>
           <label className={styles.label} htmlFor='name'>Имя</label>
           <Field
@@ -60,7 +62,8 @@ function RegisterForm() {
             autoComplete='off'
           />
           {errors.name && touched.name ? (
-            <span className={styles.inputError}>{errors.name}</span>) : <span className={styles.inputError}> </span>
+            <span className={styles.inputError}>{errors.name}</span>
+          ) : <span className={styles.inputError}> </span>
           }
 
           <label className={styles.label} htmlFor='email'>E-mail</label>
@@ -76,7 +79,8 @@ function RegisterForm() {
             autoComplete='off'
           />
           {errors.email && touched.email ? (
-            <span className={styles.inputError}>{errors.email}</span>) : <span className={styles.inputError}> </span>
+            <span className={styles.inputError}>{errors.email}</span>
+          ) : <span className={styles.inputError}> </span>
           }
 
           <label className={styles.label} htmlFor='password'>Пароль</label>
@@ -92,11 +96,14 @@ function RegisterForm() {
             autoComplete='off'
           />
           {errors.password && touched.password ? (
-            <span className={styles.inputError}>{errors.password}</span>) : <span className={styles.inputError}> </span>
+            <span className={styles.inputError}>{errors.password}</span>
+          ) : <span className={styles.inputError}> </span>
           }
 
           <div className={styles.buttonWithCaption}>
-            <button type='submit' className={styles.submitButton}>Зарегистрироваться</button>
+            <button type='submit' className={styles.submitButton} disabled={!(dirty && isValid)}>
+              Зарегистрироваться
+            </button>
             <div className={styles.questionWithLink}>
               <p className={styles.question}>Уже зарегистрированы?</p>
               <Link to="/signin" className={styles.link}>Войти</Link>
@@ -106,6 +113,7 @@ function RegisterForm() {
       )}
     </Formik>
   </div>
-)}
+  );
+}
 
 export default RegisterForm;

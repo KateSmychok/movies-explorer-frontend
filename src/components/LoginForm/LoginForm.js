@@ -1,11 +1,11 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import styles from './LoginForm.module.scss';
 import { Link } from 'react-router-dom';
 import cn from 'classnames/bind';
+import styles from './LoginForm.module.scss';
 
-let cx = cn.bind(styles);
+const cx = cn.bind(styles);
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -34,9 +34,12 @@ function LoginForm() {
           console.log(values);
         }}
       >
-        {({ errors,
-            touched,
-          }) => (
+        {({
+          errors,
+          touched,
+          dirty,
+          isValid,
+        }) => (
           <Form className={styles.form}>
             <label className={styles.label} htmlFor='email'>E-mail</label>
             <Field
@@ -51,7 +54,9 @@ function LoginForm() {
               autoComplete='off'
             />
             {errors.email && touched.email ? (
-              <span className={styles.inputError}>{errors.email}</span>) : <span className={styles.inputError}> </span>
+              <span className={styles.inputError}>
+                {errors.email}</span>
+            ) : <span className={styles.inputError}> </span>
             }
 
             <label className={styles.label} htmlFor='password'>Пароль</label>
@@ -67,11 +72,15 @@ function LoginForm() {
               autoComplete='off'
             />
             {errors.password && touched.password ? (
-              <span className={styles.inputError}>{errors.password}</span>) : <span className={styles.inputError}> </span>
+              <span className={styles.inputError}>
+                {errors.password}</span>
+            ) : <span className={styles.inputError}> </span>
             }
 
             <div className={styles.buttonWithCaption}>
-              <button type='submit' className={styles.submitButton}>Войти</button>
+              <button type='submit' className={styles.submitButton} disabled={!(dirty && isValid)}>
+                Войти
+              </button>
               <div className={styles.questionWithLink}>
                 <p className={styles.question}>Ещё не зарегистрированы?</p>
                 <Link to="/signup" className={styles.link}>Регистрация</Link>
@@ -81,6 +90,7 @@ function LoginForm() {
         )}
       </Formik>
     </div>
-  )}
+  );
+}
 
 export default LoginForm;

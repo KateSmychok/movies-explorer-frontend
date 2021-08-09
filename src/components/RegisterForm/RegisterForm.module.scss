@@ -83,6 +83,15 @@
   text-align: center;
   @include button;
   @include Inter500;
+
+  &:disabled {
+    background: $dark-grey;
+    cursor: auto;
+  }
+
+  &:disabled:hover {
+    opacity: 1;
+  }
 }
 
 .questionWithLink {
