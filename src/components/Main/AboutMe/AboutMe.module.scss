@@ -98,7 +98,6 @@
 
 @include atMobileL {
   .aboutMe {
-    padding: 70px 14px;
     display: flex;
     flex-direction: column;
   }
@@ -126,5 +125,11 @@
     width: 292px;
     height: 352px;
     margin: 60px 0 40px;
+  }
+}
+
+@include atMobile {
+  .aboutMe {
+    padding: 70px 14px;
   }
 }

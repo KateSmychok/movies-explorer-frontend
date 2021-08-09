@@ -7,8 +7,8 @@ import Footer from '../Footer/Footer';
 import MoviesPage from '../Movies/MoviesPage/MoviesPage';
 import SavedMoviesPage from '../Movies/SavedMoviesPage/SavedMoviesPage';
 import Profile from '../Profile/Profile';
-import Register from '../Register/Register';
-import Login from '../Login/Login';
+import RegisterPage from '../RegisterPage/RegisterPage';
+import LoginPage from '../LoginPage/LoginPage';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import NavigationPopup from '../NavigationPopup/NavigationPopup';
 
@@ -46,10 +46,10 @@ function App() {
             <Profile />
           </Route>
           <Route path='/signup'>
-            <Register />
+            <RegisterPage />
           </Route>
           <Route path='/signin'>
-            <Login />
+            <LoginPage />
           </Route>
           <Route path=''>
             <NotFoundPage />

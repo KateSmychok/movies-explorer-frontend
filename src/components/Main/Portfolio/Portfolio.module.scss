@@ -85,7 +85,7 @@
 
 @include atMobileL {
   .portfolio {
-    padding: 0 18px 70px;
+    min-height: 294px;
   }
 
   .title {
@@ -103,5 +103,11 @@
   .arrow {
     width: 18px;
     height: 18px;
+  }
+}
+
+@include atMobile {
+  .portfolio {
+    padding: 0 18px 70px;
   }
 }

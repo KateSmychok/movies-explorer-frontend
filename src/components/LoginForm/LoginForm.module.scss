@@ -86,7 +86,7 @@
   @include Inter500;
 
   &:disabled {
-    background: $dark-grey;
+    background: #bbb;
     cursor: auto;
   }
 

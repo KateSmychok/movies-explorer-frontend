@@ -17,6 +17,12 @@ function Profile() {
     setIsPopupOpened(false);
   };
 
+  const handleUpdateUser = ({ name, email }) => {
+    user.name = name;
+    user.email = email;
+    setIsPopupOpened(false);
+  };
+
   return (
     <>
       <section className={styles.profileSection}>
@@ -33,10 +39,24 @@ function Profile() {
             <p className={cn(styles.userInfoText, styles.userInfoTextValue)}>{user.email}</p>
           </div>
         </div>
-        <button type='button' className={cn(styles.button, styles.buttonEdit)} onClick={handleEditButtonClick}>Редактировать</button>
-        <Link to='/signin' className={cn(styles.button, styles.buttonSignOut)}>Выйти из аккаунта</Link>
+        <div className={styles.buttons}>
+          <button
+            type='button'
+            className={cn(styles.button, styles.buttonEdit)}
+            onClick={handleEditButtonClick}>
+            Редактировать
+          </button>
+          <Link
+            to='/signin'
+            className={cn(styles.button, styles.buttonSignOut)}>
+            Выйти из аккаунта
+          </Link>
+        </div>
       </section>
-      <EditProfilePopup isPopupOpened={isPopupOpened} onClose={handleCloseButtonClick} />
+      <EditProfilePopup
+        isPopupOpened={isPopupOpened}
+        onClose={handleCloseButtonClick}
+        onUpdateUser={handleUpdateUser}/>
     </>
   );
 }

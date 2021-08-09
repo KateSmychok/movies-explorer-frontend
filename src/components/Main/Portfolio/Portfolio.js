@@ -11,19 +11,19 @@ function Portfolio() {
         <li className={styles.linksItem}>
           <a className={styles.ref} href='https://even-star.students.nomoredomains.monster' target='_blank'>
             <p className={styles.projectName}>SPA приложение Mesto</p>
-            <div className={styles.arrow}></div>
+            <div className={styles.arrow}> </div>
           </a>
         </li>
         <li className={styles.linksItem}>
           <a className={styles.ref} href='https://katesmychok.github.io/russian-travel' target='_blank'>
-            <p className={styles.projectName}>Адаптивный сайт "Путешествия по России"</p>
-            <div className={styles.arrow}></div>
+            <p className={styles.projectName}>Путешествия по России</p>
+            <div className={styles.arrow}> </div>
           </a>
         </li>
         <li className={styles.linksItem}>
           <a className={styles.ref} href='https://katesmychok.github.io/how-to-learn' target='_blank'>
-            <p className={styles.projectName}>Адаптивный сайт "Научиться учиться"</p>
-            <div className={styles.arrow}></div>
+            <p className={styles.projectName}>Научиться учиться</p>
+            <div className={styles.arrow}> </div>
           </a>
         </li>
       </ul>

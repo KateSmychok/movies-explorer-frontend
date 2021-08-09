@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styles from './Register.module.scss';
+import styles from './RegisterPage.module.scss';
 import RegisterForm from '../RegisterForm/RegisterForm';
 
-function Register() {
+function RegisterPage() {
   return (
     <section className={styles.registerPage}>
       <Link to='/' className={styles.logo}> </Link>
@@ -13,4 +13,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default RegisterPage;

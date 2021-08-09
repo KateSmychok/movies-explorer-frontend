@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styles from './Login.module.scss';
+import styles from './LoginPage.module.scss';
 import LoginForm from '../LoginForm/LoginForm';
 
-function Login() {
+function LoginPage() {
   return (
     <section className={styles.loginPage}>
       <Link to='/' className={styles.logo}> </Link>
@@ -13,4 +13,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginPage;

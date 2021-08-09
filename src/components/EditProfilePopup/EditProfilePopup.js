@@ -23,6 +23,14 @@ function EditProfilePopup(props) {
     setEmail(e.target.value);
   }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    props.onUpdateUser({
+      name,
+      email,
+    });
+  }
+
   const popupClassName = cx({
     popup: true,
     popupOpened: props.isPopupOpened,
@@ -32,7 +40,10 @@ function EditProfilePopup(props) {
     <div className={popupClassName}>
       <div className={styles.popupContent}>
         <h3 className={styles.title}>Редактировать профиль</h3>
-        <form name='profile' className={styles.form}>
+        <form
+          name='profile'
+          className={styles.form}
+          onSubmit={handleSubmit}>
           <input
             className={styles.input}
             value={name || ''}
@@ -59,9 +70,17 @@ function EditProfilePopup(props) {
             maxLength='40'
             required />
           <span className={styles.inputError} id='email-error'> </span>
-          <button type='submit' className={styles.submitButton}>Сохранить</button>
+          <button
+            type='submit'
+            className={styles.submitButton}>
+            Сохранить
+          </button>
         </form>
-        <button type='button' className={styles.closeButton} onClick={props.onClose}> </button>
+        <button
+          type='button'
+          className={styles.closeButton}
+          onClick={props.onClose}>
+        </button>
       </div>
     </div>
   );
