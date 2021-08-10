@@ -1,0 +1,149 @@
+@import '../../scss-styles/styles';
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.5s, opacity 0.5s ease-in-out;
+}
+
+.popupOpened {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popupContent {
+  width: 100%;
+  max-width: 430px;
+  min-height: 330px;
+  background-color: white;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  @include Inter400;
+  font-size: 24px;
+  line-height: 29px;
+  margin: 34px 0 54px 36px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input {
+  @include Inter400;
+  border: none;
+  border-bottom: 1px solid $element-grey;
+  max-width: 358px;
+  width: 100%;
+  outline-style: none;
+  padding: 0 0 13px;
+  font-size: 14px;
+  line-height: 1.21;
+
+  &Valid {
+    border-bottom: 1px solid $accent-green;
+  }
+
+  &Invalid {
+    border-bottom: 1px solid $accent-pink;
+  }
+}
+
+.inputError {
+  @include Inter400;
+  width: 100%;
+  height: 24px;
+  color: $accent-pink;
+  font-size: 10px;
+  line-height: 1.2;
+  text-align: left;
+  padding: 6px 0;
+  box-sizing: border-box;
+}
+
+.submitButton {
+  @include button;
+  @include Inter400;
+  max-width: 358px;
+  width: 100%;
+  height: 50px;
+  background-color: $accent-green;
+  border-radius: 2px;
+  color: white;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  border: none;
+  padding: 0;
+  position: absolute;
+  bottom: 36px;
+}
+
+.submitButtonDisabled {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.2);
+}
+
+.closeButton {
+  @include button;
+  width: 56px;
+  height: 56px;
+  background: url('../../images/close-popup.svg') center no-repeat;
+  color: white;
+  background-size: 100%;
+  border: none;
+  position: absolute;
+  top: -48px;
+  right: -48px;
+  padding: 0;
+  margin: 0;
+}
+
+@include atTablet {
+  .popupContent {
+    max-width: 282px;
+    min-height: 322px;
+  }
+
+  .title {
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    margin: 25px 0 75px;
+  }
+
+  .input {
+    max-width: 238px;
+  }
+
+  .submitButton {
+    max-width: 238px;
+    height: 46px;
+    font-size: 14px;
+    line-height: 1.21;
+  }
+
+  .closeButton {
+    right: 0;
+    top: -49px;
+    width: 36px;
+    height: 36px;
+  }
+}

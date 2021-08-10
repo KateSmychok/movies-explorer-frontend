@@ -1,0 +1,179 @@
+@import '../../scss-styles/styles';
+
+.header {
+  width: 100%;
+  margin: 0 auto;
+  padding: 18px 5.5vw;
+  box-sizing: border-box;
+  min-height: 74px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &Landing {
+    background: $dark-grey;
+  }
+
+  &Main {
+    background: $white;
+  }
+}
+
+.leftSide {
+  display: flex;
+}
+
+.logo {
+  @include link;
+  background: url('../../images/logo.svg') no-repeat;
+  width: 38px;
+  height: 38px;
+
+  &Main {
+    padding-right: 44px;
+  }
+}
+
+.buttonsArea {
+  @include Inter500;
+  font-size: 12px;
+  line-height: 1.33;
+  display: flex;
+}
+
+.regButton {
+  background: inherit;
+  color: $white;
+  margin-right: 30px;
+  padding: 8px 0;
+  box-sizing: border-box;
+  @include button;
+}
+
+.authButton {
+  width: 76px;
+  height: 32px;
+  color: $black;
+  background: $accent-green;
+  border-radius: 3px;
+  padding: 8px 0;
+  box-sizing: border-box;
+  @include button;
+}
+
+.navList {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.navItem {
+  padding: 10px 0;
+  margin: 0;
+
+  &:last-child {
+    padding-left: 16px;
+  }
+}
+
+.link {
+  @include link;
+  @include Inter400;
+  color: $black;
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 1.38;
+
+  &:focus {
+    @include Inter500;
+  }
+}
+
+.profileButton {
+  @include button;
+  width: 100px;
+  height: 30px;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profileButtonText {
+  @include Inter500;
+  color: black;
+  font-size: 14px;
+  line-height: 1.14;
+  margin: 0;
+}
+
+.profileButtonIcon {
+  width: 26px;
+  height: 30px;
+  border-radius: 4px;
+  background: $search-grey url('../../images/icon-profile.svg') no-repeat center;
+}
+
+.burgerMenu {
+  @include button;
+  width: 44px;
+  height: 44px;
+  background: url('../../images/burger-menu.svg') center no-repeat;
+  display: none;
+}
+
+@include atDesktop1280 {
+  .header {
+    padding-right: 70px;
+    padding-left: 70px;
+  }
+}
+
+@include atTablet {
+  .header {
+    padding-right: 30px;
+    padding-left: 30px;
+  }
+
+  .navItem {
+    display: none;
+  }
+
+  .profileButton {
+    display: none;
+  }
+
+  .burgerMenu {
+    display: block;
+  }
+}
+
+@include atMobile {
+  .header {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+
+  .buttonsArea {
+    font-size: 10px;
+    line-height: 1.6;
+  }
+
+  .regButton {
+    margin-right: 14px;
+    padding: 5px 0;
+  }
+
+  .authButton {
+    width: 54px;
+    height: 26px;
+    padding: 5px 0;
+  }
+
+  .burgerMenu {
+    width: 40px;
+    height: 43px;
+  }
+}

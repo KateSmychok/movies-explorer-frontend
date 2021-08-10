@@ -1,0 +1,124 @@
+@import '../vendor/fonts/fonts';
+@import 'variables';
+
+@mixin atDesktop1280 {
+  @media screen and (max-width: 1280px + $scroll-width) {
+    @content;
+  }
+}
+
+@mixin atDesktop1024 {
+  @media screen and (max-width: 1024px + $scroll-width) {
+    @content;
+  }
+}
+
+@mixin atTablet {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin atMobileL {
+  @media screen and (max-width: 640px) {
+    @content;
+  }
+}
+
+@mixin atMobileM {
+  @media screen and (max-width: 500px) {
+    @content;
+  }
+}
+
+@mixin atMobile {
+  @media screen and (max-width: 450px) {
+    @content;
+  }
+}
+
+//шрифты
+@mixin Inter400 {
+  font-family: Inter, 'Helvetica', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@mixin Inter500 {
+  font-family: Inter, 'Helvetica', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+}
+
+//ссылка
+@mixin link {
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  text-decoration: none;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+//кнопка
+@mixin button {
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  outline-style: none;
+  border: none;
+  text-decoration: none;
+  text-align: center;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+//заголовки на главной
+@mixin sectionTitle {
+  @include Inter400;
+  font-size: 22px;
+  line-height: 1.23;
+  margin: 0;
+  padding-bottom: 23px;
+  width: 100%;
+  border-bottom: black 1px solid;
+
+  @include atMobile {
+    padding-bottom: 28px;
+  }
+}
+
+@mixin mainTitle {
+  @include Inter400;
+  text-align: center;
+  font-size: 50px;
+  line-height: 1.16;
+  letter-spacing: -0.04em;
+}
+
+@mixin text {
+  @include Inter400;
+  font-size: 14px;
+  line-height: 1.43;
+}
+
+@mixin footer-text {
+  @include Inter400;
+  font-size: 13px;
+  line-height: 1.23;
+}
+
+@mixin about-project-text {
+  font-size: 14px;
+  line-height: 1.21;
+  text-align: center;
+  padding: 9px 0;
+  margin: 0;
+
+  @include atMobile {
+    font-size: 11px;
+    padding: 11px 0;
+  }
+}

@@ -1,0 +1,137 @@
+@import '../../scss-styles/styles';
+
+@keyframes move {
+  from {
+    visibility: hidden;
+    opacity: 0;
+    right: -520px;
+    top: 0;
+  }
+  to {
+    visibility: visible;
+    opacity: 1;
+    right: 0;
+    top: 0;
+  }
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: flex-end;
+  visibility: hidden;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.popupOpened {
+  visibility: visible;
+  opacity: 1;
+  animation: move 0.3s ease-in;
+}
+
+.popupContent {
+  width: calc(min(68%, 520px));
+  height: 100vh;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.navBar {
+  width: 340px;
+  padding: 159px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.navItem {
+  padding-bottom: 24px;
+
+  &:last-of-type {
+    padding-bottom: 0;
+  }
+}
+
+.link {
+  @include link;
+  @include Inter500;
+  color: $black;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 1.22;
+  padding-bottom: 4px;
+
+  &:hover {
+    border-bottom: 2px solid black;
+  }
+}
+
+.profileButton {
+  @include button;
+  position: fixed;
+  bottom: 92px;
+  width: 100px;
+  height: 30px;
+  padding: 0;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profileButtonText {
+  @include Inter500;
+  color: black;
+  font-size: 14px;
+  line-height: 1.14;
+  margin: 0;
+}
+
+.profileButtonIcon {
+  width: 26px;
+  height: 30px;
+  border-radius: 4px;
+  background: $search-grey url('../../images/icon-profile.svg') no-repeat center;
+}
+
+.closeButton {
+  @include button;
+  width: 22px;
+  height: 22px;
+  background: url('../../images/close-nav-popup.svg') center no-repeat;
+  border: none;
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  padding: 0;
+  margin: 0;
+}
+
+@include atMobile {
+  .popupContent {
+    width: 100%;
+  }
+
+  .profileButton {
+    bottom: 48px;
+  }
+}

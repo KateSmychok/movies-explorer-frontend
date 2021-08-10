@@ -1,0 +1,57 @@
+@import '../../../scss-styles/styles';
+
+.promo {
+  width: 100%;
+  height: 40vw;
+  min-height: 524px;
+  box-sizing: border-box;
+  background: $dark-grey;
+  padding-top: 82px;
+}
+
+.background {
+  width: 100%;
+  height: calc(max(320px, 25vw));
+  background: url('../../../images/main-banner.svg') no-repeat center;
+  background-size: calc(max(320px, 25vw));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mainTitle {
+  @include Inter400;
+  @include mainTitle;
+  max-width: 770px;
+  color: $white;
+  margin: 0;
+}
+
+@include atTablet {
+  .promo {
+    height: 102vw;
+    min-height: 784px;
+    padding-top: 224px;
+  }
+
+  .mainTitle {
+    font-size: calc(min(50px, 6.5vw));
+  }
+}
+
+@include atMobile {
+  .promo {
+    height: 178vw;
+    min-height: 570px;
+    padding-top: 142px;
+  }
+
+  .background {
+    background-size: 248px;
+  }
+
+  .mainTitle {
+    font-size: 31px;
+    line-height: 1.26;
+  }
+}

@@ -1,0 +1,135 @@
+@import '../../../scss-styles/styles';
+
+.aboutMe {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 110px 70px 100px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.sectionTitle {
+  @include sectionTitle;
+}
+
+.mainTitle {
+  @include mainTitle;
+  text-align: left;
+  padding: 66px 0 18px;
+  margin: 0;
+}
+
+.subtitle {
+  @include Inter500;
+  font-size: 18px;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.text {
+  @include Inter400;
+  width: 47%;
+  max-width: 600px;
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 26px 0 99px;
+  margin: 0;
+}
+
+.contactsArea {
+  display: flex;
+}
+
+.contact {
+  @include Inter500;
+  @include link;
+  font-size: 14px;
+  line-height: 1.21;
+  color: $black;
+  padding-right: 20px;
+
+  &:last-of-type {
+    padding-right: 0;
+  }
+}
+
+.photo {
+  width: 270px;
+  height: 327px;
+  border-radius: 10px;
+  background: url('../../../images/Photo.jpg');
+  background-size: 100%;
+  position: absolute;
+  right: 70px;
+  top: 227px;
+}
+
+@include atTablet {
+  .aboutMe {
+    padding: 90px 50px;
+  }
+
+  .mainTitle {
+    padding-bottom: 16px;
+    font-size: 40px;
+    line-height: 1;
+  }
+
+  .subtitle {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .text {
+    max-width: 364px;
+    font-size: 12px;
+    line-height: 1.5;
+    padding: 20px 0 87px;
+  }
+
+  .photo {
+    width: 255px;
+    height: 307px;
+    right: 50px;
+    top: 207px;
+  }
+}
+
+@include atMobileL {
+  .aboutMe {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mainTitle {
+    padding: 0 0 20px;
+    font-size: 30px;
+    line-height: 1.2;
+  }
+
+  .subtitle {
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  .text {
+    width: 100%;
+    font-size: 11px;
+    line-height: 1.45;
+    padding-bottom: 40px;
+  }
+
+  .photo {
+    position: static;
+    width: 292px;
+    height: 352px;
+    margin: 60px 0 40px;
+  }
+}
+
+@include atMobile {
+  .aboutMe {
+    padding: 70px 14px;
+  }
+}
