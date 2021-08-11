@@ -1,27 +1,15 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
 import cn from 'classnames/bind';
-import styles from './LoginForm.module.scss';
+import styles from './Login.module.scss';
+import { LoginSchema } from '../../utils/constants';
 
 const cx = cn.bind(styles);
 
-const LoginSchema = Yup.object().shape({
-  email: Yup.string()
-    .email('Невалидный email')
-    .min(6, 'Минимальная длина - 6 символов')
-    .max(40, 'Максимальная длина - 40 символов')
-    .required('Поле обязательно должно быть заполнено'),
-  password: Yup.string()
-    .min(6, 'Минимальная длина - 6 символов')
-    .max(15, 'Максимальная длина - 15 символов')
-    .required('Поле обязательно должно быть заполнено'),
-});
-
-function LoginForm() {
+function Login(props) {
   return (
-    <div>
+    <div className={styles.loginPage}>
       <Formik
         initialValues={{
           email: '',
@@ -31,7 +19,10 @@ function LoginForm() {
         validationSchema={LoginSchema}
 
         onSubmit={ (values) => {
-          console.log(values);
+          props.onSubmit({
+            email: values.email,
+            password: values.password,
+          });
         }}
       >
         {({
@@ -41,6 +32,8 @@ function LoginForm() {
           isValid,
         }) => (
           <Form className={styles.form}>
+            <Link to='/' className={styles.logo}> </Link>
+            <h2 className={styles.greeting}>Рады видеть!</h2>
             <label className={styles.label} htmlFor='email'>E-mail</label>
             <Field
               name='email'
@@ -93,4 +86,4 @@ function LoginForm() {
   );
 }
 
-export default LoginForm;
+export default Login;

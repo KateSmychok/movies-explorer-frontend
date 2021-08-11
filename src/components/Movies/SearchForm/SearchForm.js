@@ -11,7 +11,7 @@ const SearchSchema = Yup.object().shape({
     .required('Нужно ввести ключевое слово для поиска'),
 });
 
-function SearchForm() {
+function SearchForm(props) {
   return (
     <div>
       <Formik
@@ -22,7 +22,9 @@ function SearchForm() {
         validationSchema={SearchSchema}
 
         onSubmit={ (values) => {
-          console.log(values);
+          props.onStartSearch({
+            keyword: values.keyword,
+          });
         }}
       >
         {({

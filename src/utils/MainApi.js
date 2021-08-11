@@ -2,7 +2,7 @@ class Api {
   constructor(config) {
     this._url = config.url;
     this._headers = config.headers;
-  };
+  }
 
   _checkResponse = (res) => {
     if (res.ok) {
@@ -11,8 +11,7 @@ class Api {
     return Promise.reject(new Error(`Ошибка ${res.status}`));
   };
 
-  register = (name, email, password) =>
-    fetch(`${this._url}/signup`, {
+  register = (name, email, password) => fetch(`${this._url}/signup`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -20,78 +19,73 @@ class Api {
     body: JSON.stringify({
       name,
       email,
-      password
+      password,
     }),
   })
     .then(this._checkResponse);
 
-  login = (email, password) =>
-    fetch(`${this._url}/signin`, {
+  login = (email, password) => fetch(`${this._url}/signin`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       email,
-      password
+      password,
     }),
   })
     .then(this._checkResponse)
     .then((data) => {
       if (data.token) {
         localStorage.setItem('token', data.token);
-        return data;
       }
+      return data;
     });
 
-  getUserInfo = () =>
-    fetch(`${this._url}/users/me`, {
+  getUserInfo = () => fetch(`${this._url}/users/me`, {
     method: 'GET',
     headers: this._headers,
   })
     .then(this._checkResponse);
 
-  updateUserInfo = (name, email) =>
-    fetch(`${this._url}/users/me`, {
-      method: 'PATCH',
-      headers: this._headers,
-      body: JSON.stringify({
-        name,
-        email,
-      }),
-    })
-      .then(this._checkResponse);
+  updateUserInfo = (name, email) => fetch(`${this._url}/users/me`, {
+    method: 'PATCH',
+    headers: this._headers,
+    body: JSON.stringify({
+      name,
+      email,
+    }),
+  })
+    .then(this._checkResponse);
 
-  getSavedMovies = () =>
-    fetch(`${this._url}/movies`, {
-      method: 'GET',
-      headers: this._headers,
-    })
-      .then(this._checkResponse);
+  getSavedMovies = () => fetch(`${this._url}/movies`, {
+    method: 'GET',
+    headers: this._headers,
+  })
+    .then(this._checkResponse);
 
   saveMovie = (
     nameRU,
     image,
     trailerLink,
-    duration
+    duration,
   ) => fetch(`${this._url}/movies`, {
-      method: 'POST',
-      headers: this._headers,
-      body: JSON.stringify({
-        nameRU,
-        image,
-        trailerLink,
-        duration
-      }),
-    })
-      .then(this._checkResponse);
+    method: 'POST',
+    headers: this._headers,
+    body: JSON.stringify({
+      nameRU,
+      image,
+      trailerLink,
+      duration,
+    }),
+  })
+    .then(this._checkResponse);
 
-  deleteMovieFromSaved = (movieId) =>
-    fetch(`${this._url}/movies/${movieId}`, {
-      method: 'DELETE',
-      headers: this._headers,
-    })
-      .then(this._checkResponse);
+  deleteMovieFromSaved = (movieId) => fetch(`${this._url}/movies/${movieId}`, {
+    method: 'DELETE',
+    headers: this._headers,
+  })
+    .then(this._checkResponse);
 }
 
 const api = new Api({

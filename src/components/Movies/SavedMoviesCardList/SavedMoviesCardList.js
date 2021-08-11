@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './SavedMoviesCardList.module.scss';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import api from '../../../utils/api';
+import api from '../../../utils/MainApi';
 
 function SavedMoviesCardList() {
   const [movies, setMovies] = React.useState([]);
@@ -9,7 +9,7 @@ function SavedMoviesCardList() {
   React.useEffect(() => {
     api.getSavedMovies()
       .then((data) => {
-        setMovies(data.data);
+        console.log(data);
       });
   }, []);
 

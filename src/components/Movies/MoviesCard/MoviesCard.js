@@ -22,17 +22,26 @@ function MoviesCard(props) {
     setMovieIsSaved(!movieIsSaved);
   };
 
+  const minToHours = (min) => {
+    const hours = Math.trunc(min / 60);
+    const minutes = min % 60;
+    if (min < 60) {
+      return `${min} мин.`;
+    }
+    return `${hours} ч. ${minutes} мин.`;
+  };
+
   return (
     <article className={styles.card}>
       <div className={styles.info}>
         <h2 className={styles.title}>
-          {props.card.title}
+          {props.card.nameRU}
         </h2>
         <p className={styles.duration}>
-          {props.card.duration}
+          {minToHours(props.card.duration)}
         </p>
       </div>
-      <img className={styles.image} src={props.card.image} alt='Превью' />
+      <img className={styles.image} src={`https://api.nomoreparties.co${props.card.image.url}`} alt='Превью' />
       <div className={styles.saveButtonArea}>
         <button
           className={buttonClassName}

@@ -1,35 +1,28 @@
 import React from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
 import cn from 'classnames/bind';
-import styles from './RegisterForm.module.scss';
+import styles from './Register.module.scss';
+import api from '../../utils/MainApi';
+import InfoToolTip from '../InfoToolTip/InfoTooltip';
+import { RegisterSchema } from '../../utils/constants';
 
 const cx = cn.bind(styles);
 
-const RegisterSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(2, 'Минимальная длина - 2 символа')
-    .max(30, 'Максимальная длина - 30 символов')
-    .required('Поле обязательно должно быть заполнено')
-    .matches(/^[а-яА-ЯёЁa-zA-Z0-9_-]+$/,
-      'Допустимые символы: буквы, цифры, дефис, нижнее подчёркивание'),
-  email: Yup.string()
-    .email('Невалидный email')
-    .min(6, 'Минимальная длина - 6 символов')
-    .max(40, 'Максимальная длина - 40 символов')
-    .required('Поле обязательно должно быть заполнено'),
-  password: Yup.string()
-    .min(6, 'Минимальная длина - 6 символов')
-    .max(15, 'Максимальная длина - 15 символов')
-    .required('Поле обязательно должно быть заполнено'),
-});
-
-function RegisterForm() {
+function Register() {
+  const [isInfoToolTipOpened, setIsInfoToolTipOpened] = React.useState(false);
+  const [isSuccess, setIsSuccess] = React.useState(true);
   const history = useHistory();
 
+  const closeInfoToolTip = () => {
+    setIsInfoToolTipOpened(false);
+    if (isSuccess) {
+      history.push('/signin');
+    }
+  };
+
   return (
-  <div>
+  <div className={styles.registerPage}>
     <Formik
       initialValues={{
         name: '',
@@ -40,8 +33,20 @@ function RegisterForm() {
       validationSchema={RegisterSchema}
 
       onSubmit={ (values) => {
-        console.log(values);
-        history.push('/signin');
+        api.register(
+          values.name,
+          values.email,
+          values.password,
+        )
+          .then((res) => {
+            if (res) {
+              setIsSuccess(true);
+              setIsInfoToolTipOpened(true);
+            } else {
+              setIsSuccess(false);
+              setIsInfoToolTipOpened(true);
+            }
+          });
       }}
     >
       {({
@@ -51,6 +56,8 @@ function RegisterForm() {
         isValid,
       }) => (
         <Form className={styles.form}>
+          <Link to='/' className={styles.logo}> </Link>
+          <h2 className={styles.greeting}>Добро пожаловать!</h2>
           <label className={styles.label} htmlFor='name'>Имя</label>
           <Field
             name='name'
@@ -114,8 +121,12 @@ function RegisterForm() {
         </Form>
       )}
     </Formik>
+    <InfoToolTip
+      isOpened={isInfoToolTipOpened}
+      isSuccess={isSuccess}
+      onClose={closeInfoToolTip} />
   </div>
   );
 }
 
-export default RegisterForm;
+export default Register;

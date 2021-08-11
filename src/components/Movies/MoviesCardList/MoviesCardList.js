@@ -1,25 +1,39 @@
 import React from 'react';
-import styles from './MoviesCardList.module.scss';
+import cn from 'classnames/bind';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import api from '../../../utils/api';
+import styles from './MoviesCardList.module.scss';
+import getMovies from '../../../utils/MoviesApi';
+import SearchForm from '../SearchForm/SearchForm';
 
-function MoviesCardList() {
-  const [movies, setMovies] = React.useState([]);
+const cx = cn.bind(styles);
 
-  React.useEffect(() => {
-    api.getMovies()
-      .then((data) => {
-        setMovies(data.data);
+function MoviesCardList(props) {
+  const [hasResult, setHasResult] = React.useState(false);
+  const [filteredMovies, setFilteredMovies] = React.useState([]);
+
+  function handleStartSearch({ keyword }) {
+    getMovies()
+      .then((allMovies) => {
+        setFilteredMovies(
+          allMovies.filter((item) => item.nameRU
+            .toLowerCase()
+            .indexOf(keyword.toLowerCase()) > -1),
+        );
+        console.log(filteredMovies);
+      })
+      .catch((err) => {
+        console.log(err);
       });
-  }, []);
+  }
 
   return (
     <section className={styles.cardListSection}>
+      <SearchForm onStartSearch={handleStartSearch} />
       <ul className={styles.cardList}>
-        {movies.map((card) => <MoviesCard card={card} key={card._id} />)}
+        {filteredMovies.map((card) => <MoviesCard card={card} key={card.id} />)}
       </ul>
       <div className={styles.loadMoreSection}>
-        <button className={styles.loadMoreButton}>
+        <button type='button' className={styles.loadMoreButton}>
           Ещё
         </button>
       </div>

@@ -1,76 +1,31 @@
-const cardSamples = [
-  {
-    _id: 1,
-    title: 'В погоне за Бенкси',
-    duration: '27 минут',
-    image: 'http://www.anewhopewebzine.it/wp-content/uploads/2015/03/Martha-Cooper-photography-nyc-oldskull-0-1024x703.jpeg',
-  },
-  {
-    _id: 2,
-    title: 'В погоне за Бенкси',
-    duration: '27 минут',
-    image: 'http://www.anewhopewebzine.it/wp-content/uploads/2015/03/Martha-Cooper-photography-nyc-oldskull-0-1024x703.jpeg',
-  },
-  {
-    _id: 3,
-    title: 'В погоне за Бенкси',
-    duration: '27 минут',
-    image: 'http://www.anewhopewebzine.it/wp-content/uploads/2015/03/Martha-Cooper-photography-nyc-oldskull-0-1024x703.jpeg',
-  },
-  {
-    _id: 4,
-    title: 'В погоне за Бенкси',
-    duration: '27 минут',
-    image: 'http://www.anewhopewebzine.it/wp-content/uploads/2015/03/Martha-Cooper-photography-nyc-oldskull-0-1024x703.jpeg',
-  },
-  {
-    _id: 5,
-    title: 'В погоне за Бенкси',
-    duration: '27 минут',
-    image: 'http://www.anewhopewebzine.it/wp-content/uploads/2015/03/Martha-Cooper-photography-nyc-oldskull-0-1024x703.jpeg',
-  },
-  {
-    _id: 6,
-    title: 'В погоне за Бенкси',
-    duration: '27 минут',
-    image: 'http://www.anewhopewebzine.it/wp-content/uploads/2015/03/Martha-Cooper-photography-nyc-oldskull-0-1024x703.jpeg',
-  },
-  {
-    _id: 7,
-    title: 'В погоне за Бенкси',
-    duration: '27 минут',
-    image: 'http://www.anewhopewebzine.it/wp-content/uploads/2015/03/Martha-Cooper-photography-nyc-oldskull-0-1024x703.jpeg',
-  },
-  {
-    _id: 8,
-    title: 'В погоне за Бенкси',
-    duration: '27 минут',
-    image: 'http://www.anewhopewebzine.it/wp-content/uploads/2015/03/Martha-Cooper-photography-nyc-oldskull-0-1024x703.jpeg',
-  },
-  {
-    _id: 9,
-    title: 'В погоне за Бенкси',
-    duration: '27 минут',
-    image: 'http://www.anewhopewebzine.it/wp-content/uploads/2015/03/Martha-Cooper-photography-nyc-oldskull-0-1024x703.jpeg',
-  },
-  {
-    _id: 10,
-    title: 'В погоне за Бенкси',
-    duration: '27 минут',
-    image: 'http://www.anewhopewebzine.it/wp-content/uploads/2015/03/Martha-Cooper-photography-nyc-oldskull-0-1024x703.jpeg',
-  },
-  {
-    _id: 11,
-    title: 'В погоне за Бенкси',
-    duration: '27 минут',
-    image: 'http://www.anewhopewebzine.it/wp-content/uploads/2015/03/Martha-Cooper-photography-nyc-oldskull-0-1024x703.jpeg',
-  },
-  {
-    _id: 12,
-    title: 'В погоне за Бенкси',
-    duration: '27 минут',
-    image: 'http://www.anewhopewebzine.it/wp-content/uploads/2015/03/Martha-Cooper-photography-nyc-oldskull-0-1024x703.jpeg',
-  },
-];
+import * as Yup from 'yup';
 
-export default cardSamples;
+export const RegisterSchema = Yup.object().shape({
+  name: Yup.string()
+    .min(2, 'Минимальная длина - 2 символа')
+    .max(30, 'Максимальная длина - 30 символов')
+    .required('Поле обязательно должно быть заполнено')
+    .matches(/^[а-яА-ЯёЁa-zA-Z0-9_-]+$/,
+      'Допустимые символы: буквы, цифры, дефис, нижнее подчёркивание'),
+  email: Yup.string()
+    .email('Невалидный email')
+    .min(6, 'Минимальная длина - 6 символов')
+    .max(40, 'Максимальная длина - 40 символов')
+    .required('Поле обязательно должно быть заполнено'),
+  password: Yup.string()
+    .min(6, 'Минимальная длина - 6 символов')
+    .max(15, 'Максимальная длина - 15 символов')
+    .required('Поле обязательно должно быть заполнено'),
+});
+
+export const LoginSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Невалидный email')
+    .min(6, 'Минимальная длина - 6 символов')
+    .max(40, 'Максимальная длина - 40 символов')
+    .required('Поле обязательно должно быть заполнено'),
+  password: Yup.string()
+    .min(6, 'Минимальная длина - 6 символов')
+    .max(15, 'Максимальная длина - 15 символов')
+    .required('Поле обязательно должно быть заполнено'),
+});
