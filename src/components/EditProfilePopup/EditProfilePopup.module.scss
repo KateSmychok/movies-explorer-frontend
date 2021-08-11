@@ -1,6 +1,6 @@
 @import '../../scss-styles/styles';
 
-.popup {
+.overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -15,12 +15,12 @@
   transition: visibility 0.5s, opacity 0.5s ease-in-out;
 }
 
-.popupOpened {
+.opened {
   visibility: visible;
   opacity: 1;
 }
 
-.popupContent {
+.content {
   width: 100%;
   max-width: 430px;
   min-height: 330px;
@@ -35,7 +35,7 @@
 .title {
   @include Inter400;
   font-size: 24px;
-  line-height: 29px;
+  line-height: 1.2;
   margin: 34px 0 54px 36px;
 }
 
@@ -117,7 +117,7 @@
 }
 
 @include atTablet {
-  .popupContent {
+  .content {
     max-width: 282px;
     min-height: 322px;
   }
@@ -126,7 +126,7 @@
     font-size: 18px;
     line-height: 22px;
     text-align: center;
-    margin: 25px 0 75px;
+    padding: 25px 0 75px;
   }
 
   .input {

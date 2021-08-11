@@ -32,13 +32,13 @@ function EditProfilePopup(props) {
   }
 
   const popupClassName = cx({
-    popup: true,
-    popupOpened: props.isPopupOpened,
+    overlay: true,
+    opened: props.isPopupOpened,
   });
 
   return (
     <div className={popupClassName}>
-      <div className={styles.popupContent}>
+      <div className={styles.content}>
         <h3 className={styles.title}>Редактировать профиль</h3>
         <form
           name='profile'
