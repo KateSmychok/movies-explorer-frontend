@@ -25,7 +25,7 @@ function EditProfilePopup(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.onUpdateUser({
+    props.onSubmit({
       name,
       email,
     });
@@ -33,7 +33,7 @@ function EditProfilePopup(props) {
 
   const popupClassName = cx({
     overlay: true,
-    opened: props.isPopupOpened,
+    opened: props.isEditPopupOpened,
   });
 
   return (

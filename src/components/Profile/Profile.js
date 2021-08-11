@@ -5,23 +5,8 @@ import styles from './Profile.module.scss';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import EditProfilePopup from '../EditProfilePopup/EditProfilePopup';
 
-function Profile() {
+function Profile(props) {
   const user = React.useContext(CurrentUserContext);
-  const [isPopupOpened, setIsPopupOpened] = React.useState(false);
-
-  const handleEditButtonClick = () => {
-    setIsPopupOpened(true);
-  };
-
-  const handleCloseButtonClick = () => {
-    setIsPopupOpened(false);
-  };
-
-  const handleUpdateUser = ({ name, email }) => {
-    user.name = name;
-    user.email = email;
-    setIsPopupOpened(false);
-  };
 
   return (
     <>
@@ -43,20 +28,16 @@ function Profile() {
           <button
             type='button'
             className={cn(styles.button, styles.buttonEdit)}
-            onClick={handleEditButtonClick}>
+            onClick={props.onEditButtonClick}>
             Редактировать
           </button>
-          <Link
-            to='/signin'
-            className={cn(styles.button, styles.buttonSignOut)}>
+          <button
+            className={cn(styles.button, styles.buttonSignOut)}
+            onClick={props.onSignOut}>
             Выйти из аккаунта
-          </Link>
+          </button>
         </div>
       </section>
-      <EditProfilePopup
-        isPopupOpened={isPopupOpened}
-        onClose={handleCloseButtonClick}
-        onUpdateUser={handleUpdateUser}/>
     </>
   );
 }

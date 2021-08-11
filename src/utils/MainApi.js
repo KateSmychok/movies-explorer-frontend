@@ -42,9 +42,12 @@ class Api {
       return data;
     });
 
-  getUserInfo = () => fetch(`${this._url}/users/me`, {
+  getUserInfo = (token) => fetch(`${this._url}/users/me`, {
     method: 'GET',
-    headers: this._headers,
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
   })
     .then(this._checkResponse);
 

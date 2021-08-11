@@ -9,7 +9,7 @@ import { RegisterSchema } from '../../utils/constants';
 
 const cx = cn.bind(styles);
 
-function Register() {
+function Register(props) {
   const [isInfoToolTipOpened, setIsInfoToolTipOpened] = React.useState(false);
   const [isSuccess, setIsSuccess] = React.useState(true);
   const history = useHistory();
@@ -17,7 +17,7 @@ function Register() {
   const closeInfoToolTip = () => {
     setIsInfoToolTipOpened(false);
     if (isSuccess) {
-      history.push('/signin');
+      history.push('/movies');
     }
   };
 
@@ -38,14 +38,21 @@ function Register() {
           values.email,
           values.password,
         )
-          .then((res) => {
-            if (res) {
+          .then((data) => {
+            if (data) {
               setIsSuccess(true);
               setIsInfoToolTipOpened(true);
             } else {
               setIsSuccess(false);
               setIsInfoToolTipOpened(true);
             }
+            return data;
+          })
+          .then((data) => {
+            props.onSubmit({
+              email: data.email,
+              password: data.password,
+            });
           });
       }}
     >

@@ -12,37 +12,93 @@ import Login from '../Login/Login';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import NavigationPopup from '../NavigationPopup/NavigationPopup';
 import api from '../../utils/MainApi';
+import EditProfilePopup from '../EditProfilePopup/EditProfilePopup';
 
 function App() {
   const [user, setUser] = React.useState({});
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [isNavigationPopupOpened, setIsNavigationPopupOpened] = React.useState(false);
+  const [isEditPopupOpened, setIsEditPopupOpened] = React.useState(false);
   const history = useHistory();
 
+  // Получение инфо о юзере при закрытии страницы и повторном входе
+  React.useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      api.getUserInfo(token)
+        .then((userInfo) => {
+          if (userInfo) {
+            setUser(userInfo);
+            setLoggedIn(true);
+            history.push('/movies');
+          }
+        });
+    }
+  }, []);
+
+  // Авторизация
+  const handleLogin = ({ email, password }) => {
+    api.login(email, password)
+      .then((data) => {
+        if (data.token) {
+          api.getUserInfo(data.token)
+            .then((userInfo) => {
+              setUser(userInfo);
+            })
+            .then(() => {
+              setTimeout(() => {
+                setLoggedIn(true);
+                history.push('/movies');
+              }, 500);
+            })
+            .catch((err) => console.log(err));
+        }
+      });
+  };
+
+  // Открытие попапа редактирования профиля
+  const handleEditButtonClick = () => {
+    setIsEditPopupOpened(true);
+  };
+
+  // Открытие навбара
   const handleBurgerMenuClick = () => {
     setIsNavigationPopupOpened(true);
   };
 
+  // Клик по любой ссылке навбара
   const handleNavigationLinkClick = () => {
     setIsNavigationPopupOpened(false);
   };
 
-  const handleCloseButtonClick = () => {
+  // Закрыть любой попап
+  const closeAllPopups = () => {
     setIsNavigationPopupOpened(false);
+    setIsEditPopupOpened(false);
   };
 
-  const handleLogin = ({ email, password }) => {
-    api.login(
-      email,
-      password,
-    )
-      .then((data) => {
-        if (data.token) {
-          setLoggedIn(true);
-          history.push('/movies');
-        }
+  // Обновление профиля
+  const handleUpdateUser = ({ name, email }) => {
+    api.updateUserInfo(name, email)
+      .then((userInfo) => {
+        setUser(userInfo);
+        closeAllPopups();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // Выход
+  const handleSignOut = () => {
+    localStorage.clear();
+    setUser({
+      name: '',
+      email: '',
+      password: '',
+    });
+    setLoggedIn(false);
+    history.push('/signin');
   };
 
   return (
@@ -60,10 +116,12 @@ function App() {
             <SavedMoviesPage />
           </Route>
           <Route path='/profile'>
-            <Profile />
+            <Profile
+              onEditButtonClick={handleEditButtonClick}
+              onSignOut={handleSignOut}/>
           </Route>
           <Route path='/signup'>
-            <Register />
+            <Register onSubmit={handleLogin} />
           </Route>
           <Route path='/signin'>
             <Login onSubmit={handleLogin} />
@@ -86,7 +144,12 @@ function App() {
         <NavigationPopup
           isNavigationPopupOpened={isNavigationPopupOpened}
           onLinkClick={handleNavigationLinkClick}
-          onClose={handleCloseButtonClick}
+          onClose={closeAllPopups}
+        />
+        <EditProfilePopup
+          isEditPopupOpened={isEditPopupOpened}
+          onClose={closeAllPopups}
+          onSubmit={handleUpdateUser}
         />
       </div>
     </CurrentUserContext.Provider>
