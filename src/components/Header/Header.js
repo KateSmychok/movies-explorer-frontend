@@ -4,6 +4,12 @@ import cn from 'classnames';
 import styles from './Header.module.scss';
 
 function Header(props) {
+  const path = () => {
+    if (localStorage.getItem('token')) {
+      return '/movies';
+    }
+    return '/signin';
+  };
   return (
     <Switch>
       <Route exact path='/'>
@@ -11,7 +17,7 @@ function Header(props) {
           <Link to="/" className={styles.logo}> </Link>
           <div className={styles.buttonsArea}>
             <Link to="/signup" className={styles.regButton}>Регистрация</Link>
-            <Link to="/signin" className={styles.authButton}>Войти</Link>
+            <Link to={path} className={styles.authButton}>Войти</Link>
           </div>
         </div>
       </Route>
