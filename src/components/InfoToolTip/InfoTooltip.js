@@ -7,7 +7,7 @@ const cx = cn.bind(styles);
 function InfoToolTip(props) {
   function successOrFail() {
     let text;
-    if (props.isSuccess) {
+    if (props.isRegSuccess) {
       text = 'Вы успешно зарегистрировались!';
     } else {
       text = 'Что-то пошло не так! Попробуйте ещё раз.';
@@ -23,8 +23,8 @@ function InfoToolTip(props) {
       <div className={styles.content}>
         <div className={cx({
           image: true,
-          imageSuccess: props.isSuccess,
-          imageFail: !props.isSuccess,
+          imageSuccess: props.isRegSuccess,
+          imageFail: !props.isRegSuccess,
         })}> </div>
         <h3 className={styles.caption}>{successOrFail()}</h3>
         <button type='button' className={styles.closeButton} onClick={props.onClose}> </button>

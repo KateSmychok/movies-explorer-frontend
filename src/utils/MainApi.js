@@ -42,7 +42,7 @@ class Api {
       return data;
     });
 
-  getUserInfo = (token) => fetch(`${this._url}/users/me`, {
+  getCurrentUser = (token) => fetch(`${this._url}/users/me`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ class Api {
   })
     .then(this._checkResponse);
 
-  updateUserInfo = (name, email) => fetch(`${this._url}/users/me`, {
+  updateCurrentUser = (name, email) => fetch(`${this._url}/users/me`, {
     method: 'PATCH',
     headers: this._headers,
     body: JSON.stringify({

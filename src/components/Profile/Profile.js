@@ -1,9 +1,7 @@
 import React from 'react';
 import cn from 'classnames';
-import { Link } from 'react-router-dom';
 import styles from './Profile.module.scss';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
-import EditProfilePopup from '../EditProfilePopup/EditProfilePopup';
 
 function Profile(props) {
   const user = React.useContext(CurrentUserContext);

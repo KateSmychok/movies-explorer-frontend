@@ -43,7 +43,7 @@ function Header(props) {
           <button
             className={styles.burgerMenu}
             type='button'
-            onClick={props.onClick}>
+            onClick={props.onBurgerMenuClick}>
           </button>
         </div>
       </Route>
@@ -69,7 +69,7 @@ function Header(props) {
           <button
             className={styles.burgerMenu}
             type='button'
-            onClick={props.onClick}>
+            onClick={props.onBurgerMenuClick}>
           </button>
         </div>
       </Route>
@@ -95,7 +95,7 @@ function Header(props) {
           <button
             className={styles.burgerMenu}
             type='button'
-            onClick={props.onClick}>
+            onClick={props.onBurgerMenuClick}>
           </button>
         </div>
       </Route>

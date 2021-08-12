@@ -13,19 +13,22 @@ import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import NavigationPopup from '../NavigationPopup/NavigationPopup';
 import api from '../../utils/MainApi';
 import EditProfilePopup from '../EditProfilePopup/EditProfilePopup';
+import InfoToolTip from "../InfoToolTip/InfoTooltip";
 
 function App() {
   const [user, setUser] = React.useState({});
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [isNavigationPopupOpened, setIsNavigationPopupOpened] = React.useState(false);
   const [isEditPopupOpened, setIsEditPopupOpened] = React.useState(false);
+  const [isInfoToolTipOpened, setIsInfoToolTipOpened] = React.useState(false);
+  const [isRegSuccess, setIsRegSuccess] = React.useState(true);
   const history = useHistory();
 
   // Получение инфо о юзере при закрытии страницы и повторном входе
   React.useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      api.getUserInfo(token)
+      api.getCurrentUser(token)
         .then((userInfo) => {
           if (userInfo) {
             setUser(userInfo);
@@ -41,7 +44,7 @@ function App() {
     api.login(email, password)
       .then((data) => {
         if (data.token) {
-          api.getUserInfo(data.token)
+          api.getCurrentUser(data.token)
             .then((userInfo) => {
               setUser(userInfo);
             })
@@ -54,6 +57,38 @@ function App() {
             .catch((err) => console.log(err));
         }
       });
+  };
+
+  // Регистрация
+  const handleRegister = ({ name, email, password }) => {
+    api.register(
+      name,
+      email,
+      password,
+    )
+      .then((data) => {
+        if (data) {
+          setIsRegSuccess(true);
+          setIsInfoToolTipOpened(true);
+        } else {
+          setIsRegSuccess(false);
+          setIsInfoToolTipOpened(true);
+        }
+        return data;
+      })
+      .then((data) => {
+        setUser(data);
+        setLoggedIn(true);
+        history.push('/movies');
+      });
+  };
+
+  // Закрытие попапа об успешной/неудачной регистрации
+  const closeInfoToolTip = () => {
+    setIsInfoToolTipOpened(false);
+    if (isRegSuccess) {
+      history.push('/movies');
+    }
   };
 
   // Открытие попапа редактирования профиля
@@ -79,7 +114,7 @@ function App() {
 
   // Обновление профиля
   const handleUpdateUser = ({ name, email }) => {
-    api.updateUserInfo(name, email)
+    api.updateCurrentUser(name, email)
       .then((userInfo) => {
         setUser(userInfo);
         closeAllPopups();
@@ -104,7 +139,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={user}>
       <div className="page">
-        <Header onClick={handleBurgerMenuClick} />
+        <Header onBurgerMenuClick={handleBurgerMenuClick} />
         <Switch>
           <Route exact path='/'>
             <MainPage />
@@ -121,7 +156,7 @@ function App() {
               onSignOut={handleSignOut}/>
           </Route>
           <Route path='/signup'>
-            <Register onSubmit={handleLogin} />
+            <Register onSubmit={handleRegister} />
           </Route>
           <Route path='/signin'>
             <Login onSubmit={handleLogin} />
@@ -150,6 +185,11 @@ function App() {
           isEditPopupOpened={isEditPopupOpened}
           onClose={closeAllPopups}
           onSubmit={handleUpdateUser}
+        />
+        <InfoToolTip
+          isOpened={isInfoToolTipOpened}
+          isRegSuccess={isRegSuccess}
+          onClose={closeInfoToolTip}
         />
       </div>
     </CurrentUserContext.Provider>

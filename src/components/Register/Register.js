@@ -1,26 +1,12 @@
 import React from 'react';
-import { useHistory, Link } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
 import cn from 'classnames/bind';
 import styles from './Register.module.scss';
-import api from '../../utils/MainApi';
-import InfoToolTip from '../InfoToolTip/InfoTooltip';
 import { RegisterSchema } from '../../utils/constants';
 
 const cx = cn.bind(styles);
 
 function Register(props) {
-  const [isInfoToolTipOpened, setIsInfoToolTipOpened] = React.useState(false);
-  const [isSuccess, setIsSuccess] = React.useState(true);
-  const history = useHistory();
-
-  const closeInfoToolTip = () => {
-    setIsInfoToolTipOpened(false);
-    if (isSuccess) {
-      history.push('/movies');
-    }
-  };
-
   return (
   <div className={styles.registerPage}>
     <Formik
@@ -33,27 +19,11 @@ function Register(props) {
       validationSchema={RegisterSchema}
 
       onSubmit={ (values) => {
-        api.register(
-          values.name,
-          values.email,
-          values.password,
-        )
-          .then((data) => {
-            if (data) {
-              setIsSuccess(true);
-              setIsInfoToolTipOpened(true);
-            } else {
-              setIsSuccess(false);
-              setIsInfoToolTipOpened(true);
-            }
-            return data;
-          })
-          .then((data) => {
-            props.onSubmit({
-              email: data.email,
-              password: data.password,
-            });
-          });
+        props.onSubmit({
+          name: values.name,
+          email: values.email,
+          password: values.password,
+        });
       }}
     >
       {({
@@ -128,10 +98,6 @@ function Register(props) {
         </Form>
       )}
     </Formik>
-    <InfoToolTip
-      isOpened={isInfoToolTipOpened}
-      isSuccess={isSuccess}
-      onClose={closeInfoToolTip} />
   </div>
   );
 }
