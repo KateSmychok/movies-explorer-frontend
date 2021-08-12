@@ -12,7 +12,7 @@ function FilterCheckbox() {
         id='shortFilms'
         className={styles.hiddenCheckbox}>
       </input>
-      <label for='shortFilms' className={styles.label}>Короткометражки</label>
+      <label htmlFor='shortFilms' className={styles.label}>Короткометражки</label>
     </form>
   );
 }
