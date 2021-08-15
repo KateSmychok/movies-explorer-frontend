@@ -172,7 +172,7 @@ function App() {
       });
   };
 
-  // Эффект при любом изменении стейта filteredMovies
+  // Эффект при изменении стейта filteredMovies
   React.useEffect(() => {
     if (filteredMovies.length > 0) {
       const movies = [];
