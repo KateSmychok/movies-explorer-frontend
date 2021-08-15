@@ -19,6 +19,7 @@
   ],
   "rules": {
     "no-underscore-dangle": ["off", {"allow": ["_id"]}],
+    "import/no-named-as-default": "off",
     "no-unused-vars": "off",
     "no-undef": "off",
     "no-console": "off"

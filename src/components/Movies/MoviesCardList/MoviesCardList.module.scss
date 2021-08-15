@@ -25,6 +25,11 @@
   min-height: 166px;
   padding: 50px 0 80px;
   box-sizing: border-box;
+  display: none;
+
+  &Visible {
+    display: block;
+  }
 }
 
 .loadMoreButton {
@@ -60,6 +65,11 @@
     grid-template-columns: 300px;
     gap: 16px;
     padding-bottom: 30px;
+  }
+
+  .loadMoreSection {
+    width: calc(max(90vw, 300px));
+    margin: 0 auto;
   }
 }
 

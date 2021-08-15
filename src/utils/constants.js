@@ -29,3 +29,22 @@ export const LoginSchema = Yup.object().shape({
     .max(15, 'Максимальная длина - 15 символов')
     .required('Поле обязательно должно быть заполнено'),
 });
+
+export const SearchSchema = Yup.object().shape({
+  keyword: Yup.string()
+    .min(2, 'Минимальная длина - 2 символа')
+    .max(40, 'Максимальная длина запроса - 40 символов')
+    .required('Введите ключевое слово для поиска'),
+});
+
+export const MaximumShownItems = () => {
+  let max;
+  if (window.innerWidth >= 768) {
+    max = 3;
+  } else if (window.innerWidth >= 480) {
+    max = 2;
+  } else {
+    max = 5;
+  }
+  return max;
+};

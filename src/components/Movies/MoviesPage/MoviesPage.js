@@ -1,10 +1,14 @@
 import React from 'react';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import SearchForm from '../SearchForm/SearchForm';
 
-function MoviesPage() {
+function MoviesPage(props) {
   return (
     <>
-      <MoviesCardList />
+      <SearchForm onStartSearch={props.handleStartSearch} />
+      <MoviesCardList
+        moviesToRender={props.moviesToRender}
+        isButtonLoadMoreVisible={props.isButtonLoadMoreVisible}/>
     </>
   );
 }

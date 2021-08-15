@@ -5,7 +5,6 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Header from '../Header/Header';
 import MainPage from '../Main/MainPage/MainPage';
 import Footer from '../Footer/Footer';
-import MoviesPage from '../Movies/MoviesPage/MoviesPage';
 import SavedMoviesPage from '../Movies/SavedMoviesPage/SavedMoviesPage';
 import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
@@ -15,6 +14,9 @@ import NavigationPopup from '../NavigationPopup/NavigationPopup';
 import api from '../../utils/MainApi';
 import EditProfilePopup from '../EditProfilePopup/EditProfilePopup';
 import InfoToolTip from '../InfoToolTip/InfoTooltip';
+import MoviesPage from '../Movies/MoviesPage/MoviesPage';
+import getMovies from '../../utils/MoviesApi';
+import { MaximumShownItems } from '../../utils/constants';
 
 function App() {
   const [user, setUser] = React.useState({});
@@ -23,6 +25,11 @@ function App() {
   const [isEditPopupOpened, setIsEditPopupOpened] = React.useState(false);
   const [isInfoToolTipOpened, setIsInfoToolTipOpened] = React.useState(false);
   const [isRegSuccess, setIsRegSuccess] = React.useState(true);
+
+  const [filteredMovies, setFilteredMovies] = React.useState([]);
+  const [moviesToRender, setMoviesToRender] = React.useState([]);
+  const [isButtonLoadMoreVisible, setIsButtonLoadMoreVisible] = React.useState(false);
+
   const history = useHistory();
 
   // Получение инфо о юзере при закрытии страницы и повторном входе
@@ -137,6 +144,37 @@ function App() {
     history.push('/signin');
   };
 
+  // Поиск фильмов по ключевому слову
+  const handleStartSearch = ({ keyword }) => {
+    getMovies()
+      .then((allMovies) => setFilteredMovies(
+        allMovies.filter((item) => item.nameRU.toLowerCase().indexOf(keyword.toLowerCase()) > -1),
+      ))
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // Получить список фильмов для рендера
+  const getMoviesToRender = () => {
+    const movies = [];
+    for (let i = 0; i < filteredMovies.length && i < MaximumShownItems(); i += 1) {
+      movies.push(filteredMovies[i]);
+    }
+    setMoviesToRender(movies);
+  };
+
+  // При изменении списка отфильтрованных по ключевому слову фильмов
+  React.useEffect(() => {
+    localStorage.setItem('movies', filteredMovies);
+    if (filteredMovies.length > MaximumShownItems()) {
+      setIsButtonLoadMoreVisible(true);
+    }
+    if (filteredMovies.length >= 1) {
+      getMoviesToRender();
+    }
+  }, [filteredMovies]);
+
   return (
     <CurrentUserContext.Provider value={user}>
       <div className="page">
@@ -148,6 +186,9 @@ function App() {
           <ProtectedRoute
             path='/movies'
             loggedIn={loggedIn}
+            moviesToRender={moviesToRender}
+            isButtonLoadMoreVisible={isButtonLoadMoreVisible}
+            handleStartSearch={handleStartSearch}
             component={MoviesPage}
           />
           <ProtectedRoute
@@ -174,13 +215,13 @@ function App() {
         </Switch>
         <Switch>
           <Route exact path='/'>
-            <Footer />
+            <Footer/>
           </Route>
           <Route path='/movies'>
-            <Footer />
+            <Footer/>
           </Route>
           <Route path='/saved-movies'>
-            <Footer />
+            <Footer/>
           </Route>
         </Switch>
         <NavigationPopup
