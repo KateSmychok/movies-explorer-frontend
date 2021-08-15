@@ -8,7 +8,10 @@ function MoviesPage(props) {
       <SearchForm onStartSearch={props.handleStartSearch} />
       <MoviesCardList
         moviesToRender={props.moviesToRender}
-        isButtonLoadMoreVisible={props.isButtonLoadMoreVisible}/>
+        isButtonLoadMoreVisible={props.isButtonLoadMoreVisible}
+        hasResult={props.hasResult}
+        preloaderIsVisible={props.preloaderIsVisible}
+        messageIsVisible={props.messageIsVisible}/>
     </>
   );
 }

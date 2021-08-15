@@ -2,21 +2,30 @@
 
 .searchSection {
   width: 100%;
-  max-width: 1140px;
+  max-width: 1280px;
   margin: 0 auto;
-  min-height: 152px;
+  min-height: 222px;
+  padding: 0 70px;
   box-sizing: border-box;
-  padding-bottom: 80px;
-  border-bottom: 1px solid $element-grey;
-  align-items: center;
   display: flex;
+}
+
+.formWithTumbler {
+  width: 100%;
+  margin: 0 auto;
+  padding: 70px 0 80px;
+  border-bottom: 1px solid $element-grey;
+  max-width: 1140px;
+  height: 72px;
+  display: flex;
+  align-items: center;
 }
 
 .form {
   width: 80%;
   height: 72px;
-  background: $search-grey;
   border-radius: 9px 0 0 9px;
+  background: $search-grey;
   position: relative;
   display: flex;
 }
@@ -88,8 +97,22 @@
   }
 }
 
+@include atTablet {
+  .searchSection {
+    padding: 0 30px;
+  }
+
+  .formWithTumbler {
+    padding: 80px 0 120px;
+  }
+}
+
 @include atMobileL {
   .searchSection {
+    padding: 0 10px;
+  }
+
+  .formWithTumbler {
     min-height: 136px;
     padding-bottom: 45px;
     flex-direction: column;

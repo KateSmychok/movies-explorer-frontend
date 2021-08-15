@@ -26,9 +26,12 @@ function App() {
   const [isInfoToolTipOpened, setIsInfoToolTipOpened] = React.useState(false);
   const [isRegSuccess, setIsRegSuccess] = React.useState(true);
 
+  const [hasResult, setHasResult] = React.useState(false);
   const [filteredMovies, setFilteredMovies] = React.useState([]);
   const [moviesToRender, setMoviesToRender] = React.useState([]);
-  const [isButtonLoadMoreVisible, setIsButtonLoadMoreVisible] = React.useState(false);
+  const [buttonLoadMoreIsVisible, setButtonLoadMoreIsVisible] = React.useState(false);
+  const [preloaderIsVisible, setPreloaderIsVisible] = React.useState(false);
+  const [messageIsVisible, setMessageIsVisible] = React.useState(false);
 
   const history = useHistory();
 
@@ -144,36 +147,61 @@ function App() {
     history.push('/signin');
   };
 
-  // Поиск фильмов по ключевому слову
+  // Сабмит формы поиска
   const handleStartSearch = ({ keyword }) => {
+    setPreloaderIsVisible(true);
+    setButtonLoadMoreIsVisible(false);
+    setMessageIsVisible(false);
+    setHasResult(false);
     getMovies()
-      .then((allMovies) => setFilteredMovies(
-        allMovies.filter((item) => item.nameRU.toLowerCase().indexOf(keyword.toLowerCase()) > -1),
-      ))
+      .then((allMovies) => {
+        const movies = allMovies.filter(
+          (item) => item.nameRU.toLowerCase().indexOf(keyword.toLowerCase()) > -1,
+        );
+        setTimeout(
+          () => {
+            localStorage.setItem('movies', movies);
+            setFilteredMovies(movies);
+          }, 500,
+        );
+      })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  // Получить список фильмов для рендера
-  const getMoviesToRender = () => {
-    const movies = [];
-    for (let i = 0; i < filteredMovies.length && i < MaximumShownItems(); i += 1) {
-      movies.push(filteredMovies[i]);
-    }
-    setMoviesToRender(movies);
-  };
-
-  // При изменении списка отфильтрованных по ключевому слову фильмов
+  // Эффект при любом изменении стейта filteredFilms
   React.useEffect(() => {
-    localStorage.setItem('movies', filteredMovies);
-    if (filteredMovies.length > MaximumShownItems()) {
-      setIsButtonLoadMoreVisible(true);
-    }
-    if (filteredMovies.length >= 1) {
-      getMoviesToRender();
+    console.log(filteredMovies);
+    if (filteredMovies.length > 0) {
+      const movies = [];
+      for (let i = 0; i < filteredMovies.length && i < MaximumShownItems(); i += 1) {
+        movies.push(filteredMovies[i]);
+      }
+      console.log(movies);
+      console.log(filteredMovies.length);
+      setTimeout(
+        () => {
+          setPreloaderIsVisible(false);
+          setMessageIsVisible(false);
+          setHasResult(true);
+          setMoviesToRender(movies);
+          if (filteredMovies.length > MaximumShownItems()) {
+            setButtonLoadMoreIsVisible(true);
+          }
+        }, 1000,
+      );
+    } else {
+      setHasResult(false);
+      setPreloaderIsVisible(false);
+      setMessageIsVisible(true);
     }
   }, [filteredMovies]);
+
+  React.useEffect(() => {
+    localStorage.removeItem('movies');
+    setMessageIsVisible(false);
+  }, []);
 
   return (
     <CurrentUserContext.Provider value={user}>
@@ -187,7 +215,10 @@ function App() {
             path='/movies'
             loggedIn={loggedIn}
             moviesToRender={moviesToRender}
-            isButtonLoadMoreVisible={isButtonLoadMoreVisible}
+            isButtonLoadMoreVisible={buttonLoadMoreIsVisible}
+            hasResult={hasResult}
+            preloaderIsVisible={preloaderIsVisible}
+            messageIsVisible={messageIsVisible}
             handleStartSearch={handleStartSearch}
             component={MoviesPage}
           />

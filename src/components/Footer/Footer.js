@@ -1,19 +1,9 @@
 import React from 'react';
-import cn from 'classnames/bind';
-import { useLocation } from 'react-router-dom';
 import styles from './Footer.module.scss';
 
-const cx = cn.bind(styles);
-
 function Footer() {
-  const location = useLocation();
-  const footerClassName = cx({
-    footer: true,
-    footerOnMoviesPage: (location.pathname === '/movies' || location.pathname === '/saved-movies'),
-  });
-
   return (
-    <section className={footerClassName}>
+    <section className={styles.footer}>
       <h3 className={styles.caption}>
         Учебный проект Яндекс.Практикум х BeatFilm.
       </h3>

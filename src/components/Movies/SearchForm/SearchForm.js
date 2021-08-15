@@ -27,24 +27,26 @@ function SearchForm(props) {
           isValid,
         }) => (
           <section className={styles.searchSection}>
-            <Form className={styles.form}>
-              <Field
-                name='keyword'
-                type='text'
-                className={styles.input}
-                id='keyword'
-                placeholder='Фильм'
-                autoComplete='off'
-              />
-              {errors.keyword && touched.keyword ? (
-                <span className={styles.inputError}>
-                  {errors.keyword}</span>
-              ) : <span className={styles.inputError}> </span>
-              }
-              <button type='submit' className={styles.submitButton} disabled={!(dirty && isValid)}> </button>
-            </Form>
-            <div className={styles.border}> </div>
-            <FilterCheckbox />
+            <div className={styles.formWithTumbler}>
+              <Form className={styles.form}>
+                <Field
+                  name='keyword'
+                  type='text'
+                  className={styles.input}
+                  id='keyword'
+                  placeholder='Фильм'
+                  autoComplete='off'
+                />
+                {errors.keyword && touched.keyword ? (
+                  <span className={styles.inputError}>
+                    {errors.keyword}</span>
+                ) : <span className={styles.inputError}> </span>
+                }
+                <button type='submit' className={styles.submitButton} disabled={!(dirty && isValid)}> </button>
+              </Form>
+              <div className={styles.border}> </div>
+              <FilterCheckbox />
+            </div>
           </section>
         )}
       </Formik>
