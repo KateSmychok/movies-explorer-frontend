@@ -35,21 +35,6 @@ function App() {
 
   const history = useHistory();
 
-  // Получение инфо о юзере при закрытии страницы и повторном входе
-  React.useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      api.getCurrentUser(token)
-        .then((userInfo) => {
-          if (userInfo) {
-            setUser(userInfo);
-            setLoggedIn(true);
-            history.push('/movies');
-          }
-        });
-    }
-  }, []);
-
   // Авторизация
   const handleLogin = ({ email, password }) => {
     api.login(email, password)
@@ -70,7 +55,7 @@ function App() {
       });
   };
 
-  // Регистрация
+  // Регистрация + авторизация
   const handleRegister = ({ name, email, password }) => {
     api.register(
       name,
@@ -94,33 +79,30 @@ function App() {
       });
   };
 
-  // Закрытие попапа об успешной/неудачной регистрации
-  const closeInfoToolTip = () => {
-    setIsInfoToolTipOpened(false);
-    if (isRegSuccess) {
-      history.push('/movies');
-    }
-  };
-
-  // Открытие попапа редактирования профиля
-  const handleEditButtonClick = () => {
-    setIsEditPopupOpened(true);
-  };
-
-  // Открытие навбара
-  const handleBurgerMenuClick = () => {
-    setIsNavigationPopupOpened(true);
-  };
-
-  // Клик по любой ссылке навбара
-  const handleNavigationLinkClick = () => {
-    setIsNavigationPopupOpened(false);
-  };
-
   // Закрыть любой попап
   const closeAllPopups = () => {
     setIsNavigationPopupOpened(false);
     setIsEditPopupOpened(false);
+  };
+
+  // Получение инфо о юзере при закрытии страницы и повторном входе
+  React.useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      api.getCurrentUser(token)
+        .then((userInfo) => {
+          if (userInfo) {
+            setUser(userInfo);
+            setLoggedIn(true);
+            history.push('/movies');
+          }
+        });
+    }
+  }, []);
+
+  // Открытие попапа редактирования профиля
+  const handleEditButtonClick = () => {
+    setIsEditPopupOpened(true);
   };
 
   // Обновление профиля
@@ -135,6 +117,24 @@ function App() {
       });
   };
 
+  // Закрытие попапа об успешной/неудачной регистрации
+  const closeInfoToolTip = () => {
+    setIsInfoToolTipOpened(false);
+    if (isRegSuccess) {
+      history.push('/movies');
+    }
+  };
+
+  // Открытие навбара
+  const handleBurgerMenuClick = () => {
+    setIsNavigationPopupOpened(true);
+  };
+
+  // Клик по любой ссылке навбара
+  const handleNavigationLinkClick = () => {
+    setIsNavigationPopupOpened(false);
+  };
+
   // Выход
   const handleSignOut = () => {
     localStorage.clear();
@@ -144,6 +144,8 @@ function App() {
       password: '',
     });
     setLoggedIn(false);
+    setMoviesToRender([]);
+    setButtonLoadMoreIsVisible(false);
     history.push('/signin');
   };
 
@@ -160,8 +162,8 @@ function App() {
         );
         setTimeout(
           () => {
-            localStorage.setItem('movies', movies);
             setFilteredMovies(movies);
+            localStorage.setItem('movies', JSON.stringify(movies));
           }, 500,
         );
       })
@@ -170,16 +172,13 @@ function App() {
       });
   };
 
-  // Эффект при любом изменении стейта filteredFilms
+  // Эффект при любом изменении стейта filteredMovies
   React.useEffect(() => {
-    console.log(filteredMovies);
     if (filteredMovies.length > 0) {
       const movies = [];
       for (let i = 0; i < filteredMovies.length && i < MaximumShownItems(); i += 1) {
         movies.push(filteredMovies[i]);
       }
-      console.log(movies);
-      console.log(filteredMovies.length);
       setTimeout(
         () => {
           setPreloaderIsVisible(false);
@@ -198,9 +197,30 @@ function App() {
     }
   }, [filteredMovies]);
 
+  // Эффект при перезагрузке приложения
   React.useEffect(() => {
-    localStorage.removeItem('movies');
     setMessageIsVisible(false);
+    if (localStorage.getItem('movies')) {
+      const moviesInLocalStorage = JSON.parse(localStorage.getItem('movies'));
+      const movies = [];
+      for (let i = 0; i < moviesInLocalStorage.length && i < MaximumShownItems(); i += 1) {
+        movies.push(moviesInLocalStorage[i]);
+      }
+      setTimeout(
+        () => {
+          setMessageIsVisible(false);
+          setHasResult(true);
+          setMoviesToRender(movies);
+          if (moviesInLocalStorage.length > MaximumShownItems()) {
+            setButtonLoadMoreIsVisible(true);
+          }
+        }, 1000,
+      );
+    } else {
+      setHasResult(false);
+      setPreloaderIsVisible(false);
+      setMessageIsVisible(false);
+    }
   }, []);
 
   return (
