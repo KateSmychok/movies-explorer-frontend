@@ -26,13 +26,17 @@ function App() {
   const [isInfoToolTipOpened, setIsInfoToolTipOpened] = React.useState(false);
   const [isRegSuccess, setIsRegSuccess] = React.useState(true);
 
+  const [maxCards, setMaxCards] = React.useState(SetMaximumCards());
+  const [hasAttempt, setHasAttempt] = React.useState(false);
   const [hasResult, setHasResult] = React.useState(false);
   const [filteredMovies, setFilteredMovies] = React.useState([]);
-  const [moviesToRender, setMoviesToRender] = React.useState([]);
+  const [renderedMovies, setRenderedMovies] = React.useState([]);
 
   const [buttonLoadMoreIsVisible, setButtonLoadMoreIsVisible] = React.useState(false);
   const [preloaderIsVisible, setPreloaderIsVisible] = React.useState(false);
   const [messageIsVisible, setMessageIsVisible] = React.useState(false);
+
+  const [errMessage, setErrMessage] = React.useState('');
 
   const history = useHistory();
 
@@ -51,7 +55,7 @@ function App() {
                 history.push('/movies');
               }, 500);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => setErrMessage(err.message));
         }
       });
   };
@@ -77,7 +81,8 @@ function App() {
         setUser(data);
         setLoggedIn(true);
         history.push('/movies');
-      });
+      })
+      .catch((err) => setErrMessage(err.message));
   };
 
   // Закрыть любой попап
@@ -97,7 +102,8 @@ function App() {
             setLoggedIn(true);
             history.push('/movies');
           }
-        });
+        })
+        .catch((err) => setErrMessage(err.message));
     }
   }, []);
 
@@ -114,7 +120,7 @@ function App() {
         closeAllPopups();
       })
       .catch((err) => {
-        console.log(err);
+        setErrMessage(err.message);
       });
   };
 
@@ -145,17 +151,23 @@ function App() {
       password: '',
     });
     setLoggedIn(false);
-    setMoviesToRender([]);
+    setRenderedMovies([]);
     setButtonLoadMoreIsVisible(false);
     history.push('/signin');
   };
 
-  // Сабмит формы поиска
-  const handleSearchButtonSubmit = ({ keyword }) => {
-    setPreloaderIsVisible(true);
+  const makeDefaultSettings = () => {
     setButtonLoadMoreIsVisible(false);
     setMessageIsVisible(false);
     setHasResult(false);
+  };
+
+  // Сабмит формы поиска
+  const handleSearchButtonSubmit = ({ keyword }) => {
+    makeDefaultSettings();
+    setPreloaderIsVisible(true);
+    setMaxCards(SetMaximumCards());
+    setRenderedMovies([]);
     getMovies()
       .then((allMovies) => {
         const movies = allMovies.filter(
@@ -165,64 +177,66 @@ function App() {
           () => {
             setFilteredMovies(movies);
             localStorage.setItem('movies', JSON.stringify(movies));
-          }, 500,
+            setHasAttempt(true);
+          }, 300,
         );
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
+        setErrMessage(
+          'Во время запроса произошла ошибка. '
+          + 'Возможно, проблема с соединением или сервер недоступен. '
+          + 'Подождите немного и попробуйте ещё раз',
+        );
       });
   };
 
-  // Эффект при изменении стейта filteredMovies
+  // Рендер фильмов при новом поиске или изменении числа карточек
   React.useEffect(() => {
     if (filteredMovies.length > 0) {
+      const moviesInLocalStorage = JSON.parse(localStorage.getItem('movies'));
+
       const movies = [];
-      for (let i = 0; i < filteredMovies.length && i < SetMaximumCards(); i += 1) {
-        movies.push(filteredMovies[i]);
+
+      for (let i = 0; i < moviesInLocalStorage.length && i < maxCards; i += 1) {
+        movies.push(moviesInLocalStorage[i]);
       }
+      setRenderedMovies(movies);
+      setMessageIsVisible(false);
       setTimeout(
         () => {
           setPreloaderIsVisible(false);
-          setMessageIsVisible(false);
           setHasResult(true);
-          setMoviesToRender(movies);
-          if (filteredMovies.length > SetMaximumCards()) {
+          if (moviesInLocalStorage.length > maxCards) {
             setButtonLoadMoreIsVisible(true);
+          } else {
+            setButtonLoadMoreIsVisible(false);
           }
-        }, 1000,
+        }, 300,
       );
-    } else {
+    } else if (filteredMovies.length === 0 && hasAttempt) {
+      setButtonLoadMoreIsVisible(false);
       setHasResult(false);
       setPreloaderIsVisible(false);
       setMessageIsVisible(true);
-    }
-  }, [filteredMovies]);
-
-  // Эффект при перезагрузке приложения
-  React.useEffect(() => {
-    setMessageIsVisible(false);
-    if (localStorage.getItem('movies')) {
-      const moviesInLocalStorage = JSON.parse(localStorage.getItem('movies'));
-      const movies = [];
-      for (let i = 0; i < moviesInLocalStorage.length && i < SetMaximumCards(); i += 1) {
-        movies.push(moviesInLocalStorage[i]);
-      }
-      setMoviesToRender(movies);
-      setTimeout(
-        () => {
-          setMessageIsVisible(false);
-          setHasResult(true);
-          if (moviesInLocalStorage.length > SetMaximumCards()) {
-            setButtonLoadMoreIsVisible(true);
-          }
-        }, 1000,
-      );
+      setErrMessage('Ничего не найдено');
     } else {
-      setHasResult(false);
       setPreloaderIsVisible(false);
-      setMessageIsVisible(false);
+      makeDefaultSettings();
     }
-  }, []);
+  }, [filteredMovies, maxCards]);
+
+  // Клик на кнопку "Еще"
+  const handleLoadMoreButtonClick = () => {
+    let i;
+    if (window.innerWidth >= 768) {
+      i = 3;
+    } else if (window.innerWidth >= 480) {
+      i = 2;
+    } else {
+      i = 2;
+    }
+    setMaxCards(maxCards + i);
+  };
 
   return (
     <CurrentUserContext.Provider value={user}>
@@ -235,12 +249,14 @@ function App() {
           <ProtectedRoute
             path='/movies'
             loggedIn={loggedIn}
-            moviesToRender={moviesToRender}
+            renderedMovies={renderedMovies}
             isButtonLoadMoreVisible={buttonLoadMoreIsVisible}
             hasResult={hasResult}
             preloaderIsVisible={preloaderIsVisible}
             messageIsVisible={messageIsVisible}
+            errMessage={errMessage}
             handleSearchButtonSubmit={handleSearchButtonSubmit}
+            handleLoadMoreButtonClick={handleLoadMoreButtonClick}
             component={MoviesPage}
           />
           <ProtectedRoute

@@ -32,6 +32,10 @@
   font-size: 14px;
   line-height: 1.43;
   @include Inter400;
+
+  &Hidden {
+    display: none;
+  }
 }
 
 .loadMoreSection {

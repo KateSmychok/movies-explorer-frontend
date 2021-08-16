@@ -12,10 +12,10 @@ function MoviesCardList(props) {
     cardListHidden: !props.hasResult,
   });
 
-  let text = '';
-  if (props.messageIsVisible && !props.hasResult) {
-    text = 'Ничего не найдено';
-  }
+  const errTextClassName = cx({
+    text: props.messageIsVisible && !props.hasResult,
+    textHidden: !props.messageIsVisible,
+  });
 
   const loadMoreSectionClassName = cx({
     loadMoreSection: true,
@@ -25,11 +25,14 @@ function MoviesCardList(props) {
   return (
     <section className={styles.cardListSection}>
       <ul className={cardListClassName}>
-        {props.moviesToRender.map((card) => <MoviesCard card={card} key={card.id} />)}
+        {props.renderedMovies.map((card) => <MoviesCard card={card} key={card.id} />)}
       </ul>
-      <p className={styles.text}>{text}</p>
+      <p className={errTextClassName}>{props.errMessage}</p>
       <div className={loadMoreSectionClassName}>
-        <button type='button' className={styles.loadMoreButton}>
+        <button
+          type='button'
+          className={styles.loadMoreButton}
+          onClick={props.handleLoadMoreButtonClick}>
           Ещё
         </button>
       </div>

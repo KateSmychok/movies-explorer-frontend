@@ -7,11 +7,13 @@ function MoviesPage(props) {
     <>
       <SearchForm onSubmit={props.handleSearchButtonSubmit} />
       <MoviesCardList
-        moviesToRender={props.moviesToRender}
+        renderedMovies={props.renderedMovies}
         isButtonLoadMoreVisible={props.isButtonLoadMoreVisible}
+        handleLoadMoreButtonClick={props.handleLoadMoreButtonClick}
         hasResult={props.hasResult}
         preloaderIsVisible={props.preloaderIsVisible}
-        messageIsVisible={props.messageIsVisible}/>
+        messageIsVisible={props.messageIsVisible}
+        errMessage={props.errMessage}/>
     </>
   );
 }
