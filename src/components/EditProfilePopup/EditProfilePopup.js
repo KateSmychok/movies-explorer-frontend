@@ -72,7 +72,8 @@ function EditProfilePopup(props) {
           <span className={styles.inputError} id='email-error'> </span>
           <button
             type='submit'
-            className={styles.submitButton}>
+            className={styles.submitButton}
+            onSubmit={handleSubmit}>
             Сохранить
           </button>
         </form>

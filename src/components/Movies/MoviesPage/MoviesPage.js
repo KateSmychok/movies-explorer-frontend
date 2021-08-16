@@ -13,7 +13,8 @@ function MoviesPage(props) {
         hasResult={props.hasResult}
         preloaderIsVisible={props.preloaderIsVisible}
         messageIsVisible={props.messageIsVisible}
-        errMessage={props.errMessage}/>
+        errMessage={props.errMessage}
+        onSaveCard={props.onSaveCard}/>
     </>
   );
 }

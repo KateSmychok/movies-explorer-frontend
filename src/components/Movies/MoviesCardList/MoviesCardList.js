@@ -25,7 +25,11 @@ function MoviesCardList(props) {
   return (
     <section className={styles.cardListSection}>
       <ul className={cardListClassName}>
-        {props.renderedMovies.map((card) => <MoviesCard card={card} key={card.id} />)}
+        {props.renderedMovies.map((card) => <MoviesCard
+          card={card}
+          key={card._id}
+          onSaveCard={props.onSaveCard}
+        />)}
       </ul>
       <p className={errTextClassName}>{props.errMessage}</p>
       <div className={loadMoreSectionClassName}>

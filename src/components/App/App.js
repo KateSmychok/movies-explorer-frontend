@@ -31,6 +31,7 @@ function App() {
   const [hasResult, setHasResult] = React.useState(false);
   const [filteredMovies, setFilteredMovies] = React.useState([]);
   const [renderedMovies, setRenderedMovies] = React.useState([]);
+  const [savedMovies, setSavedMovies] = React.useState([]);
 
   const [buttonLoadMoreIsVisible, setButtonLoadMoreIsVisible] = React.useState(false);
   const [preloaderIsVisible, setPreloaderIsVisible] = React.useState(false);
