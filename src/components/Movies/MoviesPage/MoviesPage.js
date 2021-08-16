@@ -5,7 +5,7 @@ import SearchForm from '../SearchForm/SearchForm';
 function MoviesPage(props) {
   return (
     <>
-      <SearchForm onStartSearch={props.handleStartSearch} />
+      <SearchForm onSubmit={props.handleSearchButtonSubmit} />
       <MoviesCardList
         moviesToRender={props.moviesToRender}
         isButtonLoadMoreVisible={props.isButtonLoadMoreVisible}

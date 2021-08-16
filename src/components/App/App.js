@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory, Route, Switch } from 'react-router-dom';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
+import api from '../../utils/MainApi';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Header from '../Header/Header';
 import MainPage from '../Main/MainPage/MainPage';
@@ -11,12 +12,11 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import NavigationPopup from '../NavigationPopup/NavigationPopup';
-import api from '../../utils/MainApi';
 import EditProfilePopup from '../EditProfilePopup/EditProfilePopup';
 import InfoToolTip from '../InfoToolTip/InfoTooltip';
 import MoviesPage from '../Movies/MoviesPage/MoviesPage';
 import getMovies from '../../utils/MoviesApi';
-import { MaximumShownItems } from '../../utils/constants';
+import { SetMaximumCards } from '../../utils/constants';
 
 function App() {
   const [user, setUser] = React.useState({});
@@ -29,6 +29,7 @@ function App() {
   const [hasResult, setHasResult] = React.useState(false);
   const [filteredMovies, setFilteredMovies] = React.useState([]);
   const [moviesToRender, setMoviesToRender] = React.useState([]);
+
   const [buttonLoadMoreIsVisible, setButtonLoadMoreIsVisible] = React.useState(false);
   const [preloaderIsVisible, setPreloaderIsVisible] = React.useState(false);
   const [messageIsVisible, setMessageIsVisible] = React.useState(false);
@@ -150,7 +151,7 @@ function App() {
   };
 
   // Сабмит формы поиска
-  const handleStartSearch = ({ keyword }) => {
+  const handleSearchButtonSubmit = ({ keyword }) => {
     setPreloaderIsVisible(true);
     setButtonLoadMoreIsVisible(false);
     setMessageIsVisible(false);
@@ -176,7 +177,7 @@ function App() {
   React.useEffect(() => {
     if (filteredMovies.length > 0) {
       const movies = [];
-      for (let i = 0; i < filteredMovies.length && i < MaximumShownItems(); i += 1) {
+      for (let i = 0; i < filteredMovies.length && i < SetMaximumCards(); i += 1) {
         movies.push(filteredMovies[i]);
       }
       setTimeout(
@@ -185,7 +186,7 @@ function App() {
           setMessageIsVisible(false);
           setHasResult(true);
           setMoviesToRender(movies);
-          if (filteredMovies.length > MaximumShownItems()) {
+          if (filteredMovies.length > SetMaximumCards()) {
             setButtonLoadMoreIsVisible(true);
           }
         }, 1000,
@@ -203,15 +204,15 @@ function App() {
     if (localStorage.getItem('movies')) {
       const moviesInLocalStorage = JSON.parse(localStorage.getItem('movies'));
       const movies = [];
-      for (let i = 0; i < moviesInLocalStorage.length && i < MaximumShownItems(); i += 1) {
+      for (let i = 0; i < moviesInLocalStorage.length && i < SetMaximumCards(); i += 1) {
         movies.push(moviesInLocalStorage[i]);
       }
+      setMoviesToRender(movies);
       setTimeout(
         () => {
           setMessageIsVisible(false);
           setHasResult(true);
-          setMoviesToRender(movies);
-          if (moviesInLocalStorage.length > MaximumShownItems()) {
+          if (moviesInLocalStorage.length > SetMaximumCards()) {
             setButtonLoadMoreIsVisible(true);
           }
         }, 1000,
@@ -239,7 +240,7 @@ function App() {
             hasResult={hasResult}
             preloaderIsVisible={preloaderIsVisible}
             messageIsVisible={messageIsVisible}
-            handleStartSearch={handleStartSearch}
+            handleSearchButtonSubmit={handleSearchButtonSubmit}
             component={MoviesPage}
           />
           <ProtectedRoute

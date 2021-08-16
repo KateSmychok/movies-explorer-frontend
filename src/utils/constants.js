@@ -37,14 +37,14 @@ export const SearchSchema = Yup.object().shape({
     .required('Введите ключевое слово для поиска'),
 });
 
-export const MaximumShownItems = () => {
-  let max;
+export const SetMaximumCards = () => {
+  let i;
   if (window.innerWidth >= 768) {
-    max = 3;
+    i = 3;
   } else if (window.innerWidth >= 480) {
-    max = 2;
+    i = 2;
   } else {
-    max = 5;
+    i = 5;
   }
-  return max;
+  return i;
 };

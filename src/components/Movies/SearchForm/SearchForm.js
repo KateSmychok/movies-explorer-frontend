@@ -15,7 +15,7 @@ function SearchForm(props) {
         validationSchema={SearchSchema}
 
         onSubmit={ (values) => {
-          props.onStartSearch({
+          props.onSubmit({
             keyword: values.keyword,
           });
         }}
