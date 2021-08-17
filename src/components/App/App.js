@@ -36,10 +36,30 @@ function App() {
   const [buttonLoadMoreIsVisible, setButtonLoadMoreIsVisible] = React.useState(false);
   const [preloaderIsVisible, setPreloaderIsVisible] = React.useState(false);
   const [messageIsVisible, setMessageIsVisible] = React.useState(false);
-
   const [errMessage, setErrMessage] = React.useState('');
 
   const history = useHistory();
+
+  // Получить список сохраненных фильмов
+  React.useEffect(() => {
+    api.getSavedMovies()
+      .then((movies) => {
+        setSavedMovies(movies);
+      });
+  }, []);
+
+  // Удалить сохраненный фильм и обновить список
+  function handleMovieDelete(movieId) {
+    api.deleteMovieFromSaved(movieId)
+      .then(() => {
+        setSavedMovies((state) => state.filter((m) => m._id !== movieId));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+
 
   // Авторизация
   const handleLogin = ({ email, password }) => {
@@ -263,6 +283,8 @@ function App() {
           <ProtectedRoute
             path='/saved-movies'
             loggedIn={loggedIn}
+            savedMovies={savedMovies}
+            onMovieDelete={handleMovieDelete}
             component={SavedMoviesPage}
           />
           <ProtectedRoute

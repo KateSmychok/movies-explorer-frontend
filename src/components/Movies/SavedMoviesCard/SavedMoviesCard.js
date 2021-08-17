@@ -1,7 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
 import styles from './SavedMoviesCard.module.scss';
-import api from '../../../utils/MainApi';
 
 function MoviesCard(props) {
   const minToHours = (min) => {
@@ -14,13 +13,7 @@ function MoviesCard(props) {
   };
 
   const handleDeleteMovieClick = () => {
-    api.deleteMovieFromSaved(props.card._id)
-      .then((card) => {
-        console.log(card);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    props.onMovieDelete(props.card._id);
   };
 
   return (

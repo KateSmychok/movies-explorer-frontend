@@ -6,7 +6,10 @@ function SavedMoviesPage(props) {
   return (
     <>
       <SearchForm />
-      <SavedMoviesCardList onSaveCard={props.onSaveCard} />
+      <SavedMoviesCardList
+        savedMovies={props.savedMovies}
+        onMovieDelete={props.onMovieDelete}
+      />
     </>
   );
 }
