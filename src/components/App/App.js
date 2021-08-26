@@ -3,8 +3,8 @@ import { useHistory, Route, Switch } from 'react-router-dom';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import api from '../../utils/MainApi';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import Header from '../Header/Header';
 import MainPage from '../Main/MainPage/MainPage';
+import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import SavedMoviesPage from '../Movies/SavedMoviesPage/SavedMoviesPage';
 import Profile from '../Profile/Profile';
@@ -15,27 +15,17 @@ import NavigationPopup from '../NavigationPopup/NavigationPopup';
 import EditProfilePopup from '../EditProfilePopup/EditProfilePopup';
 import InfoToolTip from '../InfoToolTip/InfoTooltip';
 import MoviesPage from '../Movies/MoviesPage/MoviesPage';
-import getMovies from '../../utils/MoviesApi';
-import { SetMaximumCards } from '../../utils/constants';
 
 function App() {
   const [user, setUser] = React.useState({});
   const [loggedIn, setLoggedIn] = React.useState(false);
+
   const [isNavigationPopupOpened, setIsNavigationPopupOpened] = React.useState(false);
   const [isEditPopupOpened, setIsEditPopupOpened] = React.useState(false);
   const [isInfoToolTipOpened, setIsInfoToolTipOpened] = React.useState(false);
   const [isRegSuccess, setIsRegSuccess] = React.useState(true);
-
-  const [maxCards, setMaxCards] = React.useState(SetMaximumCards());
-  const [hasAttempt, setHasAttempt] = React.useState(false);
-  const [hasResult, setHasResult] = React.useState(false);
-  const [filteredMovies, setFilteredMovies] = React.useState([]);
-  const [renderedMovies, setRenderedMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
-
-  const [buttonLoadMoreIsVisible, setButtonLoadMoreIsVisible] = React.useState(false);
-  const [preloaderIsVisible, setPreloaderIsVisible] = React.useState(false);
-  const [messageIsVisible, setMessageIsVisible] = React.useState(false);
+  const [movieIsSaved, setMovieIsSaved] = React.useState(false);
   const [errMessage, setErrMessage] = React.useState('');
 
   const history = useHistory();
@@ -45,11 +35,12 @@ function App() {
     api.getSavedMovies()
       .then((movies) => {
         setSavedMovies(movies);
+        console.log(savedMovies.length);
       });
   }, []);
 
   // Удалить сохраненный фильм и обновить список
-  function handleMovieDelete(movieId) {
+  const handleMovieDelete = (movieId) => {
     api.deleteMovieFromSaved(movieId)
       .then(() => {
         setSavedMovies((state) => state.filter((m) => m._id !== movieId));
@@ -57,9 +48,7 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-  }
-
-
+  };
 
   // Авторизация
   const handleLogin = ({ email, password }) => {
@@ -81,13 +70,9 @@ function App() {
       });
   };
 
-  // Регистрация + авторизация
+  // Регистрация + автоматическая авторизация
   const handleRegister = ({ name, email, password }) => {
-    api.register(
-      name,
-      email,
-      password,
-    )
+    api.register(name, email, password)
       .then((data) => {
         if (data) {
           setIsRegSuccess(true);
@@ -96,12 +81,7 @@ function App() {
           setIsRegSuccess(false);
           setIsInfoToolTipOpened(true);
         }
-        return data;
-      })
-      .then((data) => {
         setUser(data);
-        setLoggedIn(true);
-        history.push('/movies');
       })
       .catch((err) => setErrMessage(err.message));
   };
@@ -112,7 +92,7 @@ function App() {
     setIsEditPopupOpened(false);
   };
 
-  // Получение инфо о юзере при закрытии страницы и повторном входе
+  // При закрытии страницы и повторном входе
   React.useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -123,6 +103,12 @@ function App() {
             setLoggedIn(true);
             history.push('/movies');
           }
+        })
+        .catch((err) => setErrMessage(err.message));
+
+      api.getSavedMovies()
+        .then((movies) => {
+          setSavedMovies(movies);
         })
         .catch((err) => setErrMessage(err.message));
     }
@@ -149,6 +135,7 @@ function App() {
   const closeInfoToolTip = () => {
     setIsInfoToolTipOpened(false);
     if (isRegSuccess) {
+      setLoggedIn(true);
       history.push('/movies');
     }
   };
@@ -172,97 +159,26 @@ function App() {
       password: '',
     });
     setLoggedIn(false);
-    setRenderedMovies([]);
-    setButtonLoadMoreIsVisible(false);
     history.push('/signin');
-  };
-
-  const makeDefaultSettings = () => {
-    setButtonLoadMoreIsVisible(false);
-    setMessageIsVisible(false);
-    setHasResult(false);
-  };
-
-  // Сабмит формы поиска
-  const handleSearchButtonSubmit = ({ keyword }) => {
-    makeDefaultSettings();
-    setPreloaderIsVisible(true);
-    setMaxCards(SetMaximumCards());
-    setRenderedMovies([]);
-    getMovies()
-      .then((allMovies) => {
-        const movies = allMovies.filter(
-          (item) => item.nameRU.toLowerCase().indexOf(keyword.toLowerCase()) > -1,
-        );
-        setTimeout(
-          () => {
-            setFilteredMovies(movies);
-            localStorage.setItem('movies', JSON.stringify(movies));
-            setHasAttempt(true);
-          }, 300,
-        );
-      })
-      .catch(() => {
-        setErrMessage(
-          'Во время запроса произошла ошибка. '
-          + 'Возможно, проблема с соединением или сервер недоступен. '
-          + 'Подождите немного и попробуйте ещё раз',
-        );
-      });
-  };
-
-  // Рендер фильмов при новом поиске или изменении числа карточек
-  React.useEffect(() => {
-    if (filteredMovies.length > 0) {
-      const moviesInLocalStorage = JSON.parse(localStorage.getItem('movies'));
-
-      const movies = [];
-
-      for (let i = 0; i < moviesInLocalStorage.length && i < maxCards; i += 1) {
-        movies.push(moviesInLocalStorage[i]);
-      }
-      setRenderedMovies(movies);
-      setMessageIsVisible(false);
-      setTimeout(
-        () => {
-          setPreloaderIsVisible(false);
-          setHasResult(true);
-          if (moviesInLocalStorage.length > maxCards) {
-            setButtonLoadMoreIsVisible(true);
-          } else {
-            setButtonLoadMoreIsVisible(false);
-          }
-        }, 300,
-      );
-    } else if (filteredMovies.length === 0 && hasAttempt) {
-      setButtonLoadMoreIsVisible(false);
-      setHasResult(false);
-      setPreloaderIsVisible(false);
-      setMessageIsVisible(true);
-      setErrMessage('Ничего не найдено');
-    } else {
-      setPreloaderIsVisible(false);
-      makeDefaultSettings();
-    }
-  }, [filteredMovies, maxCards]);
-
-  // Клик на кнопку "Еще"
-  const handleLoadMoreButtonClick = () => {
-    let i;
-    if (window.innerWidth >= 768) {
-      i = 3;
-    } else if (window.innerWidth >= 480) {
-      i = 2;
-    } else {
-      i = 2;
-    }
-    setMaxCards(maxCards + i);
   };
 
   return (
     <CurrentUserContext.Provider value={user}>
       <div className="page">
-        <Header onBurgerMenuClick={handleBurgerMenuClick} />
+        <Switch>
+          <Route exact path='/'>
+            <Header />
+          </Route>
+          <Route path='/movies'>
+            <Header onBurgerMenuClick={handleBurgerMenuClick} />
+          </Route>
+          <Route path='/saved-movies'>
+            <Header onBurgerMenuClick={handleBurgerMenuClick} />
+          </Route>
+          <Route path='/profile'>
+            <Header onBurgerMenuClick={handleBurgerMenuClick} />
+          </Route>
+        </Switch>
         <Switch>
           <Route exact path='/'>
             <MainPage />
@@ -270,14 +186,8 @@ function App() {
           <ProtectedRoute
             path='/movies'
             loggedIn={loggedIn}
-            renderedMovies={renderedMovies}
-            isButtonLoadMoreVisible={buttonLoadMoreIsVisible}
-            hasResult={hasResult}
-            preloaderIsVisible={preloaderIsVisible}
-            messageIsVisible={messageIsVisible}
             errMessage={errMessage}
-            handleSearchButtonSubmit={handleSearchButtonSubmit}
-            handleLoadMoreButtonClick={handleLoadMoreButtonClick}
+            setErrMessage={setErrMessage}
             component={MoviesPage}
           />
           <ProtectedRoute

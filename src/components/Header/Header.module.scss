@@ -1,6 +1,6 @@
 @import '../../scss-styles/styles';
 
-.header {
+.headerLanding {
   width: 100%;
   margin: 0 auto;
   padding: 18px 5.5vw;
@@ -9,13 +9,26 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: $dark-grey;
 
-  &Landing {
-    background: $dark-grey;
+  &Hidden {
+    display: none;
   }
+}
 
-  &Main {
-    background: $white;
+.headerMain {
+  width: 100%;
+  margin: 0 auto;
+  padding: 18px 5.5vw;
+  box-sizing: border-box;
+  min-height: 74px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: $white;
+
+  &Hidden {
+    display: none;
   }
 }
 
@@ -28,10 +41,6 @@
   background: url('../../images/logo.svg') no-repeat;
   width: 38px;
   height: 38px;
-
-  &Main {
-    padding-right: 44px;
-  }
 }
 
 .buttonsArea {
@@ -62,7 +71,7 @@
 }
 
 .navList {
-  padding: 0;
+  padding: 0 0 0 44px;
   margin: 0;
   list-style-type: none;
   display: flex;
