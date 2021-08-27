@@ -48,3 +48,15 @@ export const SetMaximumCards = () => {
   }
   return i;
 };
+
+export const AddCardsOnBtnClick = () => {
+  let i;
+  if (window.innerWidth >= 768) {
+    i = 3;
+  } else if (window.innerWidth >= 480) {
+    i = 2;
+  } else {
+    i = 1;
+  }
+  return i;
+};

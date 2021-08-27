@@ -1,5 +1,4 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 import cn from 'classnames/bind';
 import styles from './MoviesCard.module.scss';
 import api from '../../../utils/MainApi';
@@ -7,35 +6,12 @@ import api from '../../../utils/MainApi';
 const cx = cn.bind(styles);
 
 function MoviesCard(props) {
-  const [movieIsSaved, setMovieIsSaved] = React.useState(false);
-  const [saveMovies, setSavedMovies] = React.useState([]);
-
-  const location = useLocation();
-
-  const buttonText = movieIsSaved || location.pathname === '/saved-movies' ? '' : 'Сохранить';
+  const buttonText = props.movieIsSaved ? '' : 'Сохранить';
   const buttonClassName = cx({
     baseButton: true,
-    isNotSaved: !movieIsSaved,
-    isSaved: movieIsSaved,
+    isNotSaved: !props.movieIsSaved,
+    isSaved: props.movieIsSaved,
   });
-
-  function handleSaveMovieClick() {
-    api.saveMovie(
-      props.card.nameRU,
-      `https://api.nomoreparties.co${props.card.image.url}`,
-      props.card.trailerLink,
-      props.card.duration,
-    )
-      .then((movies) => {
-        setSavedMovies(movies);
-        localStorage.setItem('saved-movies', JSON.stringify(movies));
-        console.log(movies);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-    setMovieIsSaved(!movieIsSaved);
-  }
 
   const minToHours = (min) => {
     const hours = Math.trunc(min / 60);
@@ -45,6 +21,22 @@ function MoviesCard(props) {
     }
     return `${hours} ч. ${minutes} мин.`;
   };
+
+  function handleSaveMovieClick(e) {
+    api.saveMovie(
+      props.card.nameRU,
+      `https://api.nomoreparties.co${props.card.image.url}`,
+      props.card.trailerLink,
+      props.card.duration,
+    )
+      .then((movie) => {
+        console.log(movie);
+        console.log(e.currentTarget);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }
 
   return (
     <article className={styles.card}>
@@ -60,9 +52,7 @@ function MoviesCard(props) {
       <div className={styles.saveButtonArea}>
         <button
           className={buttonClassName}
-          onClick={() => {
-            handleSaveMovieClick();
-          }}>
+          onClick={handleSaveMovieClick}>
           {buttonText}
         </button>
       </div>

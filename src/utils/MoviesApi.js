@@ -1,4 +1,4 @@
-const getMovies = () => fetch('https://api.nomoreparties.co/beatfilm-movies', {
+const getAllMovies = () => fetch('https://api.nomoreparties.co/beatfilm-movies', {
   method: 'GET',
   headers: {
     'content-type': 'application/json',
@@ -14,4 +14,4 @@ const getMovies = () => fetch('https://api.nomoreparties.co/beatfilm-movies', {
     console.log(err);
   });
 
-export default getMovies;
+export default getAllMovies;

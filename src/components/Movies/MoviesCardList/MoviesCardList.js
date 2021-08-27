@@ -19,16 +19,15 @@ function MoviesCardList(props) {
 
   const loadMoreSectionClassName = cx({
     loadMoreSection: true,
-    loadMoreSectionVisible: props.isButtonLoadMoreVisible,
+    loadMoreSectionVisible: props.btnLoadMoreIsVisible,
   });
 
   return (
     <section className={styles.cardListSection}>
       <ul className={cardListClassName}>
-        {props.renderedMovies.map((card) => <MoviesCard
+        {props.moviesToRender.map((card) => <MoviesCard
           card={card}
-          key={card._id}
-          onSaveCard={props.onSaveCard}
+          key={card.id}
         />)}
       </ul>
       <p className={errTextClassName}>{props.errMessage}</p>
@@ -36,7 +35,7 @@ function MoviesCardList(props) {
         <button
           type='button'
           className={styles.loadMoreButton}
-          onClick={props.handleLoadMoreButtonClick}>
+          onClick={props.onLoadMoreBtnClick}>
           Ещё
         </button>
       </div>

@@ -25,7 +25,6 @@ function App() {
   const [isInfoToolTipOpened, setIsInfoToolTipOpened] = React.useState(false);
   const [isRegSuccess, setIsRegSuccess] = React.useState(true);
   const [savedMovies, setSavedMovies] = React.useState([]);
-  const [movieIsSaved, setMovieIsSaved] = React.useState(false);
   const [errMessage, setErrMessage] = React.useState('');
 
   const history = useHistory();
@@ -35,7 +34,6 @@ function App() {
     api.getSavedMovies()
       .then((movies) => {
         setSavedMovies(movies);
-        console.log(savedMovies.length);
       });
   }, []);
 
