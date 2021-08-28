@@ -45,7 +45,7 @@ function SearchForm(props) {
                 <button type='submit' className={styles.submitButton} disabled={!(dirty && isValid)}> </button>
               </Form>
               <div className={styles.border}> </div>
-              <FilterCheckbox />
+              <FilterCheckbox onCheckboxClick={props.onCheckboxClick} checked={props.checked} />
             </div>
           </section>
         )}

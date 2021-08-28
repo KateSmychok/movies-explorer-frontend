@@ -7,15 +7,21 @@ import getAllMovies from '../../../utils/MoviesApi';
 function MoviesPage(props) {
   const [maxCards, setMaxCards] = React.useState(SetMaximumCards());
   const [hasResult, setHasResult] = React.useState(false);
-  const [triedToSearch, setTriedToSearch] = React.useState(false);
 
   const [allMovies, setAllMovies] = React.useState([]);
   const [filteredMovies, setFilteredMovies] = React.useState([]);
   const [moviesToRender, setMoviesToRender] = React.useState([]);
+  const [shortMovies, setShortMovies] = React.useState([]);
 
   const [btnLoadMoreIsVisible, setBtnLoadMoreIsVisible] = React.useState(false);
   const [preloaderIsVisible, setPreloaderIsVisible] = React.useState(false);
   const [messageIsVisible, setMessageIsVisible] = React.useState(false);
+
+  const [checked, setChecked] = React.useState(true);
+
+  const handleCheckboxClick = () => {
+    setChecked(!checked);
+  };
 
   // Получить все фильмы из БД
   React.useEffect(() => {
@@ -45,13 +51,21 @@ function MoviesPage(props) {
     setDefaultStates();
     setPreloaderIsVisible(true);
 
-    const movies = allMovies.filter(
+    const filMovies = allMovies.filter(
       (item) => item.nameRU.toLowerCase().indexOf(keyword.toLowerCase()) > -1,
     );
-    setTriedToSearch(true);
-    if (movies.length > 0) {
-      setFilteredMovies(movies);
-      localStorage.setItem('movies', JSON.stringify(movies));
+    if (!checked && filMovies.length > 0) {
+      const longMovies = filMovies.filter(
+        (item) => item.duration > 40,
+      );
+      if (longMovies.length > 0) {
+        setFilteredMovies(longMovies);
+        localStorage.setItem('movies', JSON.stringify(longMovies));
+      }
+      setPreloaderIsVisible(false);
+    } else if (checked && filMovies.length > 0) {
+      setFilteredMovies(filMovies);
+      localStorage.setItem('movies', JSON.stringify(filMovies));
     } else {
       console.log('test1');
       setPreloaderIsVisible(false);
@@ -93,9 +107,36 @@ function MoviesPage(props) {
     setMaxCards(maxCards + AddCardsOnBtnClick());
   };
 
+  // Фильтрация короткометражек при отрендеренных карточках
+  React.useEffect(() => {
+    console.log('test 3');
+    if (!checked && filteredMovies.length > 0) {
+      const movies = filteredMovies.filter(
+        (item) => item.duration > 40,
+      );
+      const shortM = filteredMovies.filter(
+        (item) => item.duration <= 40,
+      );
+      setShortMovies(shortM);
+      if (movies.length > 0) {
+        setFilteredMovies(movies);
+        localStorage.setItem('movies', JSON.stringify(movies));
+      } else {
+        localStorage.removeItem('movies');
+        setDefaultStates();
+        setMessageIsVisible(true);
+        props.setErrMessage('Ничего не найдено');
+      }
+    }
+  }, [checked]);
+
   return (
     <>
-      <SearchForm onSubmit={handleSearchBtnSubmit} />
+      <SearchForm
+        onSubmit={handleSearchBtnSubmit}
+        onCheckboxClick={handleCheckboxClick}
+        checked={checked}
+      />
       <MoviesCardList
         moviesToRender={moviesToRender}
         btnLoadMoreIsVisible={btnLoadMoreIsVisible}
