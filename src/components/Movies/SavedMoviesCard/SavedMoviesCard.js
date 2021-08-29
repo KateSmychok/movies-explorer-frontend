@@ -1,17 +1,9 @@
 import React from 'react';
 import cn from 'classnames';
 import styles from './SavedMoviesCard.module.scss';
+import { MinToHours } from '../../../utils/constants';
 
-function MoviesCard(props) {
-  const minToHours = (min) => {
-    const hours = Math.trunc(min / 60);
-    const minutes = min % 60;
-    if (min < 60) {
-      return `${min} мин.`;
-    }
-    return `${hours} ч. ${minutes} мин.`;
-  };
-
+function SavedMoviesCard(props) {
   const handleDeleteMovieClick = () => {
     props.onMovieDelete(props.card._id);
   };
@@ -23,7 +15,7 @@ function MoviesCard(props) {
           {props.card.nameRU}
         </h2>
         <p className={styles.duration}>
-          {minToHours(props.card.duration)}
+          {MinToHours(props.card.duration)}
         </p>
       </div>
       <img className={styles.image} src={props.card.image} alt='Превью' />
@@ -37,4 +29,4 @@ function MoviesCard(props) {
   );
 }
 
-export default MoviesCard;
+export default SavedMoviesCard;

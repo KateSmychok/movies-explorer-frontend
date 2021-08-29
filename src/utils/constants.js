@@ -60,3 +60,15 @@ export const AddCardsOnBtnClick = () => {
   }
   return i;
 };
+
+export const MinToHours = (min) => {
+  const hours = Math.trunc(min / 60);
+  const minutes = min % 60;
+  if (min < 60) {
+    return `${min} мин.`;
+  }
+  if (minutes === 0) {
+    return `${hours} ч.`;
+  }
+  return `${hours} ч. ${minutes} мин.`;
+};

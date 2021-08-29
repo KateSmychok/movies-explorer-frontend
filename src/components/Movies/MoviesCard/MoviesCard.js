@@ -2,27 +2,23 @@ import React from 'react';
 import cn from 'classnames/bind';
 import styles from './MoviesCard.module.scss';
 import api from '../../../utils/MainApi';
+import { MinToHours } from '../../../utils/constants';
 
 const cx = cn.bind(styles);
 
 function MoviesCard(props) {
-  const buttonText = props.movieIsSaved ? '' : 'Сохранить';
+  const [movieIsSaved, setMovieIsSaved] = React.useState(false);
+
+  const buttonText = movieIsSaved ? '' : 'Сохранить';
+
   const buttonClassName = cx({
     baseButton: true,
-    isNotSaved: !props.movieIsSaved,
-    isSaved: props.movieIsSaved,
+    isNotSaved: !movieIsSaved,
+    isSaved: movieIsSaved,
   });
 
-  const minToHours = (min) => {
-    const hours = Math.trunc(min / 60);
-    const minutes = min % 60;
-    if (min < 60) {
-      return `${min} мин.`;
-    }
-    return `${hours} ч. ${minutes} мин.`;
-  };
-
-  function handleSaveMovieClick(e) {
+  function handleSaveMovieClick() {
+    setMovieIsSaved(!movieIsSaved);
     api.saveMovie(
       props.card.nameRU,
       `https://api.nomoreparties.co${props.card.image.url}`,
@@ -31,7 +27,6 @@ function MoviesCard(props) {
     )
       .then((movie) => {
         console.log(movie);
-        console.log(e.currentTarget);
       })
       .catch((err) => {
         console.log(err.message);
@@ -45,7 +40,7 @@ function MoviesCard(props) {
           {props.card.nameRU}
         </h2>
         <p className={styles.duration}>
-          {minToHours(props.card.duration)}
+          {MinToHours(props.card.duration)}
         </p>
       </div>
       <img className={styles.image} src={`https://api.nomoreparties.co${props.card.image.url}`} alt='Превью' />
