@@ -18,6 +18,7 @@ function MoviesCard(props) {
 
   function handleSaveMovieClick() {
     setMovieIsSaved(!movieIsSaved);
+    console.log(props.card);
     props.onSaveMovieClick({
       nameRU: props.card.nameRU,
       image: `https://api.nomoreparties.co${props.card.image.url}`,

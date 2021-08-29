@@ -38,28 +38,6 @@ function App() {
       });
   }, []);
 
-  // Сохранить фильм и обновить список
-  const handleMovieSave = ({
-    nameRU,
-    image,
-    trailerLink,
-    duration,
-  }) => {
-    api.saveMovie(
-      nameRU,
-      image,
-      trailerLink,
-      duration,
-    )
-      .then((savedMovie) => {
-        console.log(savedMovie);
-        setSavedMovies([savedMovie, ...savedMovies]);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  };
-
   // Удалить сохраненный фильм и обновить список
   const handleMovieDelete = (movieId) => {
     api.deleteMovieFromSaved(movieId)
@@ -69,6 +47,33 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  // Сохранить фильм и обновить список
+  const handleMovieSaveOrDelete = ({
+    nameRU,
+    image,
+    trailerLink,
+    duration,
+  }) => {
+    const isSaved = savedMovies.some((i) => i.nameRU === nameRU);
+    if (!isSaved) {
+      api.saveMovie(
+        nameRU,
+        image,
+        trailerLink,
+        duration,
+      )
+        .then((savedMovie) => {
+          setSavedMovies([savedMovie, ...savedMovies]);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    } else {
+      const cardToDelete = savedMovies.find((i) => i.nameRU === nameRU);
+      handleMovieDelete(cardToDelete._id);
+    }
   };
 
   // Авторизация
@@ -207,7 +212,7 @@ function App() {
           <ProtectedRoute
             path='/movies'
             loggedIn={loggedIn}
-            onSaveMovieClick={handleMovieSave}
+            onSaveMovieClick={handleMovieSaveOrDelete}
             errMessage={errMessage}
             setErrMessage={setErrMessage}
             component={MoviesPage}
