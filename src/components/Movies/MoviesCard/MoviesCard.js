@@ -1,7 +1,6 @@
 import React from 'react';
 import cn from 'classnames/bind';
 import styles from './MoviesCard.module.scss';
-import api from '../../../utils/MainApi';
 import { MinToHours } from '../../../utils/constants';
 
 const cx = cn.bind(styles);
@@ -19,18 +18,12 @@ function MoviesCard(props) {
 
   function handleSaveMovieClick() {
     setMovieIsSaved(!movieIsSaved);
-    api.saveMovie(
-      props.card.nameRU,
-      `https://api.nomoreparties.co${props.card.image.url}`,
-      props.card.trailerLink,
-      props.card.duration,
-    )
-      .then((movie) => {
-        console.log(movie);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    props.onSaveMovieClick({
+      nameRU: props.card.nameRU,
+      image: `https://api.nomoreparties.co${props.card.image.url}`,
+      trailerLink: props.card.trailerLink,
+      duration: props.card.duration,
+    });
   }
 
   return (

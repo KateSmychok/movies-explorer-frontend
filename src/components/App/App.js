@@ -23,6 +23,7 @@ function App() {
   const [isNavigationPopupOpened, setIsNavigationPopupOpened] = React.useState(false);
   const [isEditPopupOpened, setIsEditPopupOpened] = React.useState(false);
   const [isInfoToolTipOpened, setIsInfoToolTipOpened] = React.useState(false);
+
   const [isRegSuccess, setIsRegSuccess] = React.useState(true);
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [errMessage, setErrMessage] = React.useState('');
@@ -36,6 +37,28 @@ function App() {
         setSavedMovies(movies);
       });
   }, []);
+
+  // Сохранить фильм и обновить список
+  const handleMovieSave = ({
+    nameRU,
+    image,
+    trailerLink,
+    duration,
+  }) => {
+    api.saveMovie(
+      nameRU,
+      image,
+      trailerLink,
+      duration,
+    )
+      .then((savedMovie) => {
+        console.log(savedMovie);
+        setSavedMovies([savedMovie, ...savedMovies]);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
 
   // Удалить сохраненный фильм и обновить список
   const handleMovieDelete = (movieId) => {
@@ -184,6 +207,7 @@ function App() {
           <ProtectedRoute
             path='/movies'
             loggedIn={loggedIn}
+            onSaveMovieClick={handleMovieSave}
             errMessage={errMessage}
             setErrMessage={setErrMessage}
             component={MoviesPage}

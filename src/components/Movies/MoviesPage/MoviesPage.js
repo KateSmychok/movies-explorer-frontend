@@ -177,6 +177,7 @@ function MoviesPage(props) {
         moviesToRender={moviesToRender}
         btnLoadMoreIsVisible={btnLoadMoreIsVisible}
         onLoadMoreBtnClick={handleLoadMoreBtnClick}
+        onSaveMovieClick={props.onSaveMovieClick}
         hasResult={hasResult}
         preloaderIsVisible={preloaderIsVisible}
         messageIsVisible={messageIsVisible}

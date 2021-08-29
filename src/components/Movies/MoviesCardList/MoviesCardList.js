@@ -28,6 +28,7 @@ function MoviesCardList(props) {
         {props.moviesToRender.map((card) => <MoviesCard
           card={card}
           key={card.id}
+          onSaveMovieClick={props.onSaveMovieClick}
         />)}
       </ul>
       <p className={errTextClassName}>{props.errMessage}</p>
