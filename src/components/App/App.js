@@ -49,7 +49,7 @@ function App() {
       });
   };
 
-  // Сохранить фильм и обновить список
+  // Сохранить или удалить из сохраненных фильм и обновить список
   const handleMovieSaveOrDelete = ({
     nameRU,
     image,
@@ -212,6 +212,7 @@ function App() {
           <ProtectedRoute
             path='/movies'
             loggedIn={loggedIn}
+            savedMovies={savedMovies}
             onSaveMovieClick={handleMovieSaveOrDelete}
             errMessage={errMessage}
             setErrMessage={setErrMessage}

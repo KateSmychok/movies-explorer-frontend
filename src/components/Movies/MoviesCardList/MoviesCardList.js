@@ -29,6 +29,7 @@ function MoviesCardList(props) {
           card={card}
           key={card.id}
           onSaveMovieClick={props.onSaveMovieClick}
+          savedMovies={props.savedMovies}
         />)}
       </ul>
       <p className={errTextClassName}>{props.errMessage}</p>

@@ -27,6 +27,12 @@ function MoviesCard(props) {
     });
   }
 
+  React.useEffect(() => {
+    if (props.savedMovies.some((i) => i.nameRU === props.card.nameRU)) {
+      setMovieIsSaved(true);
+    }
+  }, []);
+
   return (
     <article className={styles.card}>
       <div className={styles.info}>

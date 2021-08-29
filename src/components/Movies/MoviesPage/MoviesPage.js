@@ -181,6 +181,7 @@ function MoviesPage(props) {
         hasResult={hasResult}
         preloaderIsVisible={preloaderIsVisible}
         messageIsVisible={messageIsVisible}
+        savedMovies={props.savedMovies}
         errMessage={props.errMessage}
         setErrMessage={props.setErrMessage}
       />
