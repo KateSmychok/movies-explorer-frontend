@@ -18,10 +18,12 @@ function SavedMoviesCard(props) {
           {MinToHours(props.card.duration)}
         </p>
       </div>
-      <img className={styles.image} src={props.card.image} alt='Превью' />
-      <div className={styles.saveButtonArea}>
+      <a className={styles.link} href={props.card.trailerLink} target='_blank'>
+        <img className={styles.image} src={props.card.image} alt='Превью' />
+      </a>
+      <div className={styles.deleteFromSavedButtonArea}>
         <button
-          className={cn(styles.baseButton, styles.removeFromSaved)}
+          className={styles.deleteFromSavedButton}
           onClick={handleDeleteMovieClick}>
         </button>
       </div>

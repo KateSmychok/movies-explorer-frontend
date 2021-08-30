@@ -43,7 +43,9 @@ function MoviesCard(props) {
           {MinToHours(props.card.duration)}
         </p>
       </div>
-      <img className={styles.image} src={`https://api.nomoreparties.co${props.card.image.url}`} alt='Превью' />
+      <a className={styles.link} href={props.card.trailerLink} target='_blank'>
+        <img className={styles.image} src={`https://api.nomoreparties.co${props.card.image.url}`} alt='Превью' />
+      </a>
       <div className={styles.saveButtonArea}>
         <button
           className={buttonClassName}

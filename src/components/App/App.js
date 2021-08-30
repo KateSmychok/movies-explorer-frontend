@@ -185,7 +185,7 @@ function App() {
       password: '',
     });
     setLoggedIn(false);
-    history.push('/signin');
+    history.push('/');
   };
 
   return (
