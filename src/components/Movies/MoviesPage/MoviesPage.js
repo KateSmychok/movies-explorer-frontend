@@ -63,6 +63,9 @@ function MoviesPage(props) {
       if (movies.length > 0) {
         setLongMovies(movies);
         localStorage.setItem('long-movies', JSON.stringify(movies));
+      } else {
+        setMessageIsVisible(true);
+        props.setErrMessage('Ничего не найдено');
       }
       setPreloaderIsVisible(false);
       // Если ничего не найдено
@@ -183,7 +186,6 @@ function MoviesPage(props) {
         messageIsVisible={messageIsVisible}
         savedMovies={props.savedMovies}
         errMessage={props.errMessage}
-        setErrMessage={props.setErrMessage}
       />
     </>
   );

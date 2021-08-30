@@ -21,6 +21,19 @@
   font-size: 0;
 }
 
+.errText {
+  text-align: center;
+  margin: 0 auto;
+  padding: 30px 0;
+  font-size: 14px;
+  line-height: 1.43;
+  @include Inter400;
+
+  &Hidden {
+    display: none;
+  }
+}
+
 @include atTablet {
   .cardListSection {
     padding: 70px 30px 0;

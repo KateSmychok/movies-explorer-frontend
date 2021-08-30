@@ -223,6 +223,8 @@ function App() {
             loggedIn={loggedIn}
             savedMovies={savedMovies}
             onMovieDelete={handleMovieDelete}
+            errMessage={errMessage}
+            setErrMessage={setErrMessage}
             component={SavedMoviesPage}
           />
           <ProtectedRoute

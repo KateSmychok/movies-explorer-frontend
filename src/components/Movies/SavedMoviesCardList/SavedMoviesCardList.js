@@ -6,12 +6,13 @@ function SavedMoviesCardList(props) {
   return (
     <section className={styles.cardListSection}>
       <ul className={styles.cardList}>
-        {props.savedMovies.map((card) => <SavedMoviesCard
+        {props.moviesToRender.map((card) => <SavedMoviesCard
             card={card}
             key={card._id}
             onMovieDelete = {props.onMovieDelete}
         />)}
       </ul>
+      {props.messageIsVisible && <p className={styles.errText}>{props.errMessage}</p>}
     </section>
   );
 }
