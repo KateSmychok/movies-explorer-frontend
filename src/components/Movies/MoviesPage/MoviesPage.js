@@ -102,11 +102,15 @@ function MoviesPage(props) {
 
   // Ререндер фильмов при изменении ключевого слова или количества карточек для рендера
   React.useEffect(() => {
+    console.log('test3');
     if (checked) {
       if (filteredMovies.length > 0) {
         getMoviesToRender(filteredMovies);
       } else if (localStorage.getItem('movies') && filteredMovies.length === 0) {
         const moviesInLocalStorage = JSON.parse(localStorage.getItem('movies'));
+        getMoviesToRender(moviesInLocalStorage);
+      } else if (localStorage.getItem('long-movies') && filteredMovies.length === 0) {
+        const moviesInLocalStorage = JSON.parse(localStorage.getItem('long-movies'));
         getMoviesToRender(moviesInLocalStorage);
       } else {
         setTimeout(() => {
@@ -149,13 +153,12 @@ function MoviesPage(props) {
 
   // Ререндер короткометражек при изменении стейта чекбокса
   React.useEffect(() => {
+    console.log('test');
     if (filteredMovies.length > 0) {
       getFilteredByDurationMovies(filteredMovies);
     } else if (localStorage.getItem('movies') && filteredMovies.length === 0) {
       const moviesInLocalStorage = JSON.parse(localStorage.getItem('movies'));
       getFilteredByDurationMovies(moviesInLocalStorage);
-    } else {
-      setDefaultStates();
     }
   }, [checked]);
 
