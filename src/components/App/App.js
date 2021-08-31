@@ -1,5 +1,10 @@
 import React from 'react';
-import { useHistory, Route, Switch } from 'react-router-dom';
+import {
+  useHistory,
+  useLocation,
+  Route,
+  Switch,
+} from 'react-router-dom';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import api from '../../utils/MainApi';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
@@ -18,16 +23,17 @@ import MoviesPage from '../Movies/MoviesPage/MoviesPage';
 function App() {
   const [user, setUser] = React.useState({});
   const [loggedIn, setLoggedIn] = React.useState(false);
+  const [savedMovies, setSavedMovies] = React.useState([]);
 
   const [isNavigationPopupOpened, setIsNavPopupOpened] = React.useState(false);
   const [isInfoToolTipOpened, setIsInfoToolTipOpened] = React.useState(false);
 
   const [isUpdateSuccess, setIsUpdateSuccess] = React.useState(true);
   const [isRegSuccess, setIsRegSuccess] = React.useState(true);
-  const [savedMovies, setSavedMovies] = React.useState([]);
   const [errMessage, setErrMessage] = React.useState('');
 
   const history = useHistory();
+  const location = useLocation();
 
   // Получить список сохраненных фильмов
   React.useEffect(() => {
@@ -124,14 +130,10 @@ function App() {
           if (userInfo) {
             setUser(userInfo);
             setLoggedIn(true);
-            history.push('/movies');
+            history.push(location.pathname === '/signup' || location.pathname === '/signin'
+              ? '/'
+              : location.pathname);
           }
-        })
-        .catch((err) => setErrMessage(err.message));
-
-      api.getSavedMovies()
-        .then((movies) => {
-          setSavedMovies(movies);
         })
         .catch((err) => setErrMessage(err.message));
     }
@@ -239,7 +241,7 @@ function App() {
           <Route path='/signin'>
             <Login onSubmit={handleLogin} />
           </Route>
-          <Route path=''>
+          <Route path='*'>
             <NotFoundPage />
           </Route>
         </Switch>
