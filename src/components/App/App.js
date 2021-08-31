@@ -12,7 +12,6 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import NavigationPopup from '../NavigationPopup/NavigationPopup';
-import EditProfilePopup from '../EditProfilePopup/EditProfilePopup';
 import InfoToolTip from '../InfoToolTip/InfoTooltip';
 import MoviesPage from '../Movies/MoviesPage/MoviesPage';
 
@@ -20,10 +19,10 @@ function App() {
   const [user, setUser] = React.useState({});
   const [loggedIn, setLoggedIn] = React.useState(false);
 
-  const [isNavigationPopupOpened, setIsNavigationPopupOpened] = React.useState(false);
-  const [isEditPopupOpened, setIsEditPopupOpened] = React.useState(false);
+  const [isNavigationPopupOpened, setIsNavPopupOpened] = React.useState(false);
   const [isInfoToolTipOpened, setIsInfoToolTipOpened] = React.useState(false);
 
+  const [isUpdateSuccess, setIsUpdateSuccess] = React.useState(true);
   const [isRegSuccess, setIsRegSuccess] = React.useState(true);
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [errMessage, setErrMessage] = React.useState('');
@@ -108,14 +107,12 @@ function App() {
           setIsInfoToolTipOpened(true);
         }
         setUser(data);
+        setTimeout(() => {
+          setLoggedIn(true);
+          history.push('/movies');
+        }, 500);
       })
       .catch((err) => setErrMessage(err.message));
-  };
-
-  // Закрыть любой попап
-  const closeAllPopups = () => {
-    setIsNavigationPopupOpened(false);
-    setIsEditPopupOpened(false);
   };
 
   // При закрытии страницы и повторном входе
@@ -140,17 +137,18 @@ function App() {
     }
   }, []);
 
-  // Открытие попапа редактирования профиля
-  const handleEditButtonClick = () => {
-    setIsEditPopupOpened(true);
-  };
-
   // Обновление профиля
   const handleUpdateUser = ({ name, email }) => {
     api.updateCurrentUser(name, email)
-      .then((userInfo) => {
-        setUser(userInfo);
-        closeAllPopups();
+      .then((data) => {
+        if (data) {
+          setUser(data);
+          setIsUpdateSuccess(true);
+          setIsInfoToolTipOpened(true);
+        } else {
+          setIsUpdateSuccess(false);
+          setIsInfoToolTipOpened(true);
+        }
       })
       .catch((err) => {
         setErrMessage(err.message);
@@ -160,20 +158,21 @@ function App() {
   // Закрытие попапа об успешной/неудачной регистрации
   const closeInfoToolTip = () => {
     setIsInfoToolTipOpened(false);
-    if (isRegSuccess) {
-      setLoggedIn(true);
-      history.push('/movies');
-    }
   };
 
   // Открытие навбара
   const handleBurgerMenuClick = () => {
-    setIsNavigationPopupOpened(true);
+    setIsNavPopupOpened(true);
   };
 
   // Клик по любой ссылке навбара
   const handleNavigationLinkClick = () => {
-    setIsNavigationPopupOpened(false);
+    setIsNavPopupOpened(false);
+  };
+
+  // Закрытие навбара
+  const closeNavPopup = () => {
+    setIsNavPopupOpened(false);
   };
 
   // Выход
@@ -231,7 +230,7 @@ function App() {
             path='/profile'
             loggedIn={loggedIn}
             component={Profile}
-            onEditButtonClick={handleEditButtonClick}
+            onSubmit={handleUpdateUser}
             onSignOut={handleSignOut}
           />
           <Route path='/signup'>
@@ -258,15 +257,11 @@ function App() {
         <NavigationPopup
           isNavigationPopupOpened={isNavigationPopupOpened}
           onLinkClick={handleNavigationLinkClick}
-          onClose={closeAllPopups}
-        />
-        <EditProfilePopup
-          isEditPopupOpened={isEditPopupOpened}
-          onClose={closeAllPopups}
-          onSubmit={handleUpdateUser}
+          onClose={closeNavPopup}
         />
         <InfoToolTip
           isOpened={isInfoToolTipOpened}
+          isUpdateSuccess={isUpdateSuccess}
           isRegSuccess={isRegSuccess}
           onClose={closeInfoToolTip}
         />

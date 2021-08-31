@@ -125,7 +125,7 @@
 
 @mixin inputError {
   width: 100%;
-  height: 24px;
+  min-height: 24px;
   color: $accent-pink;
   @include Inter400;
   font-size: 10px;
@@ -133,4 +133,8 @@
   text-align: left;
   padding: 6px 0;
   box-sizing: border-box;
+
+  &Profile {
+    text-align: right;
+  }
 }

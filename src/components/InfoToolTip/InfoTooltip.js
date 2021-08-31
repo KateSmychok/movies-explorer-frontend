@@ -7,10 +7,10 @@ const cx = cn.bind(styles);
 function InfoToolTip(props) {
   function successOrFail() {
     let text;
-    if (props.isRegSuccess) {
-      text = 'Вы успешно зарегистрировались!';
+    if (props.isRegSuccess || props.isUpdateSuccess) {
+      text = 'Успешно!';
     } else {
-      text = 'Что-то пошло не так! Попробуйте ещё раз.';
+      text = 'Что-то пошло не так! Попробуйте ещё раз';
     }
     return text;
   }
