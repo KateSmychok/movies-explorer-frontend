@@ -1,7 +1,7 @@
 import React from 'react';
 import cn from 'classnames/bind';
 import styles from './MoviesCard.module.scss';
-import { MinToHours } from '../../../utils/constants';
+import { MinToHours } from '../../../utils/commonFunctions';
 
 const cx = cn.bind(styles);
 

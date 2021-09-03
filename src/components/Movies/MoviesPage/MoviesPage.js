@@ -1,29 +1,35 @@
 import React from 'react';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
-import { SetMaximumCards, AddCardsOnBtnClick } from '../../../utils/constants';
-import getAllMovies from '../../../utils/MoviesApi';
+import { SetMaximumCards, AddCardsOnBtnClick } from '../../../utils/commonFunctions';
+import getAllMovies from '../../../api/MoviesApi';
 
 function MoviesPage(props) {
   const [maxCards, setMaxCards] = React.useState(SetMaximumCards());
   const [hasResult, setHasResult] = React.useState(false);
+  const [hasAttempt, setHasAttempt] = React.useState(false);
 
   const [allMovies, setAllMovies] = React.useState([]);
-  const [filteredMovies, setFilteredMovies] = React.useState([]);
-  const [moviesToRender, setMoviesToRender] = React.useState([]);
   const [longMovies, setLongMovies] = React.useState([]);
+  const [filteredMovies, setFilteredMovies] = React.useState([]);
+  const [filteredLongMovies, setFilteredLongMovies] = React.useState([]);
+  const [moviesToRender, setMoviesToRender] = React.useState([]);
 
-  const [btnLoadMoreIsVisible, setBtnLoadMoreIsVisible] = React.useState(false);
+  const [loadMoreIsVisible, setLoadMoreIsVisible] = React.useState(false);
   const [preloaderIsVisible, setPreloaderIsVisible] = React.useState(false);
   const [messageIsVisible, setMessageIsVisible] = React.useState(false);
 
   const [checked, setChecked] = React.useState(true);
 
-  // Получить все фильмы из БД
+  // Получить все фильмы из БД и сохранить в стейты
   React.useEffect(() => {
     getAllMovies()
-      .then((items) => {
-        setAllMovies(items);
+      .then((movies) => {
+        setAllMovies(movies);
+        setLongMovies(movies.filter(
+          (item) => item.duration > 40,
+        ));
+        setMessageIsVisible(false);
       })
       .catch(() => {
         props.setErrMessage(
@@ -34,48 +40,65 @@ function MoviesPage(props) {
       });
   }, []);
 
+  // Дефолтные стейты
   const setDefaultStates = () => {
-    setBtnLoadMoreIsVisible(false);
+    setLoadMoreIsVisible(false);
     setHasResult(false);
     setMaxCards(SetMaximumCards());
     setMoviesToRender([]);
+    localStorage.removeItem('movies');
+    localStorage.removeItem('long-movies');
   };
+
+  // Если ничего не найдено
+  const setNotFoundStates = () => {
+    setMessageIsVisible(true);
+    props.setErrMessage('Ничего не найдено');
+  };
+
+  // Получить и распарсить item из ЛС
+  function getMoviesFromLS(itemName) {
+    return (
+      JSON.parse(localStorage.getItem(itemName))
+    );
+  }
 
   // Сабмит формы поиска
   const handleSearchBtnSubmit = ({ keyword }) => {
-    localStorage.removeItem('movies');
-    localStorage.removeItem('long-movies');
     setDefaultStates();
+    setHasAttempt(true);
     setPreloaderIsVisible(true);
-    // Фильтр по ключевому слову
+    setMessageIsVisible(false);
+
     const filMovies = allMovies.filter(
       (item) => item.nameRU.toLowerCase().indexOf(keyword.toLowerCase()) > -1,
     );
-    // Если чекбокс +
-    if (checked && filMovies.length > 0) {
+
+    const filLongMovies = longMovies.filter(
+      (item) => item.nameRU.toLowerCase().indexOf(keyword.toLowerCase()) > -1,
+    );
+
+    if (filMovies.length > 0) {
       setFilteredMovies(filMovies);
       localStorage.setItem('movies', JSON.stringify(filMovies));
-    // Если чекбокс -
-    } else if (!checked && filMovies.length > 0) {
-      const movies = filMovies.filter(
-        (item) => item.duration > 40,
-      );
-      if (movies.length > 0) {
-        setLongMovies(movies);
-        localStorage.setItem('long-movies', JSON.stringify(movies));
-      } else {
-        setMessageIsVisible(true);
-        props.setErrMessage('Ничего не найдено');
-      }
-      setPreloaderIsVisible(false);
-      // Если ничего не найдено
+    }
+
+    if (filLongMovies.length > 0) {
+      setFilteredLongMovies(filLongMovies);
+      localStorage.setItem('long-movies', JSON.stringify(filLongMovies));
     } else {
+      setFilteredLongMovies([]);
+      setNotFoundStates();
+    }
+
+    if (filMovies.length === 0 && filLongMovies.length === 0) {
       setFilteredMovies([]);
-      setLongMovies([]);
-      setDefaultStates();
-      setPreloaderIsVisible(false);
-      setMessageIsVisible(true);
-      props.setErrMessage('Ничего не найдено');
+      setFilteredLongMovies([]);
+      setTimeout(() => {
+        setNotFoundStates();
+        setDefaultStates();
+        setPreloaderIsVisible(false);
+      }, 300);
     }
   };
 
@@ -87,78 +110,49 @@ function MoviesPage(props) {
     }
     setMoviesToRender(movies);
     setMessageIsVisible(false);
-    setTimeout(
-      () => {
-        setPreloaderIsVisible(false);
-        setHasResult(true);
-        if (films.length > maxCards) {
-          setBtnLoadMoreIsVisible(true);
-        } else {
-          setBtnLoadMoreIsVisible(false);
-        }
-      }, 500,
-    );
+    setTimeout(() => {
+      setHasResult(true);
+      if (films.length > maxCards) {
+        setLoadMoreIsVisible(true);
+      } else {
+        setLoadMoreIsVisible(false);
+      }
+    }, 300);
   };
 
-  // Ререндер фильмов при изменении ключевого слова или количества карточек для рендера
-  React.useEffect(() => {
+  // Логика рендера фильмов
+  const renderMovies = () => {
+    // Чекбокс +
     if (checked) {
+      setMessageIsVisible(false);
       if (filteredMovies.length > 0) {
         getMoviesToRender(filteredMovies);
-      } else if (localStorage.getItem('movies') && filteredMovies.length === 0) {
-        const moviesInLocalStorage = JSON.parse(localStorage.getItem('movies'));
-        getMoviesToRender(moviesInLocalStorage);
-      } else if (localStorage.getItem('long-movies') && filteredMovies.length === 0) {
-        const moviesInLocalStorage = JSON.parse(localStorage.getItem('long-movies'));
-        getMoviesToRender(moviesInLocalStorage);
+      } else if (filteredMovies.length === 0 && localStorage.getItem('movies')) {
+        getMoviesToRender(getMoviesFromLS('movies'));
       } else {
-        setTimeout(() => {
-          setDefaultStates();
-        }, 500);
+        setNotFoundStates();
+        setHasResult(false);
+        setMoviesToRender([]);
       }
+      // Чекбокс -
     } else {
-      if (longMovies.length > 0) {
-        getMoviesToRender(longMovies);
-      } else if (localStorage.getItem('long-movies') && longMovies.length === 0) {
-        const moviesInLocalStorage = JSON.parse(localStorage.getItem('long-movies'));
-        getMoviesToRender(moviesInLocalStorage);
+      if (filteredLongMovies.length > 0) {
+        getMoviesToRender(filteredLongMovies);
+      } else if (filteredLongMovies.length === 0 && localStorage.getItem('long-movies')) {
+        getMoviesToRender(getMoviesFromLS('long-movies'));
       } else {
-        setTimeout(() => {
-          setDefaultStates();
-        }, 500);
+        setNotFoundStates();
+        setHasResult(false);
+        setMoviesToRender([]);
       }
     }
-  }, [filteredMovies, maxCards, longMovies]);
-
-  // Получение фильмов > 40 мин.
-  const getFilteredByDurationMovies = (films) => {
-    if (!checked && films.length > 0) {
-      const movies = films.filter(
-        (item) => item.duration > 40,
-      );
-      if (movies.length > 0) {
-        setLongMovies(movies);
-        localStorage.setItem('long-movies', JSON.stringify(movies));
-      } else {
-        setDefaultStates();
-        setMessageIsVisible(true);
-        props.setErrMessage('Ничего не найдено');
-      }
-    } else if (checked) {
-      setLongMovies([]);
-      localStorage.removeItem('long-movies');
-    }
+    setPreloaderIsVisible(false);
   };
 
-  // Ререндер короткометражек при изменении стейта чекбокса
+  // Ререндер фильмов при изменении ключевого слова, количества карточек, переключении тумблера
   React.useEffect(() => {
-    if (filteredMovies.length > 0) {
-      getFilteredByDurationMovies(filteredMovies);
-    } else if (localStorage.getItem('movies') && filteredMovies.length === 0) {
-      const moviesInLocalStorage = JSON.parse(localStorage.getItem('movies'));
-      getFilteredByDurationMovies(moviesInLocalStorage);
-    }
-  }, [checked]);
+    renderMovies();
+  }, [filteredMovies, filteredLongMovies, maxCards, checked]);
 
   // Клик по чекбоксу 'Короткометражки'
   const handleCheckboxClick = () => {
@@ -179,7 +173,7 @@ function MoviesPage(props) {
       />
       <MoviesCardList
         moviesToRender={moviesToRender}
-        btnLoadMoreIsVisible={btnLoadMoreIsVisible}
+        btnLoadMoreIsVisible={loadMoreIsVisible}
         onLoadMoreBtnClick={handleLoadMoreBtnClick}
         onSaveMovieClick={props.onSaveMovieClick}
         hasResult={hasResult}

@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import styles from './SearchForm.module.scss';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
-import { SearchSchema } from '../../../utils/constants';
+import { SearchSchema } from '../../../utils/validationSchemas';
 
 function SearchForm(props) {
   return (

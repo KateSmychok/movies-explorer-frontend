@@ -3,7 +3,7 @@ import { Formik, Form, Field } from 'formik';
 import { Link } from 'react-router-dom';
 import cn from 'classnames/bind';
 import styles from './Login.module.scss';
-import { LoginSchema } from '../../utils/constants';
+import { LoginSchema } from '../../utils/validationSchemas';
 
 const cx = cn.bind(styles);
 

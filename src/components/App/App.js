@@ -6,7 +6,7 @@ import {
   Switch,
 } from 'react-router-dom';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
-import api from '../../utils/MainApi';
+import api from '../../api/MainApi';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import MainPage from '../Main/MainPage/MainPage';
 import Header from '../Header/Header';

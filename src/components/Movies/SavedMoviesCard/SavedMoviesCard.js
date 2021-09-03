@@ -1,7 +1,7 @@
 import React from 'react';
 import cn from 'classnames';
 import styles from './SavedMoviesCard.module.scss';
-import { MinToHours } from '../../../utils/constants';
+import { MinToHours } from '../../../utils/commonFunctions';
 
 function SavedMoviesCard(props) {
   const handleDeleteMovieClick = () => {

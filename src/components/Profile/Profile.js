@@ -3,7 +3,7 @@ import { Field, Form, Formik } from 'formik';
 import cn from 'classnames';
 import styles from './Profile.module.scss';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
-import { ProfileSchema } from '../../utils/constants';
+import { ProfileSchema } from '../../utils/validationSchemas';
 
 function Profile(props) {
   const user = React.useContext(CurrentUserContext);
