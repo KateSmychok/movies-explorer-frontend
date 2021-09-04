@@ -12,11 +12,6 @@ function MoviesCardList(props) {
     cardListHidden: !props.hasResult,
   });
 
-  const errTextClassName = cx({
-    text: props.messageIsVisible && !props.hasResult,
-    textHidden: !props.messageIsVisible,
-  });
-
   const loadMoreSectionClassName = cx({
     loadMoreSection: true,
     loadMoreSectionVisible: props.btnLoadMoreIsVisible,
@@ -24,6 +19,8 @@ function MoviesCardList(props) {
 
   return (
     <section className={styles.cardListSection}>
+      {(props.errMessageIsVisible || props.messageIsVisible)
+      && <p className={styles.errText}>{props.errMessage}</p>}
       <ul className={cardListClassName}>
         {props.moviesToRender.map((card) => <MoviesCard
           card={card}
@@ -32,7 +29,6 @@ function MoviesCardList(props) {
           savedMovies={props.savedMovies}
         />)}
       </ul>
-      <p className={errTextClassName}>{props.errMessage}</p>
       <div className={loadMoreSectionClassName}>
         <button
           type='button'

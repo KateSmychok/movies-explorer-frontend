@@ -5,10 +5,10 @@ class Api {
   }
 
   _checkResponse = (res) => {
-    if (res.ok) {
-      return res.json();
+    if (!res.ok) {
+      return res.json().then((r) => Promise.reject(r));
     }
-    return Promise.reject(new Error(`Ошибка ${res.status}`));
+    return res.clone().json();
   };
 
   register = (name, email, password) => fetch(`${this._url}/signup`, {

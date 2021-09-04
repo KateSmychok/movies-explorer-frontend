@@ -7,7 +7,6 @@ import getAllMovies from '../../../api/MoviesApi';
 function MoviesPage(props) {
   const [maxCards, setMaxCards] = React.useState(SetMaximumCards());
   const [hasResult, setHasResult] = React.useState(false);
-  const [hasAttempt, setHasAttempt] = React.useState(false);
 
   const [allMovies, setAllMovies] = React.useState([]);
   const [longMovies, setLongMovies] = React.useState([]);
@@ -15,9 +14,9 @@ function MoviesPage(props) {
   const [filteredLongMovies, setFilteredLongMovies] = React.useState([]);
   const [moviesToRender, setMoviesToRender] = React.useState([]);
 
+  const [messageIsVisible, setMessageIsVisible] = React.useState(false);
   const [loadMoreIsVisible, setLoadMoreIsVisible] = React.useState(false);
   const [preloaderIsVisible, setPreloaderIsVisible] = React.useState(false);
-  const [messageIsVisible, setMessageIsVisible] = React.useState(false);
 
   const [checked, setChecked] = React.useState(true);
 
@@ -32,6 +31,7 @@ function MoviesPage(props) {
         setMessageIsVisible(false);
       })
       .catch(() => {
+        setMessageIsVisible(true);
         props.setErrMessage(
           'Во время запроса произошла ошибка. '
           + 'Возможно, проблема с соединением или сервер недоступен. '
@@ -66,7 +66,6 @@ function MoviesPage(props) {
   // Сабмит формы поиска
   const handleSearchBtnSubmit = ({ keyword }) => {
     setDefaultStates();
-    setHasAttempt(true);
     setPreloaderIsVisible(true);
     setMessageIsVisible(false);
 
@@ -174,13 +173,15 @@ function MoviesPage(props) {
       <MoviesCardList
         moviesToRender={moviesToRender}
         btnLoadMoreIsVisible={loadMoreIsVisible}
+        messageIsVisible={messageIsVisible}
         onLoadMoreBtnClick={handleLoadMoreBtnClick}
         onSaveMovieClick={props.onSaveMovieClick}
         hasResult={hasResult}
         preloaderIsVisible={preloaderIsVisible}
-        messageIsVisible={messageIsVisible}
+        errMessageIsVisible={props.errMessageIsVisible}
         savedMovies={props.savedMovies}
         errMessage={props.errMessage}
+        setErrMessage={props.setErrMessage}
       />
     </>
   );

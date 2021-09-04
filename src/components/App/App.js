@@ -31,6 +31,7 @@ function App() {
   const [isUpdateSuccess, setIsUpdateSuccess] = React.useState(true);
   const [isRegSuccess, setIsRegSuccess] = React.useState(true);
   const [errMessage, setErrMessage] = React.useState('');
+  const [errMessageIsVisible, setErrMessageIsVisible] = React.useState(false);
 
   const history = useHistory();
   const location = useLocation();
@@ -40,6 +41,10 @@ function App() {
     api.getSavedMovies()
       .then((movies) => {
         setSavedMovies(movies);
+      })
+      .catch((err) => {
+        setErrMessage(err);
+        setErrMessageIsVisible(true);
       });
   }, []);
 
@@ -50,7 +55,8 @@ function App() {
         setSavedMovies((state) => state.filter((m) => m._id !== movieId));
       })
       .catch((err) => {
-        console.log(err);
+        setErrMessage(err.message);
+        setErrMessageIsVisible(true);
       });
   };
 
@@ -73,7 +79,8 @@ function App() {
           setSavedMovies([savedMovie, ...savedMovies]);
         })
         .catch((err) => {
-          console.log(err.message);
+          setErrMessage(err);
+          setErrMessageIsVisible(true);
         });
     } else {
       const cardToDelete = savedMovies.find((i) => i.nameRU === nameRU);
@@ -96,7 +103,10 @@ function App() {
                 history.push('/movies');
               }, 500);
             })
-            .catch((err) => setErrMessage(err.message));
+            .catch((err) => {
+              setErrMessage(err);
+              setErrMessageIsVisible(true);
+            });
         }
       });
   };
@@ -118,7 +128,10 @@ function App() {
           history.push('/movies');
         }, 500);
       })
-      .catch((err) => setErrMessage(err.message));
+      .catch((err) => {
+        setErrMessage(err);
+        setErrMessageIsVisible(true);
+      });
   };
 
   // При закрытии страницы и повторном входе
@@ -135,7 +148,10 @@ function App() {
               : location.pathname);
           }
         })
-        .catch((err) => setErrMessage(err.message));
+        .catch((err) => {
+          setErrMessage(err);
+          setErrMessageIsVisible(true);
+        });
     }
   }, []);
 
@@ -153,7 +169,8 @@ function App() {
         }
       })
       .catch((err) => {
-        setErrMessage(err.message);
+        setErrMessage(err);
+        setErrMessageIsVisible(true);
       });
   };
 
@@ -217,6 +234,7 @@ function App() {
             onSaveMovieClick={handleMovieSaveOrDelete}
             errMessage={errMessage}
             setErrMessage={setErrMessage}
+            errMessageIsVisible={errMessageIsVisible}
             component={MoviesPage}
           />
           <ProtectedRoute
@@ -226,6 +244,8 @@ function App() {
             onMovieDelete={handleMovieDelete}
             errMessage={errMessage}
             setErrMessage={setErrMessage}
+            errMessageIsVisible={errMessageIsVisible}
+            setErrMessageIsVisible={setErrMessageIsVisible}
             component={SavedMoviesPage}
           />
           <ProtectedRoute

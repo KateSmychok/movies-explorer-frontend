@@ -17,6 +17,7 @@ function SavedMoviesPage(props) {
     setLongMovies([]);
     setSomethingWasSearched(true);
     setMessageIsVisible(false);
+    props.setErrMessageIsVisible(false);
     // Фильтр по ключевому слову
     const filMovies = props.savedMovies.filter(
       (item) => item.nameRU.toLowerCase().indexOf(keyword.toLowerCase()) > -1,
@@ -92,6 +93,10 @@ function SavedMoviesPage(props) {
     }
   }, [checked]);
 
+  React.useEffect(() => {
+
+  }, [props.errMessage]);
+
   // Клик по чекбоксу 'Короткометражки'
   const handleCheckboxClick = () => {
     setChecked(!checked);
@@ -106,9 +111,11 @@ function SavedMoviesPage(props) {
       />
       <SavedMoviesCardList
         moviesToRender={moviesToRender}
-        onMovieDelete={props.onMovieDelete}
         messageIsVisible={messageIsVisible}
+        onMovieDelete={props.onMovieDelete}
+        errMessageIsVisible={props.errMessageIsVisible}
         errMessage={props.errMessage}
+        setErrMessage={props.setErrMessage}
       />
     </>
   );
