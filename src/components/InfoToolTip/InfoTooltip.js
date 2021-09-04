@@ -11,7 +11,7 @@ function InfoToolTip(props) {
   function successOrFailReg() {
     let text;
     if (props.isRegSuccess) {
-      text = 'Вы успешно зарегистрировались!';
+      text = 'Успешно!';
     } else {
       text = 'Что-то пошло не так! Попробуйте ещё раз';
     }
@@ -21,7 +21,7 @@ function InfoToolTip(props) {
   function successOrFailUpdate() {
     let text;
     if (props.isUpdateSuccess) {
-      text = 'Данные успешно обновлены';
+      text = 'Успешно!';
     } else {
       text = 'Что-то пошло не так! Попробуйте ещё раз';
     }
@@ -39,9 +39,9 @@ function InfoToolTip(props) {
           imageSuccess: props.isRegSuccess || props.isUpdateSuccess,
           imageFail: !props.isRegSuccess || !props.isUpdateSuccess,
         })}> </div>
-        <h3 className={styles.caption}>{location.pathname === '/signup'
-          ? successOrFailReg()
-          : successOrFailUpdate()}
+        <h3 className={styles.caption}>{location.pathname === '/profile'
+          ? successOrFailUpdate()
+          : successOrFailReg()}
         </h3>
         <button type='button' className={styles.closeButton} onClick={props.onClose}> </button>
       </div>

@@ -119,12 +119,10 @@ function App() {
         if (data) {
           setIsRegSuccess(true);
           setIsInfoToolTipOpened(true);
-          setUser(data);
         }
-        setTimeout(() => {
-          setLoggedIn(true);
-          history.push('/movies');
-        }, 500);
+      })
+      .then(() => {
+        handleLogin({ email, password });
       })
       .catch(() => {
         setIsRegSuccess(false);

@@ -7,6 +7,7 @@ import getAllMovies from '../../../api/MoviesApi';
 function MoviesPage(props) {
   const [maxCards, setMaxCards] = React.useState(SetMaximumCards());
   const [hasResult, setHasResult] = React.useState(false);
+  const [somethingWasSearched, setSomethingWasSearched] = React.useState(false);
 
   const [allMovies, setAllMovies] = React.useState([]);
   const [longMovies, setLongMovies] = React.useState([]);
@@ -65,6 +66,7 @@ function MoviesPage(props) {
   const handleSearchBtnSubmit = ({ keyword }) => {
     setDefaultStates();
     setPreloaderIsVisible(true);
+    setSomethingWasSearched(true);
     props.setErrMessageIsVisible(false);
 
     const filMovies = allMovies.filter(
@@ -126,7 +128,7 @@ function MoviesPage(props) {
         getMoviesToRender(filteredMovies);
       } else if (filteredMovies.length === 0 && localStorage.getItem('movies')) {
         getMoviesToRender(getMoviesFromLS('movies'));
-      } else {
+      } else if (somethingWasSearched) {
         setNotFoundStates();
         setHasResult(false);
         setMoviesToRender([]);
@@ -137,7 +139,7 @@ function MoviesPage(props) {
         getMoviesToRender(filteredLongMovies);
       } else if (filteredLongMovies.length === 0 && localStorage.getItem('long-movies')) {
         getMoviesToRender(getMoviesFromLS('long-movies'));
-      } else {
+      } else if (somethingWasSearched) {
         setNotFoundStates();
         setHasResult(false);
         setMoviesToRender([]);
