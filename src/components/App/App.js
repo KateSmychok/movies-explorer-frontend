@@ -11,6 +11,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import MainPage from '../Main/MainPage/MainPage';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import MoviesPage from '../Movies/MoviesPage/MoviesPage';
 import SavedMoviesPage from '../Movies/SavedMoviesPage/SavedMoviesPage';
 import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
@@ -18,7 +19,6 @@ import Login from '../Login/Login';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import NavigationPopup from '../NavigationPopup/NavigationPopup';
 import InfoToolTip from '../InfoToolTip/InfoTooltip';
-import MoviesPage from '../Movies/MoviesPage/MoviesPage';
 
 function App() {
   const [user, setUser] = React.useState({});
@@ -36,18 +36,6 @@ function App() {
 
   const history = useHistory();
   const location = useLocation();
-
-  // Получить список сохраненных фильмов
-  React.useEffect(() => {
-    api.getSavedMovies()
-      .then((movies) => {
-        setSavedMovies(movies);
-      })
-      .catch((err) => {
-        setErrMessage(err.message);
-        setErrMessageIsVisible(true);
-      });
-  }, []);
 
   // Удалить сохраненный фильм и обновить список
   const handleMovieDelete = (movieId) => {
@@ -235,6 +223,7 @@ function App() {
             path='/saved-movies'
             loggedIn={loggedIn}
             savedMovies={savedMovies}
+            setSavedMovies={setSavedMovies}
             onMovieDelete={handleMovieDelete}
             errMessage={errMessage}
             setErrMessage={setErrMessage}

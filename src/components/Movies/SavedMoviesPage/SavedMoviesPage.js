@@ -1,6 +1,7 @@
 import React from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import SavedMoviesCardList from '../SavedMoviesCardList/SavedMoviesCardList';
+import api from '../../../api/MainApi';
 
 function SavedMoviesPage(props) {
   const [filteredMovies, setFilteredMovies] = React.useState([]);
@@ -9,6 +10,18 @@ function SavedMoviesPage(props) {
 
   const [somethingWasSearched, setSomethingWasSearched] = React.useState(false);
   const [checked, setChecked] = React.useState(true);
+
+  // Получить список сохраненных фильмов
+  React.useEffect(() => {
+    api.getSavedMovies()
+      .then((movies) => {
+        props.setSavedMovies(movies);
+      })
+      .catch((err) => {
+        props.setErrMessage(err.message);
+        props.setErrMessageIsVisible(true);
+      });
+  }, []);
 
   // Если ничего не найдено
   const setNotFoundStates = () => {

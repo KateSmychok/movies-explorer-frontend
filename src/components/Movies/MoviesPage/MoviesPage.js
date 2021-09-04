@@ -22,21 +22,23 @@ function MoviesPage(props) {
 
   // Получить все фильмы из БД и сохранить в стейты
   React.useEffect(() => {
-    getAllMovies()
-      .then((movies) => {
-        setAllMovies(movies);
-        setLongMovies(movies.filter(
-          (item) => item.duration > 40,
-        ));
-      })
-      .catch(() => {
-        props.setErrMessageIsVisible(true);
-        props.setErrMessage(
-          'Во время запроса произошла ошибка. '
-          + 'Возможно, проблема с соединением или сервер недоступен. '
-          + 'Подождите немного и попробуйте ещё раз',
-        );
-      });
+    if (allMovies.length === 0) {
+      getAllMovies()
+        .then((movies) => {
+          setAllMovies(movies);
+          setLongMovies(movies.filter(
+            (item) => item.duration > 40,
+          ));
+        })
+        .catch(() => {
+          props.setErrMessageIsVisible(true);
+          props.setErrMessage(
+            'Во время запроса произошла ошибка. '
+            + 'Возможно, проблема с соединением или сервер недоступен. '
+            + 'Подождите немного и попробуйте ещё раз',
+          );
+        });
+    }
   }, []);
 
   // Дефолтные стейты
