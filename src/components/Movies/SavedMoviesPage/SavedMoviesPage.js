@@ -7,16 +7,20 @@ function SavedMoviesPage(props) {
   const [moviesToRender, setMoviesToRender] = React.useState([]);
   const [longMovies, setLongMovies] = React.useState([]);
 
-  const [messageIsVisible, setMessageIsVisible] = React.useState(false);
   const [somethingWasSearched, setSomethingWasSearched] = React.useState(false);
   const [checked, setChecked] = React.useState(true);
+
+  // Если ничего не найдено
+  const setNotFoundStates = () => {
+    props.setErrMessageIsVisible(true);
+    props.setErrMessage('Ничего не найдено');
+  };
 
   // Сабмит формы поиска
   const handleSearchBtnSubmit = ({ keyword }) => {
     setFilteredMovies([]);
     setLongMovies([]);
     setSomethingWasSearched(true);
-    setMessageIsVisible(false);
     props.setErrMessageIsVisible(false);
     // Фильтр по ключевому слову
     const filMovies = props.savedMovies.filter(
@@ -34,21 +38,20 @@ function SavedMoviesPage(props) {
         setLongMovies(movies);
       } else {
         setTimeout(() => {
-          setMessageIsVisible(true);
-          props.setErrMessage('Ничего не найдено');
+          setNotFoundStates();
         }, 500);
       }
       // Если ничего не найдено
     } else {
       setTimeout(() => {
-        setMessageIsVisible(true);
-        props.setErrMessage('Ничего не найдено');
+        setNotFoundStates();
       }, 1000);
     }
   };
 
   // Получение фильмов для рендера
   const getMoviesToRender = () => {
+    props.setErrMessageIsVisible(false);
     if (!somethingWasSearched && checked) {
       setMoviesToRender(props.savedMovies);
     } else if (!somethingWasSearched && !checked) {
@@ -58,7 +61,7 @@ function SavedMoviesPage(props) {
     } else {
       if (checked) {
         setMoviesToRender(filteredMovies);
-        setMessageIsVisible(false);
+        props.setErrMessageIsVisible(false);
       } else {
         setMoviesToRender(longMovies);
       }
@@ -74,6 +77,7 @@ function SavedMoviesPage(props) {
 
   // Ререндер фильмов при изменении стейта чекбокса
   React.useEffect(() => {
+    // Если чекбокс -
     if (!checked) {
       const movies = moviesToRender.filter(
         (item) => item.duration > 40,
@@ -82,20 +86,16 @@ function SavedMoviesPage(props) {
         setLongMovies(movies);
       } else if (movies.length === 0 && somethingWasSearched) {
         setMoviesToRender([]);
-        setMessageIsVisible(true);
-        props.setErrMessage('Ничего не найдено');
+        setNotFoundStates();
       } else {
         setMoviesToRender([]);
-        setMessageIsVisible(false);
+        props.setErrMessageIsVisible(false);
       }
+      // Если чекбокс +
     } else {
       getMoviesToRender();
     }
   }, [checked]);
-
-  React.useEffect(() => {
-
-  }, [props.errMessage]);
 
   // Клик по чекбоксу 'Короткометражки'
   const handleCheckboxClick = () => {
@@ -111,11 +111,11 @@ function SavedMoviesPage(props) {
       />
       <SavedMoviesCardList
         moviesToRender={moviesToRender}
-        messageIsVisible={messageIsVisible}
         onMovieDelete={props.onMovieDelete}
-        errMessageIsVisible={props.errMessageIsVisible}
         errMessage={props.errMessage}
         setErrMessage={props.setErrMessage}
+        errMessageIsVisible={props.errMessageIsVisible}
+        setErrMessageIsVisible={props.setErrMessageIsVisible}
       />
     </>
   );

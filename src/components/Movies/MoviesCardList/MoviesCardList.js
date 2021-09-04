@@ -19,7 +19,7 @@ function MoviesCardList(props) {
 
   return (
     <section className={styles.cardListSection}>
-      {(props.errMessageIsVisible || props.messageIsVisible)
+      {(props.errMessageIsVisible && !props.hasResult)
       && <p className={styles.errText}>{props.errMessage}</p>}
       <ul className={cardListClassName}>
         {props.moviesToRender.map((card) => <MoviesCard

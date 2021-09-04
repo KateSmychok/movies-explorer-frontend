@@ -14,7 +14,6 @@ function MoviesPage(props) {
   const [filteredLongMovies, setFilteredLongMovies] = React.useState([]);
   const [moviesToRender, setMoviesToRender] = React.useState([]);
 
-  const [messageIsVisible, setMessageIsVisible] = React.useState(false);
   const [loadMoreIsVisible, setLoadMoreIsVisible] = React.useState(false);
   const [preloaderIsVisible, setPreloaderIsVisible] = React.useState(false);
 
@@ -28,10 +27,9 @@ function MoviesPage(props) {
         setLongMovies(movies.filter(
           (item) => item.duration > 40,
         ));
-        setMessageIsVisible(false);
       })
       .catch(() => {
-        setMessageIsVisible(true);
+        props.setErrMessageIsVisible(true);
         props.setErrMessage(
           'Во время запроса произошла ошибка. '
           + 'Возможно, проблема с соединением или сервер недоступен. '
@@ -52,7 +50,7 @@ function MoviesPage(props) {
 
   // Если ничего не найдено
   const setNotFoundStates = () => {
-    setMessageIsVisible(true);
+    props.setErrMessageIsVisible(true);
     props.setErrMessage('Ничего не найдено');
   };
 
@@ -67,7 +65,7 @@ function MoviesPage(props) {
   const handleSearchBtnSubmit = ({ keyword }) => {
     setDefaultStates();
     setPreloaderIsVisible(true);
-    setMessageIsVisible(false);
+    props.setErrMessageIsVisible(false);
 
     const filMovies = allMovies.filter(
       (item) => item.nameRU.toLowerCase().indexOf(keyword.toLowerCase()) > -1,
@@ -108,7 +106,7 @@ function MoviesPage(props) {
       movies.push(films[i]);
     }
     setMoviesToRender(movies);
-    setMessageIsVisible(false);
+    props.setErrMessageIsVisible(false);
     setTimeout(() => {
       setHasResult(true);
       if (films.length > maxCards) {
@@ -123,7 +121,7 @@ function MoviesPage(props) {
   const renderMovies = () => {
     // Чекбокс +
     if (checked) {
-      setMessageIsVisible(false);
+      props.setErrMessageIsVisible(false);
       if (filteredMovies.length > 0) {
         getMoviesToRender(filteredMovies);
       } else if (filteredMovies.length === 0 && localStorage.getItem('movies')) {
@@ -172,16 +170,16 @@ function MoviesPage(props) {
       />
       <MoviesCardList
         moviesToRender={moviesToRender}
+        savedMovies={props.savedMovies}
         btnLoadMoreIsVisible={loadMoreIsVisible}
-        messageIsVisible={messageIsVisible}
         onLoadMoreBtnClick={handleLoadMoreBtnClick}
         onSaveMovieClick={props.onSaveMovieClick}
         hasResult={hasResult}
         preloaderIsVisible={preloaderIsVisible}
-        errMessageIsVisible={props.errMessageIsVisible}
-        savedMovies={props.savedMovies}
         errMessage={props.errMessage}
         setErrMessage={props.setErrMessage}
+        errMessageIsVisible={props.errMessageIsVisible}
+        setErrMessageIsVisible={props.setErrMessageIsVisible}
       />
     </>
   );

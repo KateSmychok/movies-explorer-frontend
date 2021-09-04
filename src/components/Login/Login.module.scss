@@ -83,6 +83,15 @@
   @include inputError;
 }
 
+.errText {
+  text-align: center;
+  margin: 0 auto;
+  padding: 30px 0;
+  font-size: 14px;
+  line-height: 1.43;
+  @include Inter400;
+}
+
 .buttonWithCaption {
   width: 100%;
   display: flex;

@@ -70,6 +70,8 @@ function Login(props) {
             ) : <span className={styles.inputError}> </span>
             }
 
+            {props.errMessageIsVisible && <p className={styles.errText}>{props.errMessage}</p>}
+
             <div className={styles.buttonWithCaption}>
               <button type='submit' className={styles.submitButton} disabled={!(dirty && isValid)}>
                 Войти

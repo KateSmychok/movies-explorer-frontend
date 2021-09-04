@@ -30,6 +30,7 @@ function App() {
 
   const [isUpdateSuccess, setIsUpdateSuccess] = React.useState(true);
   const [isRegSuccess, setIsRegSuccess] = React.useState(true);
+
   const [errMessage, setErrMessage] = React.useState('');
   const [errMessageIsVisible, setErrMessageIsVisible] = React.useState(false);
 
@@ -43,7 +44,7 @@ function App() {
         setSavedMovies(movies);
       })
       .catch((err) => {
-        setErrMessage(err);
+        setErrMessage(err.message);
         setErrMessageIsVisible(true);
       });
   }, []);
@@ -79,7 +80,7 @@ function App() {
           setSavedMovies([savedMovie, ...savedMovies]);
         })
         .catch((err) => {
-          setErrMessage(err);
+          setErrMessage(err.message);
           setErrMessageIsVisible(true);
         });
     } else {
@@ -104,7 +105,7 @@ function App() {
               }, 500);
             })
             .catch((err) => {
-              setErrMessage(err);
+              setErrMessage(err.message);
               setErrMessageIsVisible(true);
             });
         }
@@ -118,19 +119,16 @@ function App() {
         if (data) {
           setIsRegSuccess(true);
           setIsInfoToolTipOpened(true);
-        } else {
-          setIsRegSuccess(false);
-          setIsInfoToolTipOpened(true);
+          setUser(data);
         }
-        setUser(data);
         setTimeout(() => {
           setLoggedIn(true);
           history.push('/movies');
         }, 500);
       })
-      .catch((err) => {
-        setErrMessage(err);
-        setErrMessageIsVisible(true);
+      .catch(() => {
+        setIsRegSuccess(false);
+        setIsInfoToolTipOpened(true);
       });
   };
 
@@ -149,7 +147,7 @@ function App() {
           }
         })
         .catch((err) => {
-          setErrMessage(err);
+          setErrMessage(err.message);
           setErrMessageIsVisible(true);
         });
     }
@@ -163,14 +161,11 @@ function App() {
           setUser(data);
           setIsUpdateSuccess(true);
           setIsInfoToolTipOpened(true);
-        } else {
-          setIsUpdateSuccess(false);
-          setIsInfoToolTipOpened(true);
         }
       })
-      .catch((err) => {
-        setErrMessage(err);
-        setErrMessageIsVisible(true);
+      .catch(() => {
+        setIsUpdateSuccess(false);
+        setIsInfoToolTipOpened(true);
       });
   };
 
@@ -235,6 +230,7 @@ function App() {
             errMessage={errMessage}
             setErrMessage={setErrMessage}
             errMessageIsVisible={errMessageIsVisible}
+            setErrMessageIsVisible={setErrMessageIsVisible}
             component={MoviesPage}
           />
           <ProtectedRoute
@@ -256,10 +252,16 @@ function App() {
             onSignOut={handleSignOut}
           />
           <Route path='/signup'>
-            <Register onSubmit={handleRegister} />
+            <Register
+              onSubmit={handleRegister}
+            />
           </Route>
           <Route path='/signin'>
-            <Login onSubmit={handleLogin} />
+            <Login
+              onSubmit={handleLogin}
+              errMessage={errMessage}
+              errMessageIsVisible={errMessageIsVisible}
+            />
           </Route>
           <Route path='*'>
             <NotFoundPage />

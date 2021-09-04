@@ -5,13 +5,12 @@ import SavedMoviesCard from '../SavedMoviesCard/SavedMoviesCard';
 function SavedMoviesCardList(props) {
   return (
     <section className={styles.cardListSection}>
-      {(props.errMessageIsVisible || props.messageIsVisible)
-      && <p className={styles.errText}>{props.errMessage}</p>}
+      {props.errMessageIsVisible && <p className={styles.errText}>{props.errMessage}</p>}
       <ul className={styles.cardList}>
         {props.moviesToRender.map((card) => <SavedMoviesCard
             card={card}
             key={card._id}
-            onMovieDelete = {props.onMovieDelete}
+            onMovieDelete={props.onMovieDelete}
         />)}
       </ul>
     </section>
