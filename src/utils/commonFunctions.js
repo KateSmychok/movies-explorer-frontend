@@ -1,8 +1,8 @@
 export const SetMaximumCards = () => {
   let i;
-  if (window.innerWidth >= 768) {
+  if (window.innerWidth > 768) {
     i = 3;
-  } else if (window.innerWidth >= 480) {
+  } else if (window.innerWidth > 480) {
     i = 2;
   } else {
     i = 5;
@@ -12,9 +12,9 @@ export const SetMaximumCards = () => {
 
 export const AddCardsOnBtnClick = () => {
   let i;
-  if (window.innerWidth >= 768) {
+  if (window.innerWidth > 768) {
     i = 3;
-  } else if (window.innerWidth >= 480) {
+  } else if (window.innerWidth > 480) {
     i = 2;
   } else {
     i = 2;
