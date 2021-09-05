@@ -61,9 +61,12 @@ class Api {
   })
     .then(this._checkResponse);
 
-  getSavedMovies = () => fetch(`${this._url}/movies`, {
+  getSavedMovies = (token) => fetch(`${this._url}/movies`, {
     method: 'GET',
-    headers: this._headers,
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
   })
     .then(this._checkResponse);
 

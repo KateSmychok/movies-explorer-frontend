@@ -86,17 +86,30 @@ function App() {
             .then((userInfo) => {
               setUser(userInfo);
             })
-            .then(() => {
-              setTimeout(() => {
-                setLoggedIn(true);
-                history.push('/movies');
-              }, 500);
+            .catch((err) => {
+              setErrMessage(err.message);
+              setErrMessageIsVisible(true);
+            });
+
+          api.getSavedMovies(data.token)
+            .then((movies) => {
+              setSavedMovies(movies);
             })
             .catch((err) => {
               setErrMessage(err.message);
               setErrMessageIsVisible(true);
             });
         }
+      })
+      .then(() => {
+        setTimeout(() => {
+          setLoggedIn(true);
+          history.push('/movies');
+        }, 500);
+      })
+      .catch((err) => {
+        setErrMessage(err.message);
+        setErrMessageIsVisible(true);
       });
   };
 
@@ -126,11 +139,22 @@ function App() {
         .then((userInfo) => {
           if (userInfo) {
             setUser(userInfo);
-            setLoggedIn(true);
-            history.push(location.pathname === '/signup' || location.pathname === '/signin'
-              ? '/'
-              : location.pathname);
           }
+        })
+        .catch((err) => {
+          setErrMessage(err.message);
+          setErrMessageIsVisible(true);
+        });
+
+      api.getSavedMovies(token)
+        .then((movies) => {
+          setSavedMovies(movies);
+        })
+        .then(() => {
+          setLoggedIn(true);
+          history.push(location.pathname === '/signup' || location.pathname === '/signin'
+            ? '/'
+            : location.pathname);
         })
         .catch((err) => {
           setErrMessage(err.message);
