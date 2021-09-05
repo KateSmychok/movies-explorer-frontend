@@ -216,16 +216,27 @@ function App() {
       <div className="page">
         <Switch>
           <Route exact path='/'>
-            <Header />
+            <Header
+              loggedIn={loggedIn}
+            />
           </Route>
           <Route path='/movies'>
-            <Header onBurgerMenuClick={handleBurgerMenuClick} />
+            <Header
+              onBurgerMenuClick={handleBurgerMenuClick}
+              loggedIn={loggedIn}
+            />
           </Route>
           <Route path='/saved-movies'>
-            <Header onBurgerMenuClick={handleBurgerMenuClick} />
+            <Header
+              onBurgerMenuClick={handleBurgerMenuClick}
+              loggedIn={loggedIn}
+            />
           </Route>
           <Route path='/profile'>
-            <Header onBurgerMenuClick={handleBurgerMenuClick} />
+            <Header
+              onBurgerMenuClick={handleBurgerMenuClick}
+              loggedIn={loggedIn}
+            />
           </Route>
         </Switch>
         <Switch>

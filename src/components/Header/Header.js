@@ -15,48 +15,62 @@ function Header(props) {
   };
 
   const location = useLocation();
-  const headerClassNameLanding = cx({
-    headerLanding: location.pathname === '/',
-    headerLandingHidden:
-      location.pathname === '/movies'
-      || location.pathname === '/saved-movies'
-      || location.pathname === '/profile',
-  });
-
-  const headerClassNameMain = cx({
+  const headerClassName = cx({
+    header: true,
     headerMain:
       location.pathname === '/movies'
       || location.pathname === '/saved-movies'
       || location.pathname === '/profile',
-    headerMainHidden: location.pathname === '/',
+    headerLanding: location.pathname === '/',
+  });
+
+  const linkClassName = cx({
+    link: true,
+    linkMain:
+      location.pathname === '/movies'
+      || location.pathname === '/saved-movies'
+      || location.pathname === '/profile',
+    linkLanding: location.pathname === '/',
+  });
+
+  const profileTextClassName = cx({
+    profileButtonText: true,
+    profileButtonTextMain:
+      location.pathname === '/movies'
+      || location.pathname === '/saved-movies'
+      || location.pathname === '/profile',
+    profileButtonTextLanding: location.pathname === '/',
   });
 
   return (
     <>
-      <div className={headerClassNameLanding}>
+      { !props.loggedIn
+      && <div className={headerClassName}>
         <Link to="/" className={styles.logo}> </Link>
         <div className={styles.buttonsArea}>
           <Link to="/signup" className={styles.regButton}>Регистрация</Link>
           <Link to={pathSignIn} className={styles.authButton}>Войти</Link>
         </div>
-      </div>
+        </div>
+      }
 
-      <div className={headerClassNameMain}>
+      { props.loggedIn
+      && <div className={headerClassName}>
         <div className={styles.leftSide}>
           <Link to="/" className={styles.logo}> </Link>
           <nav>
             <ul className={styles.navList}>
               <li className={styles.navItem}>
-                <Link to="/movies" className={styles.link}>Фильмы</Link>
+                <Link to="/movies" className={linkClassName}>Фильмы</Link>
               </li>
               <li className={styles.navItem}>
-                <Link to="/saved-movies" className={styles.link}>Сохранённые фильмы</Link>
+                <Link to="/saved-movies" className={linkClassName}>Сохранённые фильмы</Link>
               </li>
             </ul>
           </nav>
         </div>
         <Link to="/profile" className={styles.profileButton}>
-          <p className={styles.profileButtonText}>Аккаунт</p>
+          <p className={profileTextClassName}>Аккаунт</p>
           <div className={styles.profileButtonIcon}> </div>
         </Link>
         <button
@@ -64,7 +78,8 @@ function Header(props) {
           type='button'
           onClick={props.onBurgerMenuClick}>
         </button>
-      </div>
+        </div>
+      }
     </>
   );
 }
