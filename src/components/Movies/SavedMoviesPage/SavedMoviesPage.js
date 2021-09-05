@@ -5,7 +5,6 @@ import SavedMoviesCardList from '../SavedMoviesCardList/SavedMoviesCardList';
 function SavedMoviesPage(props) {
   const [filteredMovies, setFilteredMovies] = React.useState([]);
   const [moviesToRender, setMoviesToRender] = React.useState([]);
-  const [longMovies, setLongMovies] = React.useState([]);
 
   const [somethingWasSearched, setSomethingWasSearched] = React.useState(false);
   const [checked, setChecked] = React.useState(true);
@@ -16,54 +15,69 @@ function SavedMoviesPage(props) {
     props.setErrMessage('Ничего не найдено');
   };
 
+  // Фильтр по ключевому слову
+  const filterMoviesByKeyword = (keyword) => props.savedMovies.filter(
+    (item) => item.nameRU.toLowerCase().indexOf(keyword.toLowerCase()) > -1,
+  );
+
+  // Фильтр по длительности
+  const filterMoviesByDuration = (films) => films.filter(
+    (item) => item.duration > 40,
+  );
+
   // Сабмит формы поиска
   const handleSearchBtnSubmit = ({ keyword }) => {
-    setFilteredMovies([]);
-    setLongMovies([]);
+    localStorage.setItem('keyword', keyword);
     setSomethingWasSearched(true);
+    setFilteredMovies(filterMoviesByKeyword(keyword));
     props.setErrMessageIsVisible(false);
-    // Фильтр по ключевому слову
-    const filMovies = props.savedMovies.filter(
-      (item) => item.nameRU.toLowerCase().indexOf(keyword.toLowerCase()) > -1,
-    );
-    // Если чекбокс +
-    if (checked && filMovies.length > 0) {
-      setFilteredMovies(filMovies);
-      // Если чекбокс -
-    } else if (!checked && filMovies.length > 0) {
-      const movies = filMovies.filter(
-        (item) => item.duration > 40,
-      );
-      if (movies.length > 0) {
-        setLongMovies(movies);
-      } else {
-        setTimeout(() => {
-          setNotFoundStates();
-        }, 500);
-      }
-      // Если ничего не найдено
-    } else {
-      setTimeout(() => {
-        setNotFoundStates();
-      }, 1000);
-    }
   };
 
   // Получение фильмов для рендера
   const getMoviesToRender = () => {
     props.setErrMessageIsVisible(false);
-    if (!somethingWasSearched && checked) {
-      setMoviesToRender(props.savedMovies);
-    } else if (!somethingWasSearched && !checked) {
-      setMoviesToRender(props.savedMovies.filter(
-        (item) => item.duration > 40,
-      ));
-    } else {
-      if (checked) {
-        setMoviesToRender(filteredMovies);
+    // Если чекбокс +
+    if (checked) {
+      if (props.savedMovies.length === 0) {
+        setMoviesToRender([]);
         props.setErrMessageIsVisible(false);
-      } else {
-        setMoviesToRender(longMovies);
+      } else if (!somethingWasSearched) {
+        setMoviesToRender(props.savedMovies);
+      } else if (somethingWasSearched) {
+        const keyword = localStorage.getItem('keyword');
+        const filMovies = filterMoviesByKeyword(keyword);
+        if (filMovies.length > 0) {
+          setMoviesToRender(filMovies);
+        } else {
+          setMoviesToRender([]);
+          setNotFoundStates();
+        }
+      }
+      // Если чекбокс -
+    } else {
+      if (props.savedMovies.length === 0) {
+        setMoviesToRender([]);
+        props.setErrMessageIsVisible(false);
+      } else if (!somethingWasSearched) {
+        const long = props.savedMovies.filter(
+          (item) => item.duration > 40,
+        );
+        setMoviesToRender(long);
+      } else if (somethingWasSearched) {
+        const keyword = localStorage.getItem('keyword');
+        const filMovies = filterMoviesByKeyword(keyword);
+        if (filMovies.length > 0) {
+          const filLongMovies = filterMoviesByDuration(filMovies);
+          if (filLongMovies.length > 0) {
+            setMoviesToRender(filLongMovies);
+          } else {
+            setMoviesToRender([]);
+            setNotFoundStates();
+          }
+        } else {
+          setMoviesToRender([]);
+          setNotFoundStates();
+        }
       }
     }
   };
@@ -73,29 +87,7 @@ function SavedMoviesPage(props) {
     setTimeout(() => {
       getMoviesToRender();
     }, 500);
-  }, [somethingWasSearched, filteredMovies, longMovies, props.savedMovies]);
-
-  // Ререндер фильмов при изменении стейта чекбокса
-  React.useEffect(() => {
-    // Если чекбокс -
-    if (!checked) {
-      const movies = moviesToRender.filter(
-        (item) => item.duration > 40,
-      );
-      if (movies.length > 0) {
-        setLongMovies(movies);
-      } else if (movies.length === 0 && somethingWasSearched) {
-        setMoviesToRender([]);
-        setNotFoundStates();
-      } else {
-        setMoviesToRender([]);
-        props.setErrMessageIsVisible(false);
-      }
-      // Если чекбокс +
-    } else {
-      getMoviesToRender();
-    }
-  }, [checked]);
+  }, [somethingWasSearched, filteredMovies, props.savedMovies, checked]);
 
   // Клик по чекбоксу 'Короткометражки'
   const handleCheckboxClick = () => {
