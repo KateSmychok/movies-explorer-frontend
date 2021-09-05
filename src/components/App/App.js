@@ -1,3 +1,5 @@
+// Артём, спасибо за комментарии! Всё исправила, кроме best practices, к ним вернусь чуть позже.
+
 import React from 'react';
 import {
   useHistory,
