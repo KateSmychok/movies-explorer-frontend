@@ -3,9 +3,9 @@
 .cardListSection {
   width: 100%;
   max-width: 1280px + $scroll-width;
-  min-height: 479px;
+  min-height: calc(100vh - 470px);
   margin: 0 auto;
-  padding: 70px 70px 230px;
+  padding: 70px 70px 10px;
   box-sizing: border-box;
 }
 
@@ -21,10 +21,19 @@
   font-size: 0;
 }
 
+.errText {
+  text-align: center;
+  margin: 0 auto;
+  padding: 30px 0 100px;
+  font-size: 14px;
+  line-height: 1.43;
+  @include Inter400;
+}
+
 @include atTablet {
   .cardListSection {
-    min-height: 753px;
     padding: 70px 30px 0;
+    min-height: calc(100vh - 525px);
   }
 
   .cardList {
@@ -37,6 +46,7 @@
 @include atMobileL {
   .cardListSection {
     padding: 40px 10px 0;
+    min-height: 400px;
   }
 
   .cardList {

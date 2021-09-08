@@ -1,38 +1,50 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 import cn from 'classnames/bind';
 import styles from './MoviesCard.module.scss';
+import { MinToHours } from '../../../utils/commonFunctions';
 
 const cx = cn.bind(styles);
 
 function MoviesCard(props) {
   const [movieIsSaved, setMovieIsSaved] = React.useState(false);
 
-  const location = useLocation();
+  const buttonText = movieIsSaved ? '' : 'Сохранить';
 
-  const buttonText = movieIsSaved || location.pathname === '/saved-movies' ? '' : 'Сохранить';
   const buttonClassName = cx({
     baseButton: true,
     isNotSaved: !movieIsSaved,
     isSaved: movieIsSaved,
-    removeFromSaved: location.pathname === '/saved-movies',
   });
 
-  const handleSaveMovieClick = () => {
+  function handleSaveMovieClick() {
     setMovieIsSaved(!movieIsSaved);
-  };
+    props.onSaveMovieClick({
+      nameRU: props.card.nameRU,
+      image: `https://api.nomoreparties.co${props.card.image.url}`,
+      trailerLink: props.card.trailerLink,
+      duration: props.card.duration,
+    });
+  }
+
+  React.useEffect(() => {
+    if (props.savedMovies.some((i) => i.nameRU === props.card.nameRU)) {
+      setMovieIsSaved(true);
+    }
+  }, []);
 
   return (
     <article className={styles.card}>
       <div className={styles.info}>
         <h2 className={styles.title}>
-          {props.card.title}
+          {props.card.nameRU}
         </h2>
         <p className={styles.duration}>
-          {props.card.duration}
+          {MinToHours(props.card.duration)}
         </p>
       </div>
-      <img className={styles.image} src={props.card.image} alt='Превью' />
+      <a className={styles.link} href={props.card.trailerLink} target='_blank'>
+        <img className={styles.image} src={`https://api.nomoreparties.co${props.card.image.url}`} alt='Превью' />
+      </a>
       <div className={styles.saveButtonArea}>
         <button
           className={buttonClassName}

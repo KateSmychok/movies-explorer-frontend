@@ -1,22 +1,17 @@
 import React from 'react';
 import styles from './SavedMoviesCardList.module.scss';
-import MoviesCard from '../MoviesCard/MoviesCard';
-import api from '../../../utils/api';
+import SavedMoviesCard from '../SavedMoviesCard/SavedMoviesCard';
 
-function SavedMoviesCardList() {
-  const [movies, setMovies] = React.useState([]);
-
-  React.useEffect(() => {
-    api.getSavedMovies()
-      .then((data) => {
-        setMovies(data.data);
-      });
-  }, []);
-
+function SavedMoviesCardList(props) {
   return (
     <section className={styles.cardListSection}>
+      {props.errMessageIsVisible && <p className={styles.errText}>{props.errMessage}</p>}
       <ul className={styles.cardList}>
-        {movies.map((card) => <MoviesCard card={card} key={card._id} />)}
+        {props.moviesToRender.map((card) => <SavedMoviesCard
+            card={card}
+            key={card._id}
+            onMovieDelete={props.onMovieDelete}
+        />)}
       </ul>
     </section>
   );

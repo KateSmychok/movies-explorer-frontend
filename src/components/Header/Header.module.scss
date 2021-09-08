@@ -28,10 +28,6 @@
   background: url('../../images/logo.svg') no-repeat;
   width: 38px;
   height: 38px;
-
-  &Main {
-    padding-right: 44px;
-  }
 }
 
 .buttonsArea {
@@ -62,7 +58,7 @@
 }
 
 .navList {
-  padding: 0;
+  padding: 0 0 0 44px;
   margin: 0;
   list-style-type: none;
   display: flex;
@@ -81,13 +77,20 @@
 .link {
   @include link;
   @include Inter400;
-  color: $black;
   text-decoration: none;
   font-size: 13px;
   line-height: 1.38;
 
   &:focus {
     @include Inter500;
+  }
+
+  &Landing {
+    color: white;
+  }
+
+  &Main {
+    color: black;
   }
 }
 
@@ -103,10 +106,17 @@
 
 .profileButtonText {
   @include Inter500;
-  color: black;
   font-size: 14px;
   line-height: 1.14;
   margin: 0;
+
+  &Landing {
+    color: white;
+  }
+
+  &Main {
+    color: black;
+  }
 }
 
 .profileButtonIcon {

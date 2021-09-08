@@ -1,28 +1,43 @@
 import React from 'react';
-import styles from './MoviesCardList.module.scss';
+import cn from 'classnames/bind';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import api from '../../../utils/api';
+import styles from './MoviesCardList.module.scss';
+import Preloader from '../Preloader/Preloader';
 
-function MoviesCardList() {
-  const [movies, setMovies] = React.useState([]);
+const cx = cn.bind(styles);
 
-  React.useEffect(() => {
-    api.getMovies()
-      .then((data) => {
-        setMovies(data.data);
-      });
-  }, []);
+function MoviesCardList(props) {
+  const cardListClassName = cx({
+    cardList: props.hasResult,
+    cardListHidden: !props.hasResult,
+  });
+
+  const loadMoreSectionClassName = cx({
+    loadMoreSection: true,
+    loadMoreSectionVisible: props.btnLoadMoreIsVisible,
+  });
 
   return (
     <section className={styles.cardListSection}>
-      <ul className={styles.cardList}>
-        {movies.map((card) => <MoviesCard card={card} key={card._id} />)}
+      {(props.errMessageIsVisible && !props.hasResult)
+      && <p className={styles.errText}>{props.errMessage}</p>}
+      <ul className={cardListClassName}>
+        {props.moviesToRender.map((card) => <MoviesCard
+          card={card}
+          key={card.id}
+          onSaveMovieClick={props.onSaveMovieClick}
+          savedMovies={props.savedMovies}
+        />)}
       </ul>
-      <div className={styles.loadMoreSection}>
-        <button className={styles.loadMoreButton}>
+      <div className={loadMoreSectionClassName}>
+        <button
+          type='button'
+          className={styles.loadMoreButton}
+          onClick={props.onLoadMoreBtnClick}>
           Ещё
         </button>
       </div>
+      <Preloader preloaderIsVisible={props.preloaderIsVisible} />
     </section>
   );
 }

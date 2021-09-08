@@ -1,33 +1,15 @@
 import React from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
 import cn from 'classnames/bind';
-import styles from './RegisterForm.module.scss';
+import styles from './Register.module.scss';
+import { RegisterSchema } from '../../utils/validationSchemas';
 
 const cx = cn.bind(styles);
 
-const RegisterSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(2, 'Минимальная длина - 2 символа')
-    .max(30, 'Максимальная длина - 30 символов')
-    .required('Поле обязательно должно быть заполнено'),
-  email: Yup.string()
-    .email('Невалидный email')
-    .min(6, 'Минимальная длина - 6 символов')
-    .max(40, 'Максимальная длина - 40 символов')
-    .required('Поле обязательно должно быть заполнено'),
-  password: Yup.string()
-    .min(6, 'Минимальная длина - 6 символов')
-    .max(15, 'Максимальная длина - 15 символов')
-    .required('Поле обязательно должно быть заполнено'),
-});
-
-function RegisterForm() {
-  const history = useHistory();
-
+function Register(props) {
   return (
-  <div>
+  <div className={styles.registerPage}>
     <Formik
       initialValues={{
         name: '',
@@ -38,8 +20,11 @@ function RegisterForm() {
       validationSchema={RegisterSchema}
 
       onSubmit={ (values) => {
-        console.log(values);
-        history.push('/signin');
+        props.onSubmit({
+          name: values.name,
+          email: values.email,
+          password: values.password,
+        });
       }}
     >
       {({
@@ -49,6 +34,8 @@ function RegisterForm() {
         isValid,
       }) => (
         <Form className={styles.form}>
+          <Link to='/' className={styles.logo}> </Link>
+          <h2 className={styles.greeting}>Добро пожаловать!</h2>
           <label className={styles.label} htmlFor='name'>Имя</label>
           <Field
             name='name'
@@ -116,4 +103,4 @@ function RegisterForm() {
   );
 }
 
-export default RegisterForm;
+export default Register;

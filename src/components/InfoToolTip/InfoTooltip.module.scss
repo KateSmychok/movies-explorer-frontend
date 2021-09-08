@@ -1,0 +1,86 @@
+@import '../../scss-styles/styles';
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.5s, opacity 0.5s ease-in-out;
+}
+
+.opened {
+  visibility: visible;
+  opacity: 1;
+}
+
+.content {
+  width: 430px;
+  min-height: 330px;
+  background-color: white;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.image {
+  width: 120px;
+  height: 120px;
+  margin-top: 60px;
+  margin-bottom: 32px;
+
+  &Success {
+    background-image: url('../../images/success.svg');
+  }
+
+  &Fail {
+    background-image: url('../../images/fail.svg');
+  }
+}
+
+.caption {
+  @include Inter500;
+  font-size: 24px;
+  line-height: 1.2;
+  text-align: center;
+  color: black;
+  padding: 0 36px;
+}
+
+.closeButton {
+  @include button;
+  width: 56px;
+  height: 56px;
+  background: url('../../images/close-popup.svg') center no-repeat;
+  color: white;
+  background-size: 100%;
+  border: none;
+  position: absolute;
+  top: -48px;
+  right: -48px;
+  padding: 0;
+  margin: 0;
+}
+
+@include atTablet {
+  .content {
+    width: 282px;
+    min-height: 322px;
+  }
+
+  .closeButton {
+    right: 0;
+    top: -49px;
+    width: 36px;
+    height: 36px;
+  }
+}

@@ -11,49 +11,61 @@
   align-items: center;
 }
 
-.title {
+.greeting {
   @include Inter500;
   font-size: 24px;
   line-height: 1.2;
   text-align: center;
-  padding: 0;
+  padding: 0 0 123px;
   margin: 0;
 }
 
-.userInfo {
+.form {
   width: 410px;
-  height: 96px;
-  padding: 106px 0 203px;
+  height: 482px;
+  padding: 0;
   display: flex;
   flex-direction: column;
 }
 
-.userInfoLine {
+.inputWithLabel {
   width: 100%;
-  height: 48px;
+  min-height: 38px;
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-
-  &:first-child {
-    border-bottom: 1px solid $element-grey;
-  }
+  align-items: flex-end;
 }
 
-.userInfoText {
+.label {
+  width: 20%;
+  @include Inter500;
   font-size: 11px;
-  line-height: 1.2;
+  line-height: 1.21;
+  text-align: left;
   padding: 0;
   margin: 0;
+}
 
-  &Key {
-    @include Inter500;
-  }
+.input {
+  width: 80%;
+  border: none;
+  @include Inter400;
+  font-size: 11px;
+  line-height: 1.21;
+  padding: 0;
+  text-align: right;
+  outline-style: none;
+}
 
-  &Value {
-    @include Inter400;
-  }
+.inputError {
+  @include inputError;
+}
+
+.border {
+  width: 100%;
+  min-height: 1px;
+  background-color: $element-grey;
 }
 
 .buttons {
@@ -61,6 +73,7 @@
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
+  padding-top: 196px;
 }
 
 .button {
@@ -74,6 +87,15 @@
   &Edit {
     @include Inter400;
     padding: 0 0 16px;
+
+    &:disabled {
+      color: #bbb;
+      cursor: auto;
+    }
+
+    &:disabled:hover {
+      opacity: 1;
+    }
   }
 
   &SignOut {
@@ -88,9 +110,16 @@
     padding-top: 236px;
   }
 
-  .userInfo {
+  .form {
     width: calc(max(260px, 53vw));
-    padding: 96px 0 210px;
+  }
+
+  .greeting {
+    padding-bottom: 96px;
+  }
+
+  .buttons {
+    padding-top: 186px;
   }
 }
 
@@ -100,14 +129,18 @@
     min-height: 355px;
   }
 
-  .userInfo {
+  .form {
     width: 260px;
-    padding: 80px 0;
+  }
+
+  .greeting {
+    padding-bottom: 80px;
   }
 
   .buttons {
     position: fixed;
     bottom: 40px;
+    right: calc((100vw - 110px) / 2);
   }
 
   .button {
