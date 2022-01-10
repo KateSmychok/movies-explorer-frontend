@@ -71,7 +71,7 @@
   margin: 0;
 }
 
-@include atTablet {
+@include atMobileL {
   .content {
     width: 282px;
     min-height: 322px;

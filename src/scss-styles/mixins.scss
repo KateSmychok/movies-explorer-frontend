@@ -2,36 +2,36 @@
 @import 'variables';
 
 @mixin atDesktop1280 {
-  @media screen and (max-width: 1280px + $scroll-width) {
-    @content;
-  }
-}
-
-@mixin atDesktop1024 {
-  @media screen and (max-width: 1024px + $scroll-width) {
+  @media screen and (max-width: 1279px) {
     @content;
   }
 }
 
 @mixin atTablet {
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 1023px) {
     @content;
   }
 }
 
 @mixin atMobileL {
-  @media screen and (max-width: 640px) {
+  @media screen and (max-width: 767px) {
     @content;
   }
 }
 
 @mixin atMobileM {
+  @media screen and (max-width: 640px) {
+    @content;
+  }
+}
+
+@mixin atMobileS {
   @media screen and (max-width: 500px) {
     @content;
   }
 }
 
-@mixin atMobile {
+@mixin atMobileXS {
   @media screen and (max-width: 450px) {
     @content;
   }
@@ -85,7 +85,7 @@
   width: 100%;
   border-bottom: black 1px solid;
 
-  @include atMobile {
+  @include atMobileXS {
     padding-bottom: 28px;
   }
 }
@@ -117,7 +117,7 @@
   padding: 9px 0;
   margin: 0;
 
-  @include atMobile {
+  @include atMobileXS {
     font-size: 11px;
     padding: 11px 0;
   }

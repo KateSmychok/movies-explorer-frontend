@@ -33,7 +33,7 @@ function Login(props) {
         }) => (
           <Form className={styles.form}>
             <Link to='/' className={styles.logo}> </Link>
-            <h2 className={styles.greeting}>Рады видеть!</h2>
+            <h2 className={styles.greeting}>Привет!</h2>
             <label className={styles.label} htmlFor='email'>E-mail</label>
             <Field
               name='email'

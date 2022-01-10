@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router';
 import cn from 'classnames/bind';
 import styles from './Header.module.scss';
+import NavLink from '../NavLink/NavLink';
 
 const cx = cn.bind(styles);
 
@@ -15,31 +16,14 @@ function Header(props) {
   };
 
   const location = useLocation();
+
   const headerClassName = cx({
     header: true,
-    headerMain:
+    headerOtherPages:
       location.pathname === '/movies'
       || location.pathname === '/saved-movies'
       || location.pathname === '/profile',
-    headerLanding: location.pathname === '/',
-  });
-
-  const linkClassName = cx({
-    link: true,
-    linkMain:
-      location.pathname === '/movies'
-      || location.pathname === '/saved-movies'
-      || location.pathname === '/profile',
-    linkLanding: location.pathname === '/',
-  });
-
-  const profileTextClassName = cx({
-    profileButtonText: true,
-    profileButtonTextMain:
-      location.pathname === '/movies'
-      || location.pathname === '/saved-movies'
-      || location.pathname === '/profile',
-    profileButtonTextLanding: location.pathname === '/',
+    headerMainPage: location.pathname === '/',
   });
 
   return (
@@ -60,17 +44,13 @@ function Header(props) {
           <Link to="/" className={styles.logo}> </Link>
           <nav>
             <ul className={styles.navList}>
-              <li className={styles.navItem}>
-                <Link to="/movies" className={linkClassName}>Фильмы</Link>
-              </li>
-              <li className={styles.navItem}>
-                <Link to="/saved-movies" className={linkClassName}>Сохранённые фильмы</Link>
-              </li>
+              <NavLink path={'/movies'} content={'Фильмы'}/>
+              <NavLink path={'/saved-movies'} content={'Сохранённые фильмы'}/>
             </ul>
           </nav>
         </div>
         <Link to="/profile" className={styles.profileButton}>
-          <p className={profileTextClassName}>Аккаунт</p>
+          <p className={styles.profileButtonText}>Аккаунт</p>
           <div className={styles.profileButtonIcon}> </div>
         </Link>
         <button

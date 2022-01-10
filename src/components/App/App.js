@@ -1,5 +1,3 @@
-// Артём, спасибо за комментарии! Всё исправила, кроме best practices, к ним вернусь чуть позже.
-
 import React from 'react';
 import {
   useHistory,
@@ -10,7 +8,7 @@ import {
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import api from '../../api/MainApi';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import MainPage from '../Main/MainPage/MainPage';
+import Main from '../Main/Main';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import MoviesPage from '../Movies/MoviesPage/MoviesPage';
@@ -219,6 +217,7 @@ function App() {
         <Switch>
           <Route exact path='/'>
             <Header
+              onBurgerMenuClick={handleBurgerMenuClick}
               loggedIn={loggedIn}
             />
           </Route>
@@ -243,7 +242,7 @@ function App() {
         </Switch>
         <Switch>
           <Route exact path='/'>
-            <MainPage />
+            <Main />
           </Route>
           <ProtectedRoute
             path='/movies'
@@ -289,17 +288,6 @@ function App() {
           </Route>
           <Route path='*'>
             <NotFoundPage />
-          </Route>
-        </Switch>
-        <Switch>
-          <Route exact path='/'>
-            <Footer/>
-          </Route>
-          <Route path='/movies'>
-            <Footer/>
-          </Route>
-          <Route path='/saved-movies'>
-            <Footer/>
           </Route>
         </Switch>
         <NavigationPopup
