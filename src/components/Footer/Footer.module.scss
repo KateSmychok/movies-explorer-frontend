@@ -54,14 +54,14 @@
   color: $black;
 }
 
-@include atTablet {
+@include atMobileL {
   .footer {
     padding: 79px 30px 20px;
     background: $white;
   }
 }
 
-@include atMobileL {
+@include atMobileS {
   .footer {
     min-height: 270px;
     padding: 79px 10px 10px;

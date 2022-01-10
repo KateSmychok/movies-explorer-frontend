@@ -10,12 +10,15 @@
   justify-content: space-between;
   align-items: center;
 
-  &Landing {
-    background: $dark-grey;
+  &MainPage {
+    position: fixed;
+    top: 0;
+    right: 0;
+    background: transparent;
   }
 
-  &Main {
-    background: $white;
+  &OtherPages {
+    background: $black;
   }
 }
 
@@ -25,9 +28,10 @@
 
 .logo {
   @include link;
-  background: url('../../images/logo.svg') no-repeat;
-  width: 38px;
-  height: 38px;
+  background: url('../../images/logo.svg') no-repeat center;
+  background-size: contain;
+  width: 107px;
+  height: 90px;
 }
 
 .buttonsArea {
@@ -58,40 +62,13 @@
 }
 
 .navList {
-  padding: 0 0 0 44px;
+  height: 100%;
+  padding: 0 0 0 150px;
   margin: 0;
   list-style-type: none;
   display: flex;
   justify-content: flex-start;
-}
-
-.navItem {
-  padding: 10px 0;
-  margin: 0;
-
-  &:last-child {
-    padding-left: 16px;
-  }
-}
-
-.link {
-  @include link;
-  @include Inter400;
-  text-decoration: none;
-  font-size: 13px;
-  line-height: 1.38;
-
-  &:focus {
-    @include Inter500;
-  }
-
-  &Landing {
-    color: white;
-  }
-
-  &Main {
-    color: black;
-  }
+  align-items: center;
 }
 
 .profileButton {
@@ -108,15 +85,8 @@
   @include Inter500;
   font-size: 14px;
   line-height: 1.14;
+  color: white;
   margin: 0;
-
-  &Landing {
-    color: white;
-  }
-
-  &Main {
-    color: black;
-  }
 }
 
 .profileButtonIcon {
@@ -142,6 +112,12 @@
 }
 
 @include atTablet {
+  .navList {
+    padding-left: 70px;
+  }
+}
+
+@include atMobileL {
   .header {
     padding-right: 30px;
     padding-left: 30px;
@@ -160,7 +136,7 @@
   }
 }
 
-@include atMobile {
+@include atMobileXS {
   .header {
     padding-right: 14px;
     padding-left: 14px;

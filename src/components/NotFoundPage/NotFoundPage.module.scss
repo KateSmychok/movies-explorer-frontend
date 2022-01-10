@@ -40,7 +40,7 @@
   bottom: 60px;
 }
 
-@include atTablet {
+@include atMobileL {
   .notFoundPage {
     padding: 408px 0 0;
   }
@@ -50,7 +50,7 @@
   }
 }
 
-@include atMobileM {
+@include atMobileS {
   .notFoundPage {
     padding: 50% 10px 0;
   }

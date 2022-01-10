@@ -35,7 +35,7 @@ function Register(props) {
       }) => (
         <Form className={styles.form}>
           <Link to='/' className={styles.logo}> </Link>
-          <h2 className={styles.greeting}>Добро пожаловать!</h2>
+          <h2 className={styles.greeting}>Привет!</h2>
           <label className={styles.label} htmlFor='name'>Имя</label>
           <Field
             name='name'

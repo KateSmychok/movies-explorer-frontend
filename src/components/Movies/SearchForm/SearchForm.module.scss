@@ -97,7 +97,7 @@
   }
 }
 
-@include atTablet {
+@include atMobileL {
   .searchSection {
     padding: 0 30px;
   }
@@ -107,7 +107,7 @@
   }
 }
 
-@include atMobileL {
+@include atMobileS {
   .searchSection {
     padding: 0 10px;
   }
