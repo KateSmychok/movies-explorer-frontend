@@ -1,5 +1,6 @@
 ## Фронтенд проекта Movies-explorer
    
-Ссылка: https://even-star.nomoredomains.monster
-Макет: https://www.figma.com/file/v0ll5FlPoJGAeoPhbm112P/Diploma-Kate-Smychok?node-id=932%3A3407
+Beat film - фестиваль документального кино о музыке и новой культуре.
+
+Проект предназначен для поиска, фильтрации и сохранения в личном кабинете фильмов фестиваля.
 
